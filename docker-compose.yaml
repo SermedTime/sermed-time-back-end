@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  oracle-db:
+    image: container-registry.oracle.com/database/express:latest
+    container_name: database-sermed
+    environment:
+      - ORACLE_PWD=Oracle_123
+    ports:
+      - '1521:1521'
+      - '5500:5500'
+    volumes:
+      - ./database:/opt/oracle/oradata
+    networks:
+      - sermed-networks
+
+  app:
+    build: .
+    ports:
+      - '3333:3333'
+    container_name: api-sermed
+    restart: always
+    tty: true
+    volumes:
+      - .:/home/node/app/
+    networks:
+      - sermed-networks
+    links:
+      - oracle-db
+    depends_on:
+      - oracle-db
+
+networks:
+  sermed-networks:
+    driver: bridge
