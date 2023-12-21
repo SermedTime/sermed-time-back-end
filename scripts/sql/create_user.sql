@@ -1,0 +1,9 @@
+CONNECT / AS SYSDBA;
+ALTER SESSION SET CONTAINER = XEPDB1;
+
+DROP USER localadmin CASCADE;
+CREATE USER localadmin IDENTIFIED BY "LocalAdmin123";
+GRANT CONNECT, RESOURCE TO localadmin;
+GRANT CREATE SESSION TO localadmin;
+
+SELECT * FROM dba_sys_privs WHERE grantee = 'localadmin';

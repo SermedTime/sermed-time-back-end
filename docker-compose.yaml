@@ -11,8 +11,15 @@ services:
       - '5500:5500'
     volumes:
       - ./database:/opt/oracle/oradata
+      - ./scripts/init_script.sh:/opt/oracle/scripts/startup/init_script.sh
+      - ./scripts/sql/create_user.sql:/opt/oracle/scripts/startup/create_user.sql
     networks:
       - sermed-networks
+    healthcheck:
+      test: ['CMD', 'sqlplus', '-S', '/ as sysdba', 'EXIT']
+      interval: 30s
+      timeout: 10s
+      retries: 10
 
   app:
     build: .
@@ -25,10 +32,10 @@ services:
       - .:/home/node/app/
     networks:
       - sermed-networks
-    links:
-      - oracle-db
     depends_on:
-      - oracle-db
+      oracle-db:
+        condition: service_healthy
+    command: ['/bin/bash', './scripts/wait-for-oracle.sh']
 
 networks:
   sermed-networks:
