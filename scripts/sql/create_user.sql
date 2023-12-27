@@ -5,5 +5,6 @@ DROP USER localadmin CASCADE;
 CREATE USER localadmin IDENTIFIED BY "LocalAdmin123";
 GRANT CONNECT, RESOURCE TO localadmin;
 GRANT CREATE SESSION TO localadmin;
+ALTER USER localadmin QUOTA UNLIMITED ON USERS;
 
 SELECT * FROM dba_sys_privs WHERE grantee = 'localadmin';

@@ -30,7 +30,8 @@
         "no-console": ["off"],
         "function-call-argument-newline": ["error", "consistent"],
         "multiline-ternary": ["off", "never"],
-        "camelcase": ["off", { "ignoreDestructuring": true }]
+        "camelcase": ["off", { "ignoreDestructuring": true }],
+        "class-methods-use-this": ["off"]
       }
     }
   ],
