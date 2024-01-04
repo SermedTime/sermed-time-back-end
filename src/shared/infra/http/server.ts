@@ -1,15 +1,18 @@
-import { AppDataSource } from '../typeorm'
+import { dataBaseConnection } from '../database/config'
 import { app } from './app'
 
 const port = 3333
 
-try {
-  AppDataSource.initialize().then(async () => {
-    console.log('Database connected')
-    app.listen(port, () => {
-      console.log(`Server Running in http://localhost:${port}`)
+async function startServer() {
+  await dataBaseConnection()
+    .then(() => {
+      app.listen(port, () => {
+        console.log(`Server Running in http://localhost:${port}`)
+      })
     })
-  })
-} catch (err) {
-  throw err.message
+    .catch(err => {
+      throw err.message
+    })
 }
+
+startServer()
