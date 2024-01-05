@@ -31,7 +31,9 @@
         "function-call-argument-newline": ["error", "consistent"],
         "multiline-ternary": ["off", "never"],
         "camelcase": ["off", { "ignoreDestructuring": true }],
-        "class-methods-use-this": ["off"]
+        "class-methods-use-this": ["off"],
+        "no-useless-constructor": "off",
+        "no-empty-function": "off"
       }
     }
   ],

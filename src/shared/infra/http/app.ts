@@ -1,7 +1,13 @@
-import express from 'express'
+import 'reflect-metadata'
 import cors from 'cors'
+import express from 'express'
+
+import 'express-async-errors'
+
 import { createConnection } from '../database/config'
-import { router } from '../routes'
+import '@shared/container'
+
+import { router } from './routes'
 
 createConnection()
 const app = express()
