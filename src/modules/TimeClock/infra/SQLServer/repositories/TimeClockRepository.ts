@@ -15,8 +15,8 @@ class TimeClockRepository implements ITimeClockRepository {
     status,
     unit,
     uuid
-  }: ICreateTimeClockDTO): Promise<string> {
-    let response
+  }: ICreateTimeClockDTO): Promise<Record<string, any>> {
+    let response: Record<string, any>
     try {
       const pool = getPool()
 
