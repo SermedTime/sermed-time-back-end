@@ -1,13 +1,7 @@
-FROM node:lts-bookworm
+FROM node:20.10-slim
 
-WORKDIR /usr/app
+USER node
 
-COPY package.json ./
+WORKDIR /home/node/app
 
-RUN npm install
-
-COPY . .
-
-EXPOSE 3333
-
-CMD [ "npm", "run", "dev" ]
+CMD ["tail", "-f", "/dev/null"]
