@@ -2,7 +2,10 @@ import { inject, injectable } from 'tsyringe'
 
 import { ITimeClockRepository } from '@modules/TimeClock/repositories/ITimeClockRepository'
 import { ResponseService } from 'services/Response/ResponseService'
-import { ITimeClockDetailsMap } from '@modules/TimeClock/mapper/TimeClockDetailsMap'
+import {
+  ITimeClockDetailsMap,
+  TimeClockDetailsMap
+} from '@modules/TimeClock/mapper/TimeClockDetailsMap'
 
 @injectable()
 class DetailsTimeClockUseCase {
@@ -22,8 +25,12 @@ class DetailsTimeClockUseCase {
       })
     }
 
+    const data: ITimeClockDetailsMap = TimeClockDetailsMap.toDTO(
+      timeClock.data[0]
+    )
+
     return ResponseService.setResponseJson<ITimeClockDetailsMap>({
-      data: timeClock.data,
+      data,
       status: timeClock.data ? 200 : 204,
       success: timeClock.success,
       page: 1,

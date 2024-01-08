@@ -110,8 +110,6 @@ class TimeClockRepository implements ITimeClockRepository {
 
       const { recordset: timeClock } = result
 
-      console.log(timeClock)
-
       response = {
         success: true,
         data: timeClock
