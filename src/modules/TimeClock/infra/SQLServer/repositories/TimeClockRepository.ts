@@ -96,6 +96,35 @@ class TimeClockRepository implements ITimeClockRepository {
 
     return response
   }
+
+  async details(uuid: string): Promise<IResponseRepository<ITimeClockSQL>> {
+    let response: IResponseRepository<ITimeClockSQL>
+
+    try {
+      const pool = getPool()
+
+      const result = await pool
+        .request()
+        .input('UUID_RELO_PONT', sql.UniqueIdentifier, uuid)
+        .execute('[dbo].[PRC_RELO_PONT_CONS]')
+
+      const { recordset: timeClock } = result
+
+      console.log(timeClock)
+
+      response = {
+        success: true,
+        data: timeClock
+      }
+    } catch (err) {
+      response = {
+        success: false,
+        message: err.message
+      }
+    }
+
+    return response
+  }
 }
 
 export { TimeClockRepository }

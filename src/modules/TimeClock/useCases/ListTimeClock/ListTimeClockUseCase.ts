@@ -54,7 +54,7 @@ class ListTimeClockUseCase {
       status: data.length > 0 ? 200 : 204,
       data,
       page: page > 0 ? page : 1,
-      records: Number(timeClock.data[0].TT_REGI),
+      records: data.length > 0 ? Number(timeClock.data[0].TT_REGI) : 0,
       success: timeClock.success
     })
   }

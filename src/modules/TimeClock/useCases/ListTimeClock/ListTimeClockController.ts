@@ -2,28 +2,19 @@ import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 import { ListTimeClockUseCase } from './ListTimeClockUseCase'
 
-type IParams = {
-  search: string
-  searchingBy: string
-  records: string
-  status: string
-  order: string
-  page: string
-}
-
 class ListTimeClockController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const params = req.query.params as unknown as IParams
+    const { search, searchingBy, records, status, order, page } = req.query
 
     const listTimeClockUseCase = container.resolve(ListTimeClockUseCase)
 
     const timeClock = await listTimeClockUseCase.execute({
-      search: params.search,
-      searchingBy: params.searchingBy,
-      records: params.records,
-      status: params.status,
-      order: params.order,
-      page: Number(params.page)
+      search: search as string,
+      searchingBy: searchingBy as string,
+      records: records as string,
+      status: status as string,
+      order: order as string,
+      page: Number(page)
     })
 
     return res.status(timeClock.status).json(timeClock)
