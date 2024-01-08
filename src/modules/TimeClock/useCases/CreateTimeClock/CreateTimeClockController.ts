@@ -30,7 +30,7 @@ class CreateTimeClockController {
       unit
     })
 
-    return res.status(201).json(timeClock)
+    return res.status(timeClock.status).json(timeClock)
   }
 }
 

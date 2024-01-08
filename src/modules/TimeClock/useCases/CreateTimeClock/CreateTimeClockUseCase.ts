@@ -1,4 +1,5 @@
 import { ITimeClockRepository } from '@modules/TimeClock/repositories/ITimeClockRepository'
+import { IResponse, ResponseService } from 'services/Response/ResponseService'
 import { inject, injectable } from 'tsyringe'
 
 interface IRequest {
@@ -11,6 +12,10 @@ interface IRequest {
   state: string
   status: string
   unit: string
+}
+
+export interface ICreateTimeClock {
+  uuid: string
 }
 
 @injectable()
@@ -30,7 +35,7 @@ class CreateTimeClockUseCase {
     state,
     status,
     unit
-  }: IRequest): Promise<string> {
+  }: IRequest): Promise<IResponse<ICreateTimeClock>> {
     const in_stat = status ? (status === 'active' ? 1 : 0) : null
 
     const timeClock = await this.timeClockRepository.create({
@@ -45,7 +50,19 @@ class CreateTimeClockUseCase {
       unit
     })
 
-    return timeClock
+    if (!timeClock.success) {
+      return ResponseService.setResponseJson<ICreateTimeClock>({
+        status: 400,
+        success: timeClock.success,
+        message: timeClock.message
+      })
+    }
+
+    return ResponseService.setResponseJson<ICreateTimeClock>({
+      data: timeClock.data,
+      status: 201,
+      success: timeClock.success
+    })
   }
 }
 

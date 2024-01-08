@@ -1,7 +1,9 @@
 import { ICreateTimeClockDTO } from '@modules/TimeClock/dtos/ICreateTimeClockDTO'
 import { ITimeClockRepository } from '@modules/TimeClock/repositories/ITimeClockRepository'
+import { ICreateTimeClock } from '@modules/TimeClock/useCases/CreateTimeClock/CreateTimeClockUseCase'
 import { getPool } from '@shared/infra/database/config'
 import sql from 'mssql'
+import { IResponseRepository } from 'services/Response/interfaces'
 
 class TimeClockRepository implements ITimeClockRepository {
   async create({
@@ -15,8 +17,8 @@ class TimeClockRepository implements ITimeClockRepository {
     status,
     unit,
     uuid
-  }: ICreateTimeClockDTO): Promise<Record<string, any>> {
-    let response: Record<string, any>
+  }: ICreateTimeClockDTO): Promise<IResponseRepository<ICreateTimeClock>> {
+    let response: IResponseRepository<ICreateTimeClock>
     try {
       const pool = getPool()
 
@@ -34,11 +36,13 @@ class TimeClockRepository implements ITimeClockRepository {
         .input('IN_STAT', sql.Bit, status)
         .execute('[dbo].[PRC_RELO_PONT_GRAV]')
 
-      const { recordset } = result
+      const { recordset: timeClock } = result
+
+      const uuidTimeClock: string = timeClock[0].UUID_RELO_PONT
 
       response = {
         success: true,
-        data: recordset[0].ID_RELO_PONT
+        data: uuidTimeClock
       }
     } catch (err) {
       response = {
