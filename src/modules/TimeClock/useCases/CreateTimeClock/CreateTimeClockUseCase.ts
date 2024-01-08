@@ -58,8 +58,10 @@ class CreateTimeClockUseCase {
       })
     }
 
+    const data = timeClock[0].UUID_RELO_PONT
+
     return ResponseService.setResponseJson<ICreateTimeClock>({
-      data: timeClock.data,
+      data,
       status: 201,
       success: timeClock.success
     })

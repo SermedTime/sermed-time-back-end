@@ -1,5 +1,5 @@
 export interface IResponseRepository<T> {
   success: boolean
-  data?: T[] | T | string
+  data?: T[]
   message?: string
 }

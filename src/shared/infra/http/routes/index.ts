@@ -3,6 +3,6 @@ import { timeClockRoutes } from './timeClock.routes'
 
 const router = Router()
 
-router.use('/time-clock', timeClockRoutes)
+router.use('/parametrizations/time-clock', timeClockRoutes)
 
 export { router }

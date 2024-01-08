@@ -1,9 +1,7 @@
 export interface IResponse<T> {
-  data?: {
-    data: T[] | T | string
-    page?: number
-    total?: number
-  }
+  data?: T[] | T | string
+  page?: number
+  total?: number
   status: number
   message?: string
   error?: string
@@ -12,7 +10,7 @@ export interface IResponse<T> {
 interface IResponseProps<P> {
   data?: P[] | P | string
   page?: number
-  total?: number
+  records?: number
   success: boolean
   status: number
   message?: string
@@ -23,7 +21,7 @@ export class ResponseService {
   public static setResponseJson<T>({
     data = [],
     page = 0,
-    total = 0,
+    records = 0,
     status,
     success,
     message = ''
@@ -36,11 +34,9 @@ export class ResponseService {
     }
 
     return {
-      data: {
-        data,
-        page,
-        total
-      },
+      data,
+      page,
+      total: records,
       status
     }
   }
