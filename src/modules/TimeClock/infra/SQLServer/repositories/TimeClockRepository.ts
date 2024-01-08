@@ -9,7 +9,7 @@ import { statusVerify } from '@utils/statusVerify'
 import { ITimeClockSQL } from '../interfaces/ITimeClockSQL'
 
 class TimeClockRepository implements ITimeClockRepository {
-  async create({
+  async upsert({
     city,
     clock_ip,
     manufacturer,

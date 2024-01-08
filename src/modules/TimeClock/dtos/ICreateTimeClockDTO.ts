@@ -7,7 +7,7 @@ interface ICreateTimeClockDTO {
   name: string
   sector: string
   state: string
-  status: 1 | 0
+  status: string | number
   unit: string
 }
 

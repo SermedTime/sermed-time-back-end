@@ -5,7 +5,7 @@ import { IParamsListTimeClock } from '../useCases/ListTimeClock/ListTimeClockUse
 import { ITimeClockSQL } from '../infra/SQLServer/interfaces/ITimeClockSQL'
 
 interface ITimeClockRepository {
-  create(
+  upsert(
     data: ICreateTimeClockDTO
   ): Promise<IResponseRepository<ICreateTimeClock>>
   list(data: IParamsListTimeClock): Promise<IResponseRepository<ITimeClockSQL>>

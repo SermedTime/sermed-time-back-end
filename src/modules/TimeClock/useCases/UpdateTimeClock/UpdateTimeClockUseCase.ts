@@ -1,31 +1,19 @@
 import { ITimeClockRepository } from '@modules/TimeClock/repositories/ITimeClockRepository'
 import { IResponse, ResponseService } from 'services/Response/ResponseService'
 import { inject, injectable } from 'tsyringe'
-
-interface IRequest {
-  city: string
-  clock_ip: string
-  manufacturer: string
-  model: string
-  name: string
-  sector: string
-  state: string
-  status: string
-  unit: string
-}
-
-export interface ICreateTimeClock {
-  uuid: string
-}
+import { ICreateTimeClockDTO } from '@modules/TimeClock/dtos/ICreateTimeClockDTO'
+import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
+import { ICreateTimeClock } from '../CreateTimeClock/CreateTimeClockUseCase'
 
 @injectable()
-class CreateTimeClockUseCase {
+class UpdateTimeClockUseCase {
   constructor(
     @inject('TimeClockRepository')
     private timeClockRepository: ITimeClockRepository
   ) {}
 
   async execute({
+    uuid,
     city,
     clock_ip,
     manufacturer,
@@ -35,10 +23,11 @@ class CreateTimeClockUseCase {
     state,
     status,
     unit
-  }: IRequest): Promise<IResponse<ICreateTimeClock>> {
+  }: ICreateTimeClockDTO): Promise<IResponse<ICreateTimeClock>> {
     const in_stat = status ? (status === 'active' ? 1 : 0) : null
 
     const timeClock = await this.timeClockRepository.upsert({
+      uuid,
       city,
       clock_ip,
       manufacturer,
@@ -52,20 +41,18 @@ class CreateTimeClockUseCase {
 
     if (!timeClock.success) {
       return ResponseService.setResponseJson<ICreateTimeClock>({
-        status: 400,
+        status: HTTP_STATUS.BAD_REQUEST,
         success: timeClock.success,
         message: timeClock.message
       })
     }
 
-    const data = timeClock[0].UUID_RELO_PONT
-
     return ResponseService.setResponseJson<ICreateTimeClock>({
-      data,
-      status: 201,
+      data: uuid,
+      status: HTTP_STATUS.OK,
       success: timeClock.success
     })
   }
 }
 
-export { CreateTimeClockUseCase }
+export { UpdateTimeClockUseCase }
