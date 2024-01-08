@@ -1,9 +1,10 @@
-import { ITimeClockRepository } from '@modules/TimeClock/repositories/ITimeClockRepository'
 import { IResponse, ResponseService } from 'services/Response/ResponseService'
 import { inject, injectable } from 'tsyringe'
-import { ICreateTimeClockDTO } from '@modules/TimeClock/dtos/ICreateTimeClockDTO'
+
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 import { ICreateTimeClock } from '../CreateTimeClock/CreateTimeClockUseCase'
+import { ITimeClockRepository } from '../../repositories/ITimeClockRepository'
+import { ICreateTimeClockDTO } from '../../dtos/ICreateTimeClockDTO'
 
 @injectable()
 class UpdateTimeClockUseCase {

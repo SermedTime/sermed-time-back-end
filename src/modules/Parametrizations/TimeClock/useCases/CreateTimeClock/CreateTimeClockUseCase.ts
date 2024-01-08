@@ -1,6 +1,6 @@
-import { ITimeClockRepository } from '@modules/TimeClock/repositories/ITimeClockRepository'
 import { IResponse, ResponseService } from 'services/Response/ResponseService'
 import { inject, injectable } from 'tsyringe'
+import { ITimeClockRepository } from '../../repositories/ITimeClockRepository'
 
 interface IRequest {
   city: string

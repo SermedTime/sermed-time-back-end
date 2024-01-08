@@ -1,11 +1,8 @@
-import {
-  IListTimeClock,
-  TimeClockMap
-} from '@modules/TimeClock/mapper/TimeClockMap'
-import { ITimeClockRepository } from '@modules/TimeClock/repositories/ITimeClockRepository'
 import { ResponseService } from 'services/Response/ResponseService'
 
 import { inject, injectable } from 'tsyringe'
+import { ITimeClockRepository } from '../../repositories/ITimeClockRepository'
+import { IListTimeClock, TimeClockMap } from '../../mapper/TimeClockMap'
 
 export interface IParamsListTimeClock {
   search: string

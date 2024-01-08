@@ -1,7 +1,7 @@
-import { CreateTimeClockController } from '@modules/TimeClock/useCases/CreateTimeClock/CreateTimeClockController'
-import { DetailsTimeClockController } from '@modules/TimeClock/useCases/DetailsTimeClock/DetailsTimeClockController'
-import { ListTimeClockController } from '@modules/TimeClock/useCases/ListTimeClock/ListTimeClockController'
-import { UpdateTimeClockController } from '@modules/TimeClock/useCases/UpdateTimeClock/UpdateTimeClockController'
+import { CreateTimeClockController } from '@modules/Parametrizations/TimeClock/useCases/CreateTimeClock/CreateTimeClockController'
+import { DetailsTimeClockController } from '@modules/Parametrizations/TimeClock/useCases/DetailsTimeClock/DetailsTimeClockController'
+import { ListTimeClockController } from '@modules/Parametrizations/TimeClock/useCases/ListTimeClock/ListTimeClockController'
+import { UpdateTimeClockController } from '@modules/Parametrizations/TimeClock/useCases/UpdateTimeClock/UpdateTimeClockController'
 import { Router } from 'express'
 
 const timeClockRoutes = Router()

@@ -1,11 +1,11 @@
 import { inject, injectable } from 'tsyringe'
 
-import { ITimeClockRepository } from '@modules/TimeClock/repositories/ITimeClockRepository'
 import { ResponseService } from 'services/Response/ResponseService'
+import { ITimeClockRepository } from '../../repositories/ITimeClockRepository'
 import {
   ITimeClockDetailsMap,
   TimeClockDetailsMap
-} from '@modules/TimeClock/mapper/TimeClockDetailsMap'
+} from '../../mapper/TimeClockDetailsMap'
 
 @injectable()
 class DetailsTimeClockUseCase {

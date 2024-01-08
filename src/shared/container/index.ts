@@ -1,7 +1,6 @@
+import { TimeClockRepository } from '@modules/Parametrizations/TimeClock/infra/SQLServer/repositories/TimeClockRepository'
+import { ITimeClockRepository } from '@modules/Parametrizations/TimeClock/repositories/ITimeClockRepository'
 import { container } from 'tsyringe'
-
-import { TimeClockRepository } from '@modules/TimeClock/infra/SQLServer/repositories/TimeClockRepository'
-import { ITimeClockRepository } from '@modules/TimeClock/repositories/ITimeClockRepository'
 
 container.registerSingleton<ITimeClockRepository>(
   'TimeClockRepository',
