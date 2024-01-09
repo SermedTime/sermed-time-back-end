@@ -9,7 +9,7 @@ interface ITimeClockRepository {
     data: ICreateTimeClockDTO
   ): Promise<IResponseRepository<ICreateTimeClock>>
   list(data: IParamsListTimeClock): Promise<IResponseRepository<ITimeClockSQL>>
-  details(uuid: string): Promise<IResponseRepository<ITimeClockSQL>>
+  findById(uuid: string): Promise<IResponseRepository<ITimeClockSQL>>
 }
 
 export { ITimeClockRepository }

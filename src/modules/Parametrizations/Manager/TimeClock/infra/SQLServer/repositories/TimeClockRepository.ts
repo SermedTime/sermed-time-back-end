@@ -99,7 +99,7 @@ class TimeClockRepository implements ITimeClockRepository {
     return response
   }
 
-  async details(uuid: string): Promise<IResponseRepository<ITimeClockSQL>> {
+  async findById(uuid: string): Promise<IResponseRepository<ITimeClockSQL>> {
     let response: IResponseRepository<ITimeClockSQL>
 
     try {

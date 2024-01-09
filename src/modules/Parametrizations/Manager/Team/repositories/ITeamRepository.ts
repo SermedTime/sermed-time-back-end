@@ -6,6 +6,7 @@ import { ITeamSQL } from '../infra/SQLServer/interfaces/ITeamSQL'
 interface ITeamRepository {
   upsert(data: ICreateTeamDTO): Promise<IResponseRepository>
   list(data: IParamsListTeam): Promise<IResponseRepository<ITeamSQL>>
+  findById(uuid: string): Promise<IResponseRepository<ITeamSQL>>
 }
 
 export { ITeamRepository }

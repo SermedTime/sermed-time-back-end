@@ -82,6 +82,33 @@ class TeamRepository implements ITeamRepository {
 
     return response
   }
+
+  async findById(uuid: string): Promise<IResponseRepository<ITeamSQL>> {
+    let response: IResponseRepository<ITeamSQL>
+
+    try {
+      const pool = getPool()
+
+      const result = await pool
+        .request()
+        .input('UUID_EQUI', sql.UniqueIdentifier, uuid)
+        .execute('[dbo].[PRC_EQUI_CONS]')
+
+      const { recordset: team } = result
+
+      response = {
+        success: true,
+        data: team
+      }
+    } catch (err) {
+      response = {
+        success: false,
+        message: err.message
+      }
+    }
+
+    return response
+  }
 }
 
 export { TeamRepository }
