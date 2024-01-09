@@ -1,4 +1,4 @@
-export interface IResponseRepository<T> {
+export interface IResponseRepository<T = any> {
   success: boolean
   data?: T[]
   message?: string

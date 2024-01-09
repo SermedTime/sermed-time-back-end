@@ -1,4 +1,4 @@
-export interface IResponse<T> {
+export interface IResponse<T = any> {
   data?: T[] | T | string
   page?: number
   total?: number
@@ -15,21 +15,30 @@ interface IResponseProps<P> {
   status: number
   message?: string
   error?: string
+  create?: boolean
 }
 
 export class ResponseService {
-  public static setResponseJson<T>({
+  public static setResponseJson<T = any>({
     data = [],
     page = 0,
     records = 0,
     status,
     success,
-    message = ''
+    message = '',
+    create = false
   }: IResponseProps<any>): IResponse<T> {
     if (!success) {
       return {
         status,
         message
+      }
+    }
+
+    if (create) {
+      return {
+        data,
+        status
       }
     }
 

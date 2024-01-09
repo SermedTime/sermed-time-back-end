@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe'
 
 import { ResponseService } from 'services/Response/ResponseService'
+import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 import { ITimeClockRepository } from '../../repositories/ITimeClockRepository'
 import {
   ITimeClockDetailsMap,
@@ -19,7 +20,7 @@ class DetailsTimeClockUseCase {
 
     if (!timeClock.success) {
       return ResponseService.setResponseJson<ITimeClockDetailsMap>({
-        status: 400,
+        status: HTTP_STATUS.BAD_REQUEST,
         message: timeClock.message,
         success: timeClock.success
       })
@@ -31,7 +32,7 @@ class DetailsTimeClockUseCase {
 
     return ResponseService.setResponseJson<ITimeClockDetailsMap>({
       data,
-      status: timeClock.data ? 200 : 204,
+      status: timeClock.data ? HTTP_STATUS.OK : HTTP_STATUS.NO_CONTENT,
       success: timeClock.success,
       page: 1,
       records: timeClock.data ? 1 : 0

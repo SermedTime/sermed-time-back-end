@@ -1,5 +1,6 @@
 import { IResponse, ResponseService } from 'services/Response/ResponseService'
 import { inject, injectable } from 'tsyringe'
+import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 import { ITimeClockRepository } from '../../repositories/ITimeClockRepository'
 
 interface IRequest {
@@ -52,7 +53,7 @@ class CreateTimeClockUseCase {
 
     if (!timeClock.success) {
       return ResponseService.setResponseJson<ICreateTimeClock>({
-        status: 400,
+        status: HTTP_STATUS.BAD_REQUEST,
         success: timeClock.success,
         message: timeClock.message
       })
@@ -62,8 +63,9 @@ class CreateTimeClockUseCase {
 
     return ResponseService.setResponseJson<ICreateTimeClock>({
       data,
-      status: 201,
-      success: timeClock.success
+      status: HTTP_STATUS.CREATED,
+      success: timeClock.success,
+      create: true
     })
   }
 }

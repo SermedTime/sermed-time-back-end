@@ -51,7 +51,8 @@ class UpdateTimeClockUseCase {
     return ResponseService.setResponseJson<ICreateTimeClock>({
       data: uuid,
       status: HTTP_STATUS.OK,
-      success: timeClock.success
+      success: timeClock.success,
+      create: true
     })
   }
 }

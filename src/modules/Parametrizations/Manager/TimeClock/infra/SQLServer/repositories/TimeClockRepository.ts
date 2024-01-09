@@ -2,11 +2,12 @@ import { getPool } from '@shared/infra/database/config'
 import sql, { ConnectionPool } from 'mssql'
 import { IResponseRepository } from 'services/Response/interfaces'
 import { statusVerify } from '@utils/statusVerify'
-import { ICreateTimeClockDTO } from '@modules/Parametrizations/TimeClock/dtos/ICreateTimeClockDTO'
-import { ICreateTimeClock } from '@modules/Parametrizations/TimeClock/useCases/CreateTimeClock/CreateTimeClockUseCase'
-import { IParamsListTimeClock } from '@modules/Parametrizations/TimeClock/useCases/ListTimeClock/ListTimeClockUseCase'
-import { ITimeClockRepository } from '@modules/Parametrizations/TimeClock/repositories/ITimeClockRepository'
+
 import { ITimeClockSQL } from '../interfaces/ITimeClockSQL'
+import { ITimeClockRepository } from '../../../repositories/ITimeClockRepository'
+import { ICreateTimeClockDTO } from '../../../dtos/ICreateTimeClockDTO'
+import { ICreateTimeClock } from '../../../useCases/CreateTimeClock/CreateTimeClockUseCase'
+import { IParamsListTimeClock } from '../../../useCases/ListTimeClock/ListTimeClockUseCase'
 
 class TimeClockRepository implements ITimeClockRepository {
   async upsert({
