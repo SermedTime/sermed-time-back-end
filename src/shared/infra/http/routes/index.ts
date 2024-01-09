@@ -1,8 +1,9 @@
 import { Router } from 'express'
-import { timeClockRoutes } from './timeClock.routes'
+import { teamRoutes, timeClockRoutes } from './Parametrizations/Manager'
 
 const router = Router()
 
 router.use('/parametrizations/time-clock', timeClockRoutes)
+router.use('/parametrizations/team', teamRoutes)
 
 export { router }
