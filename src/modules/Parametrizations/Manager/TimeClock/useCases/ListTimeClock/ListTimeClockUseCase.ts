@@ -1,6 +1,9 @@
 import { ResponseService } from 'services/Response/ResponseService'
 
 import { inject, injectable } from 'tsyringe'
+
+import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
+
 import { ITimeClockRepository } from '../../repositories/ITimeClockRepository'
 import { IListTimeClock, TimeClockMap } from '../../mapper/TimeClockMap'
 
@@ -39,7 +42,7 @@ class ListTimeClockUseCase {
 
     if (!timeClock.success) {
       return ResponseService.setResponseJson<IListTimeClock>({
-        status: 400,
+        status: HTTP_STATUS.BAD_REQUEST,
         success: timeClock.success,
         message: timeClock.message
       })
@@ -48,7 +51,7 @@ class ListTimeClockUseCase {
     const data = TimeClockMap.ToDTO(timeClock.data)
 
     return ResponseService.setResponseJson<IListTimeClock>({
-      status: data.length > 0 ? 200 : 204,
+      status: data.length > 0 ? HTTP_STATUS.OK : HTTP_STATUS.NO_CONTENT,
       data,
       page: page > 0 ? page : 1,
       records: data.length > 0 ? Number(timeClock.data[0].TT_REGI) : 0,

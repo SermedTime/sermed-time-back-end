@@ -1,8 +1,9 @@
 import { getPool } from '@shared/infra/database/config'
 import sql, { ConnectionPool } from 'mssql'
-import { IResponseRepository } from 'services/Response/interfaces'
+
 import { statusVerify } from '@utils/statusVerify'
 
+import { IResponseRepository } from 'services/Response/interfaces'
 import { ITimeClockSQL } from '../interfaces/ITimeClockSQL'
 import { ITimeClockRepository } from '../../../repositories/ITimeClockRepository'
 import { ICreateTimeClockDTO } from '../../../dtos/ICreateTimeClockDTO'
