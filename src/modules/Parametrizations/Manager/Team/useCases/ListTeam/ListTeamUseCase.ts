@@ -3,17 +3,11 @@ import { inject, injectable } from 'tsyringe'
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 
 import { IResponse, ResponseService } from 'services/Response/ResponseService'
+import { IManagerFilters } from '@modules/Parametrizations/Manager/shared/interfaces'
 import { ITeamRepository } from '../../repositories/ITeamRepository'
 import { IListTeam, TeamMap } from '../../mapper/TeamMap'
 
-export interface IParamsListTeam {
-  search: string
-  searchingBy: string
-  records: number
-  status: string
-  order: string
-  page: number
-}
+export interface IParamsListTeam extends IManagerFilters {}
 
 @injectable()
 class ListTeamUseCase {

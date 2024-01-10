@@ -4,17 +4,11 @@ import { inject, injectable } from 'tsyringe'
 
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 
+import { IManagerFilters } from '@modules/Parametrizations/Manager/shared/interfaces'
 import { ITimeClockRepository } from '../../repositories/ITimeClockRepository'
 import { IListTimeClock, TimeClockMap } from '../../mapper/TimeClockMap'
 
-export interface IParamsListTimeClock {
-  search: string
-  searchingBy: string
-  records: string
-  status: string
-  order: string
-  page: number
-}
+export interface IParamsListTimeClock extends IManagerFilters {}
 
 @injectable()
 class ListTimeClockUseCase {
