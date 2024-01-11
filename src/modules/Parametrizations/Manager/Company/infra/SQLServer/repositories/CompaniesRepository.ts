@@ -2,8 +2,11 @@ import { getPool } from '@shared/infra/database/config'
 import sql from 'mssql'
 
 import { IResponseRepository } from 'services/Response/interfaces'
+import { statusVerify } from '@utils/statusVerify'
 import { ICreateCompanyDTO } from '../../../dtos/ICreateCompanyDTO'
 import { ICompaniesRepository } from '../../../repositories/ICompaniesRepository'
+import { IParamsListCompanies } from '../../../useCases/ListCompanies/ListCompaniesUseCase'
+import { ICompanySQL } from '../interfaces/ICompanySQL'
 
 class CompaniesRepository implements ICompaniesRepository {
   async upsert({
@@ -47,6 +50,49 @@ class CompaniesRepository implements ICompaniesRepository {
       response = {
         success: true,
         data: company
+      }
+    } catch (err) {
+      response = {
+        success: false,
+        message: err.message
+      }
+    }
+
+    return response
+  }
+
+  async list({
+    searchingBy,
+    search,
+    status,
+    records,
+    page,
+    order
+  }: IParamsListCompanies): Promise<IResponseRepository<ICompanySQL>> {
+    let response: IResponseRepository<ICompanySQL>
+
+    const companyName = searchingBy === 'companyName' ? search : ''
+    const companyCnpj = searchingBy === 'companyCnpj' ? search : ''
+    const in_stat = statusVerify(status)
+
+    try {
+      const pool = getPool()
+
+      const result = await pool
+        .request()
+        .input('NM_EMPR', sql.VarChar(128), companyName)
+        .input('NR_CNPJ', sql.VarChar(18), companyCnpj)
+        .input('IN_STAT', sql.Bit, in_stat)
+        .input('NR_PAGE_INIC', sql.Int, page)
+        .input('TT_REGI_PAGI', sql.Int, records)
+        .input('DS_ORDE_TYPE', sql.VarChar(4), order)
+        .execute('[dbo].[PRC_EMPR_CONS]')
+
+      const { recordset: companies } = result
+
+      response = {
+        success: true,
+        data: companies
       }
     } catch (err) {
       response = {
