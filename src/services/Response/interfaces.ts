@@ -3,3 +3,8 @@ export interface IResponseRepository<T = any> {
   data?: T[]
   message?: string
 }
+
+export interface IDropdown {
+  uuid: string
+  description: string
+}

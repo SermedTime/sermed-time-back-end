@@ -130,6 +130,35 @@ class CompaniesRepository implements ICompaniesRepository {
 
     return response
   }
+
+  async findAll(
+    allCompanies?: string
+  ): Promise<IResponseRepository<ICompanySQL>> {
+    let response: IResponseRepository<ICompanySQL>
+
+    try {
+      const pool = getPool()
+
+      const result = await pool
+        .request()
+        .input('ALL', sql.Bit, allCompanies === 'true' ? 1 : 0)
+        .execute('[dbo].[PRC_EMPR_DROP_DOWN]')
+
+      const { recordset: companies } = result
+
+      response = {
+        success: true,
+        data: companies
+      }
+    } catch (err) {
+      response = {
+        success: false,
+        message: err.message
+      }
+    }
+
+    return response
+  }
 }
 
 export { CompaniesRepository }

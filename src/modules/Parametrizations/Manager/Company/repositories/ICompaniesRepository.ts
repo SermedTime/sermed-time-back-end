@@ -7,6 +7,7 @@ interface ICompaniesRepository {
   upsert(data: ICreateCompanyDTO): Promise<IResponseRepository>
   list(data: IParamsListCompanies): Promise<IResponseRepository<ICompanySQL>>
   findById(uuid: string): Promise<IResponseRepository<ICompanySQL>>
+  findAll(allCompanies?: string): Promise<IResponseRepository<ICompanySQL>>
 }
 
 export { ICompaniesRepository }
