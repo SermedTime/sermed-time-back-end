@@ -6,6 +6,7 @@ import { ICompanySQL } from '../infra/SQLServer/interfaces/ICompanySQL'
 interface ICompaniesRepository {
   upsert(data: ICreateCompanyDTO): Promise<IResponseRepository>
   list(data: IParamsListCompanies): Promise<IResponseRepository<ICompanySQL>>
+  findById(uuid: string): Promise<IResponseRepository<ICompanySQL>>
 }
 
 export { ICompaniesRepository }

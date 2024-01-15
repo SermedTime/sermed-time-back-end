@@ -103,6 +103,33 @@ class CompaniesRepository implements ICompaniesRepository {
 
     return response
   }
+
+  async findById(uuid: string): Promise<IResponseRepository<ICompanySQL>> {
+    let response: IResponseRepository<ICompanySQL>
+
+    try {
+      const pool = getPool()
+
+      const result = await pool
+        .request()
+        .input('UUID_EMPR', sql.VarChar(128), uuid)
+        .execute('[dbo].[PRC_EMPR_CONS]')
+
+      const { recordset: companies } = result
+
+      response = {
+        success: true,
+        data: companies
+      }
+    } catch (err) {
+      response = {
+        success: false,
+        message: err.message
+      }
+    }
+
+    return response
+  }
 }
 
 export { CompaniesRepository }

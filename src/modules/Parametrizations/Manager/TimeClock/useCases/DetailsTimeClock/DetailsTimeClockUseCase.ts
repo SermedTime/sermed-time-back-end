@@ -34,9 +34,7 @@ class DetailsTimeClockUseCase {
     return ResponseService.setResponseJson<ITimeClockDetailsMap>({
       data,
       status: timeClock.data ? HTTP_STATUS.OK : HTTP_STATUS.NO_CONTENT,
-      success: timeClock.success,
-      page: 1,
-      records: timeClock.data.length
+      success: timeClock.success
     })
   }
 }
