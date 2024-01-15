@@ -5,13 +5,11 @@ import { CreateUserUseCase } from './CreateUserUseCase'
 class CreateUserController {
   async handle(req: Request, res: Response): Promise<Response> {
     const {
-      uuid,
       cpf,
       name,
       socialName,
       email,
-      companyName,
-      companyCnpj,
+      companyUuid,
       position,
       payrollNumber,
       employeeCode,
@@ -25,13 +23,11 @@ class CreateUserController {
     const createUserUseCase = container.resolve(CreateUserUseCase)
 
     const user = await createUserUseCase.execute({
-      uuid,
       cpf,
       name,
       socialName,
       email,
-      companyName,
-      companyCnpj,
+      companyUuid,
       position,
       payrollNumber,
       employeeCode,

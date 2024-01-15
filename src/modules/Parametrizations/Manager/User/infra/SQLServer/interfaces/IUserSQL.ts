@@ -3,8 +3,9 @@ interface IUserSQL {
   NM_USUA: string
   NM_SOCI_USUA: string
   DS_MAIL: string
+  ID_EMPR: string
+  UUID_EMPR: string
   NM_EMPR: string
-  NR_CNPJ_EMPR: string
   DS_FUNC: string
   NR_FOLH_PAGA: string
   NR_IDEN_USUA: string

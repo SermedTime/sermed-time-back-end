@@ -13,8 +13,7 @@ class CreateUserUseCase {
 
   async execute({
     admissionDate,
-    companyCnpj,
-    companyName,
+    companyUuid,
     cpf,
     ctps,
     email,
@@ -31,8 +30,7 @@ class CreateUserUseCase {
     const in_stat = status ? (status === 'active' ? 1 : 0) : null
     const user = await this.usersRepository.upsert({
       admissionDate,
-      companyCnpj,
-      companyName,
+      companyUuid,
       cpf,
       ctps,
       email,

@@ -14,8 +14,7 @@ import { ICreateUserDTO } from '../../../dtos/ICreateUserDTO'
 class UsersRepository implements IUsersRepository {
   async upsert({
     admissionDate,
-    companyCnpj,
-    companyName,
+    companyUuid,
     cpf,
     ctps,
     email,
@@ -46,8 +45,7 @@ class UsersRepository implements IUsersRepository {
         .input('NM_SOCI_USUA', sql.VarChar(256), socialName)
         .input('DS_MAIL', sql.VarChar(256), email)
         .input('DS_PASS', sql.VarChar(128), password)
-        .input('NM_EMPR', sql.VarChar(128), companyName)
-        .input('NR_CNPJ_EMPR', sql.VarChar(14), companyCnpj)
+        .input('UUID_EMPR', sql.NVarChar(36), companyUuid)
         .input('DS_FUNC', sql.VarChar(64), position)
         .input('NR_FOLH_PAGA', sql.VarChar(10), payrollNumber)
         .input('NR_IDEN_USUA', sql.VarChar(10), employeeCode)

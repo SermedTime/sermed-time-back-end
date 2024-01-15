@@ -4,8 +4,7 @@ interface ICreateUserDTO {
   name: string
   socialName: string
   email: string
-  companyName: string
-  companyCnpj: string
+  companyUuid: string
   position: string
   payrollNumber: string
   employeeCode: string

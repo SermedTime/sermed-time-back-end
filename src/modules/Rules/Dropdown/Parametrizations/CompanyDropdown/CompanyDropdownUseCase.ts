@@ -22,8 +22,6 @@ class CompanyDropdownUseCase {
       })
     }
 
-    console.log(companies.data)
-
     const data: IDropdown[] =
       companies.data.length > 0
         ? companies.data.map(i => {
