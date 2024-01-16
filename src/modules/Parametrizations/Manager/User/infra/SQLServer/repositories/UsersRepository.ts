@@ -6,6 +6,7 @@ import { statusVerify } from '@utils/statusVerify'
 import { getPool } from '@shared/infra/database/config'
 
 import { IResponseRepository } from 'services/Response/interfaces'
+import { ACTION_USER } from '@utils/ActionUser'
 import { IUserSQL } from '../interfaces'
 import { IParamsListUsers } from '../../../useCases/ListUsers/ListUsersUseCase'
 import { IUsersRepository } from '../../../repositories/IUsersRepository'
@@ -32,8 +33,6 @@ class UsersRepository implements IUsersRepository {
 
     const password = await hash('123456', 8)
 
-    const actionUser = '77CF4DFA-3F4A-4921-8556-598CCD93250E'
-
     try {
       const pool = getPool()
 
@@ -54,7 +53,7 @@ class UsersRepository implements IUsersRepository {
         .input('DT_ADMI', sql.Date, admissionDate)
         .input('DT_DEMI', sql.Date, resignationDate)
         .input('IN_STAT', sql.Bit, status)
-        .input('UUID_USUA_ACAO', sql.NVarChar(36), actionUser)
+        .input('UUID_USUA_ACAO', sql.NVarChar(36), ACTION_USER)
         .execute('[dbo].[PRC_USUA_GRAV]')
 
       const { recordset: user } = result
@@ -91,8 +90,6 @@ class UsersRepository implements IUsersRepository {
   }: ICreateUserDTO): Promise<IResponseRepository> {
     let response: IResponseRepository
 
-    const actionUser = '77CF4DFA-3F4A-4921-8556-598CCD93250E'
-
     try {
       const pool = getPool()
 
@@ -112,7 +109,7 @@ class UsersRepository implements IUsersRepository {
         .input('DT_ADMI', sql.Date, admissionDate)
         .input('DT_DEMI', sql.Date, resignationDate)
         .input('IN_STAT', sql.Bit, status)
-        .input('UUID_USUA_ACAO', sql.NVarChar(36), actionUser)
+        .input('UUID_USUA_ACAO', sql.NVarChar(36), ACTION_USER)
         .execute('[dbo].[PRC_USUA_GRAV]')
 
       const { recordset: user } = result

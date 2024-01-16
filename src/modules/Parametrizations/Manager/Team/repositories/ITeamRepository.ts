@@ -7,6 +7,7 @@ interface ITeamRepository {
   upsert(data: ICreateTeamDTO): Promise<IResponseRepository>
   list(data: IParamsListTeam): Promise<IResponseRepository<ITeamSQL>>
   findById(uuid: string): Promise<IResponseRepository<ITeamSQL>>
+  findAll(allTeams?: string): Promise<IResponseRepository<ITeamSQL>>
 }
 
 export { ITeamRepository }

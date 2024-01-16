@@ -3,6 +3,7 @@ import sql from 'mssql'
 
 import { IResponseRepository } from 'services/Response/interfaces'
 import { statusVerify } from '@utils/statusVerify'
+import { ACTION_USER } from '@utils/ActionUser'
 import { ICreateCompanyDTO } from '../../../dtos/ICreateCompanyDTO'
 import { ICompaniesRepository } from '../../../repositories/ICompaniesRepository'
 import { IParamsListCompanies } from '../../../useCases/ListCompanies/ListCompaniesUseCase'
@@ -24,8 +25,6 @@ class CompaniesRepository implements ICompaniesRepository {
   }: ICreateCompanyDTO): Promise<IResponseRepository> {
     let response: IResponseRepository
 
-    const actionUser = '77CF4DFA-3F4A-4921-8556-598CCD93250E'
-
     try {
       const pool = getPool()
 
@@ -42,7 +41,7 @@ class CompaniesRepository implements ICompaniesRepository {
         .input('NM_MUNI', sql.VarChar(128), city)
         .input('DS_UF', sql.Char(2), state)
         .input('IN_STAT', sql.Bit, status)
-        .input('UUID_USUA_ACAO', sql.NVarChar(36), actionUser)
+        .input('UUID_USUA_ACAO', sql.NVarChar(36), ACTION_USER)
         .execute('[dbo].[PRC_EMPR_GRAV]')
 
       const { recordset: company } = result

@@ -4,6 +4,8 @@ import { getPool } from '@shared/infra/database/config'
 
 import { statusVerify } from '@utils/statusVerify'
 
+import { ACTION_USER } from '@utils/ActionUser'
+
 import { IResponseRepository } from 'services/Response/interfaces'
 import { ITeamSQL } from '../interfaces/ITeamSQL'
 import { ICreateTeamDTO } from '../../../dtos/ICreateTeamDTO'
@@ -24,6 +26,7 @@ class TeamRepository implements ITeamRepository {
         .request()
         .input('UUID', sql.UniqueIdentifier, uuid)
         .input('NM_EQUI', sql.VarChar(128), name)
+        .input('UUID_USUA_ACAO', sql.NVarChar(36), ACTION_USER)
         .input('IN_STAT', sql.Bit, status)
         .execute('[dbo].[PRC_EQUI_GRAV]')
 
@@ -93,6 +96,33 @@ class TeamRepository implements ITeamRepository {
         .request()
         .input('UUID_EQUI', sql.UniqueIdentifier, uuid)
         .execute('[dbo].[PRC_EQUI_CONS]')
+
+      const { recordset: team } = result
+
+      response = {
+        success: true,
+        data: team
+      }
+    } catch (err) {
+      response = {
+        success: false,
+        message: err.message
+      }
+    }
+
+    return response
+  }
+
+  async findAll(allTeams?: string): Promise<IResponseRepository<ITeamSQL>> {
+    let response: IResponseRepository<ITeamSQL>
+
+    try {
+      const pool = getPool()
+
+      const result = await pool
+        .request()
+        .input('IN_STAT', sql.Bit, allTeams === 'true' ? 0 : 1)
+        .execute('[dbo].[PRC_EQUI_DROP_DOWN]')
 
       const { recordset: team } = result
 
