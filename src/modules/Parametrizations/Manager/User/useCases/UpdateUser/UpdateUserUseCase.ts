@@ -1,11 +1,11 @@
 import { inject, injectable } from 'tsyringe'
-import { IResponse, ResponseService } from 'services/Response/ResponseService'
+import { ResponseService } from 'services/Response/ResponseService'
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 import { IUsersRepository } from '../../repositories/IUsersRepository'
 import { ICreateUserDTO } from '../../dtos/ICreateUserDTO'
 
 @injectable()
-class CreateUserUseCase {
+class UpdateUserUseCase {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository
@@ -24,10 +24,11 @@ class CreateUserUseCase {
     position,
     socialName,
     status,
-    resignationDate
-  }: ICreateUserDTO): Promise<IResponse> {
+    resignationDate,
+    uuid
+  }: ICreateUserDTO) {
     const in_stat = status ? (status === 'active' ? 1 : 0) : null
-    const user = await this.usersRepository.create({
+    const user = await this.usersRepository.update({
       admissionDate,
       companyUuid,
       cpf,
@@ -40,7 +41,8 @@ class CreateUserUseCase {
       position,
       socialName,
       status: in_stat,
-      resignationDate
+      resignationDate,
+      uuid
     })
 
     if (!user.success) {
@@ -55,11 +57,11 @@ class CreateUserUseCase {
 
     return ResponseService.setResponseJson({
       data,
-      status: HTTP_STATUS.CREATED,
+      status: HTTP_STATUS.OK,
       success: user.success,
       create: true
     })
   }
 }
 
-export { CreateUserUseCase }
+export { UpdateUserUseCase }

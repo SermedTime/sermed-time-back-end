@@ -4,7 +4,8 @@ import { IUserSQL } from '../infra/SQLServer/interfaces'
 import { ICreateUserDTO } from '../dtos/ICreateUserDTO'
 
 interface IUsersRepository {
-  upsert(data: ICreateUserDTO): Promise<IResponseRepository>
+  create(data: ICreateUserDTO): Promise<IResponseRepository>
+  update(data: ICreateUserDTO): Promise<IResponseRepository>
   list(data: IParamsListUsers): Promise<IResponseRepository<IUserSQL>>
   findById(uuid: string): Promise<IResponseRepository<IUserSQL>>
 }
