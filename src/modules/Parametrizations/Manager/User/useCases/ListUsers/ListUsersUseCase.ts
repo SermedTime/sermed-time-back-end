@@ -3,7 +3,7 @@ import { IManagerFilters } from '@modules/Parametrizations/Manager/shared/interf
 import { IResponse, ResponseService } from 'services/Response/ResponseService'
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 import { IUsersRepository } from '../../repositories/IUsersRepository'
-import { UsersListMap } from '../../mapper/UsersListMap'
+import { IUsersList, UsersListMap } from '../../mapper/UsersListMap'
 
 export interface IParamsListUsers extends IManagerFilters {}
 
@@ -21,7 +21,7 @@ class ListUsersUseCase {
     search,
     searchingBy,
     status
-  }: IParamsListUsers): Promise<IResponse> {
+  }: IParamsListUsers): Promise<IResponse<IUsersList>> {
     const users = await this.usersRepository.list({
       order,
       page,
@@ -41,7 +41,7 @@ class ListUsersUseCase {
 
     const data = users.data.length > 0 ? UsersListMap.ToDTO(users.data) : []
 
-    return ResponseService.setResponseJson({
+    return ResponseService.setResponseJson<IUsersList>({
       status: data.length > 0 ? HTTP_STATUS.OK : HTTP_STATUS.NO_CONTENT,
       data,
       page: page > 0 ? page : 1,

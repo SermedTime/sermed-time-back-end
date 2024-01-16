@@ -116,6 +116,33 @@ class UsersRepository implements IUsersRepository {
 
     return response
   }
+
+  async findById(uuid: string): Promise<IResponseRepository<IUserSQL>> {
+    let response: IResponseRepository<IUserSQL>
+
+    try {
+      const pool = getPool()
+
+      const result = await pool
+        .request()
+        .input('UUID_USUA', sql.NVarChar(36), uuid)
+        .execute('[dbo].[PRC_USUA_CONS]')
+
+      const { recordset: user } = result
+
+      response = {
+        success: true,
+        data: user
+      }
+    } catch (err) {
+      response = {
+        success: false,
+        message: err.message
+      }
+    }
+
+    return response
+  }
 }
 
 export { UsersRepository }

@@ -6,6 +6,7 @@ import { ICreateUserDTO } from '../dtos/ICreateUserDTO'
 interface IUsersRepository {
   upsert(data: ICreateUserDTO): Promise<IResponseRepository>
   list(data: IParamsListUsers): Promise<IResponseRepository<IUserSQL>>
+  findById(uuid: string): Promise<IResponseRepository<IUserSQL>>
 }
 
 export { IUsersRepository }

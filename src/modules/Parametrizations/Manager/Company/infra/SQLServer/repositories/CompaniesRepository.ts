@@ -24,7 +24,7 @@ class CompaniesRepository implements ICompaniesRepository {
   }: ICreateCompanyDTO): Promise<IResponseRepository> {
     let response: IResponseRepository
 
-    const actionUser = '16F2F093-403E-43FE-A52E-C7502FEB176D'
+    const actionUser = '77CF4DFA-3F4A-4921-8556-598CCD93250E'
 
     try {
       const pool = getPool()
