@@ -1,3 +1,7 @@
+import { container } from 'tsyringe'
+
+import '@shared/container/providers'
+
 import { CompaniesRepository } from '@modules/Parametrizations/Manager/Company/infra/SQLServer/repositories/CompaniesRepository'
 import { ICompaniesRepository } from '@modules/Parametrizations/Manager/Company/repositories/ICompaniesRepository'
 import { TeamRepository } from '@modules/Parametrizations/Manager/Team/infra/SQLServer/repositories/TeamRespository'
@@ -6,7 +10,10 @@ import { TimeClockRepository } from '@modules/Parametrizations/Manager/TimeClock
 import { ITimeClockRepository } from '@modules/Parametrizations/Manager/TimeClock/repositories/ITimeClockRepository'
 import { UsersRepository } from '@modules/Parametrizations/Manager/User/infra/SQLServer/repositories/UsersRepository'
 import { IUsersRepository } from '@modules/Parametrizations/Manager/User/repositories/IUsersRepository'
-import { container } from 'tsyringe'
+import { IUsersTokenRepository } from '@modules/Accounts/repositories/IUsersTokenRepository'
+import { UsersTokenRepository } from '@modules/Accounts/infra/SQLServer/repositories/UsersTokenRepository'
+import { IUserAuthRepository } from '@modules/Accounts/repositories/IUserAuthRepository'
+import { UserAuthRepository } from '@modules/Accounts/infra/SQLServer/repositories/UserAuthRepository'
 
 container.registerSingleton<ITimeClockRepository>(
   'TimeClockRepository',
@@ -23,4 +30,19 @@ container.registerSingleton<IUsersRepository>(
 container.registerSingleton<ICompaniesRepository>(
   'CompaniesRepository',
   CompaniesRepository
+)
+
+container.registerSingleton<ICompaniesRepository>(
+  'CompaniesRepository',
+  CompaniesRepository
+)
+
+container.registerSingleton<IUsersTokenRepository>(
+  'UsersTokenRepository',
+  UsersTokenRepository
+)
+
+container.registerSingleton<IUserAuthRepository>(
+  'UserAuthRepository',
+  UserAuthRepository
 )
