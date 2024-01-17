@@ -14,7 +14,7 @@ class TimeClockMap {
         uuid: timeClock.UUID_RELO_PONT,
         name: timeClock.NM_RELO_PONT,
         created_at: timeClock.DT_CRIA,
-        status: timeClock.IN_STAT ? 'active' : 'inactive'
+        status: timeClock.IN_STAT
       }
     })
 

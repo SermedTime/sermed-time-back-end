@@ -15,10 +15,6 @@ interface IRequest {
   unit: string
 }
 
-export interface ICreateTimeClock {
-  uuid: string
-}
-
 @injectable()
 class CreateTimeClockUseCase {
   constructor(
@@ -36,7 +32,7 @@ class CreateTimeClockUseCase {
     state,
     status,
     unit
-  }: IRequest): Promise<IResponse<ICreateTimeClock>> {
+  }: IRequest): Promise<IResponse> {
     const in_stat = status ? (status === 'active' ? 1 : 0) : null
 
     const timeClock = await this.timeClockRepository.upsert({
@@ -52,16 +48,16 @@ class CreateTimeClockUseCase {
     })
 
     if (!timeClock.success) {
-      return ResponseService.setResponseJson<ICreateTimeClock>({
+      return ResponseService.setResponseJson({
         status: HTTP_STATUS.BAD_REQUEST,
         success: timeClock.success,
         message: timeClock.message
       })
     }
 
-    const data = timeClock[0].UUID_RELO_PONT
+    const data = timeClock.data[0].UUID_RELO_PONT
 
-    return ResponseService.setResponseJson<ICreateTimeClock>({
+    return ResponseService.setResponseJson({
       data,
       status: HTTP_STATUS.CREATED,
       success: timeClock.success,

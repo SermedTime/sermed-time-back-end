@@ -4,10 +4,11 @@ import sql, { ConnectionPool } from 'mssql'
 import { statusVerify } from '@utils/statusVerify'
 
 import { IResponseRepository } from 'services/Response/interfaces'
+import { ACTION_USER } from '@utils/ActionUser'
 import { ITimeClockSQL } from '../interfaces/ITimeClockSQL'
 import { ITimeClockRepository } from '../../../repositories/ITimeClockRepository'
 import { ICreateTimeClockDTO } from '../../../dtos/ICreateTimeClockDTO'
-import { ICreateTimeClock } from '../../../useCases/CreateTimeClock/CreateTimeClockUseCase'
+
 import { IParamsListTimeClock } from '../../../useCases/ListTimeClock/ListTimeClockUseCase'
 
 class TimeClockRepository implements ITimeClockRepository {
@@ -22,8 +23,8 @@ class TimeClockRepository implements ITimeClockRepository {
     status,
     unit,
     uuid
-  }: ICreateTimeClockDTO): Promise<IResponseRepository<ICreateTimeClock>> {
-    let response: IResponseRepository<ICreateTimeClock>
+  }: ICreateTimeClockDTO): Promise<IResponseRepository> {
+    let response: IResponseRepository
     try {
       const pool: ConnectionPool = getPool()
 
@@ -38,6 +39,7 @@ class TimeClockRepository implements ITimeClockRepository {
         .input('DS_UF', sql.VarChar(128), state)
         .input('NM_FABR', sql.VarChar(128), manufacturer)
         .input('NM_MODE', sql.VarChar(128), model)
+        .input('UUID_USUA_ACAO', sql.NVarChar(36), ACTION_USER)
         .input('IN_STAT', sql.Bit, status)
         .execute('[dbo].[PRC_RELO_PONT_GRAV]')
 

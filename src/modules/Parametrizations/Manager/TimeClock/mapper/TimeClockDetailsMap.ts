@@ -27,7 +27,7 @@ class TimeClockDetailsMap {
       state: data.DS_UF,
       unit: data.DS_UNID,
       created_at: data.DT_CRIA,
-      status: data.IN_STAT ? 'active' : 'inactive'
+      status: data.IN_STAT
     }
   }
 }
