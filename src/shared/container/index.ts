@@ -10,8 +10,6 @@ import { TimeClockRepository } from '@modules/Parametrizations/Manager/TimeClock
 import { ITimeClockRepository } from '@modules/Parametrizations/Manager/TimeClock/repositories/ITimeClockRepository'
 import { UsersRepository } from '@modules/Parametrizations/Manager/User/infra/SQLServer/repositories/UsersRepository'
 import { IUsersRepository } from '@modules/Parametrizations/Manager/User/repositories/IUsersRepository'
-import { IUsersTokenRepository } from '@modules/Accounts/repositories/IUsersTokenRepository'
-import { UsersTokenRepository } from '@modules/Accounts/infra/SQLServer/repositories/UsersTokenRepository'
 import { IUserAuthRepository } from '@modules/Accounts/repositories/IUserAuthRepository'
 import { UserAuthRepository } from '@modules/Accounts/infra/SQLServer/repositories/UserAuthRepository'
 
@@ -35,11 +33,6 @@ container.registerSingleton<ICompaniesRepository>(
 container.registerSingleton<ICompaniesRepository>(
   'CompaniesRepository',
   CompaniesRepository
-)
-
-container.registerSingleton<IUsersTokenRepository>(
-  'UsersTokenRepository',
-  UsersTokenRepository
 )
 
 container.registerSingleton<IUserAuthRepository>(
