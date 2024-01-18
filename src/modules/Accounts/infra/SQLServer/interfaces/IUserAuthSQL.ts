@@ -11,8 +11,8 @@ interface IUserAuthSQL {
   NR_PIS: string
   NR_IDEN_USUA: string
   NR_CPF: string
-  DT_ADMI: string
-  DT_ULTI_ATUA: string
+  DT_ADMI: Date
+  DT_ULTI_ATUA: Date
 }
 
 export { IUserAuthSQL }

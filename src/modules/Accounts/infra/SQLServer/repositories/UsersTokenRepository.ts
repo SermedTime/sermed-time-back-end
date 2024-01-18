@@ -24,8 +24,6 @@ class UsersTokenRepository implements IUsersTokenRepository {
 
     const { UUID_REFR_TOKE: token_id } = token[0]
 
-    console.log(token_id)
-
     return token_id
   }
 }

@@ -1,11 +1,11 @@
 import 'reflect-metadata'
+import '@shared/container'
 import cors from 'cors'
 import express from 'express'
 
 import 'express-async-errors'
 
 import { createConnection } from '../database/config'
-import '@shared/container'
 
 import { router } from './routes'
 

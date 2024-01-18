@@ -10,7 +10,7 @@ import { IResponse, ResponseService } from 'services/Response/ResponseService'
 import { IDateProvider } from '@shared/container/providers/DateProvider/IDateProvider'
 import { IUsersTokenRepository } from '@modules/Accounts/repositories/IUsersTokenRepository'
 import { IUserAuthRepository } from '@modules/Accounts/repositories/IUserAuthRepository'
-import { UserAuthMap } from '@modules/Accounts/mapper/UserAuthMap'
+import { IUserAuth, UserAuthMap } from '@modules/Accounts/mapper/UserAuthMap'
 
 interface IRequest {
   email: string
@@ -18,8 +18,11 @@ interface IRequest {
 }
 
 interface IAuthResponse {
-  expiresIn: number
-  token: string
+  accessToken: {
+    expiresIn: number
+    token: string
+  }
+  user: IUserAuth
   refreshToken: string
 }
 
@@ -56,21 +59,23 @@ class AuthUseCase {
       return ResponseService.setResponseJson({
         success: false,
         status: HTTP_STATUS.BAD_REQUEST,
-        message: user.success ? 'Email or password incorrect' : user.message
+        message: user.success ? 'Login ou Senha incorretos' : user.message
       })
     }
 
+    const user_id = user.data[0].UUID_USUA
+
     const userData = UserAuthMap.toDTO(user.data[0])
 
-    const token = sign(userData, secret_token, {
-      subject: userData.userUuid,
+    const token = sign({}, secret_token, {
+      subject: user_id,
       expiresIn: expire_in_token
     })
 
     const { exp: expToken } = verify(token, secret_token) as { exp: number }
 
     const refresh_token = sign({ email }, secret_refresh_token, {
-      subject: userData.userUuid,
+      subject: user_id,
       expiresIn: expire_in_refresh_token
     })
 
@@ -79,14 +84,17 @@ class AuthUseCase {
     )
 
     await this.usersTokenRepository.create({
-      user_id: userData.userUuid,
+      user_id,
       expires_date: refresh_token_expires_date,
       refresh_token
     })
 
     const data: IAuthResponse = {
-      expiresIn: expToken,
-      token,
+      accessToken: {
+        expiresIn: expToken,
+        token
+      },
+      user: userData,
       refreshToken: refresh_token
     }
 

@@ -4,11 +4,11 @@ import { AuthUseCase } from './AuthUseCase'
 
 class AuthController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const { email, password } = req.body
+    const { username, password } = req.body
 
     const authUseCase = container.resolve(AuthUseCase)
 
-    const user = await authUseCase.execute({ email, password })
+    const user = await authUseCase.execute({ email: username, password })
 
     return res.status(user.status).json(user)
   }

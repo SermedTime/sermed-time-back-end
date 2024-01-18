@@ -7,6 +7,6 @@ const authenticateRoutes = Router()
 
 const authController = container.resolve(AuthController)
 
-authenticateRoutes.post('/session', authController.handle)
+authenticateRoutes.post('/login', authController.handle)
 
 export { authenticateRoutes }

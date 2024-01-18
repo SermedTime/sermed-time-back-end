@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { container } from 'tsyringe'
 
 import { CreateTeamController } from '@modules/Parametrizations/Manager/Team/useCases/CreateTeam/CreateTeamController'
 import { UpdateTeamController } from '@modules/Parametrizations/Manager/Team/useCases/UpdateTeam/UpdateTeamController'
@@ -7,10 +8,10 @@ import { DetailsTeamController } from '@modules/Parametrizations/Manager/Team/us
 
 const teamRoutes = Router()
 
-const createTeamController = new CreateTeamController()
-const updateTeamController = new UpdateTeamController()
-const listTeamController = new ListTeamController()
-const detailsTeamController = new DetailsTeamController()
+const createTeamController = container.resolve(CreateTeamController)
+const updateTeamController = container.resolve(UpdateTeamController)
+const listTeamController = container.resolve(ListTeamController)
+const detailsTeamController = container.resolve(DetailsTeamController)
 
 teamRoutes.post('/', createTeamController.handle)
 teamRoutes.put('/:uuid', updateTeamController.handle)
