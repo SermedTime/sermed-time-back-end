@@ -6,7 +6,7 @@ import {
   userRoutes
 } from './Parametrizations/Manager'
 import { dropdownRoutes } from './Rules/Dropdown'
-import { authenticateRoutes } from './Accounts'
+import { authenticateRoutes, passwordRoutes } from './Accounts'
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated'
 
 const router = Router()
@@ -19,5 +19,6 @@ router.use('/parametrizations/companies', ensureAuthenticated, companyRoutes)
 router.use('/dropdown', ensureAuthenticated, dropdownRoutes)
 
 router.use('/auth', authenticateRoutes)
+router.use('/password', passwordRoutes)
 
 export { router }

@@ -8,6 +8,7 @@ interface IUsersRepository {
   update(data: ICreateUserDTO): Promise<IResponseRepository>
   list(data: IParamsListUsers): Promise<IResponseRepository<IUserSQL>>
   findById(uuid: string): Promise<IResponseRepository<IUserSQL>>
+  findByEmail(email: string): Promise<IResponseRepository<IUserSQL>>
 }
 
 export { IUsersRepository }
