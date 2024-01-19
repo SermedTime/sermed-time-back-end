@@ -1,6 +1,8 @@
 import { inject, injectable } from 'tsyringe'
 import { resolve } from 'path'
 
+import { v4 as uuidV4 } from 'uuid'
+
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 
 import { IUsersRepository } from '@modules/Parametrizations/Manager/User/repositories/IUsersRepository'
@@ -68,7 +70,7 @@ class RecoverPasswordUseCase {
 
     this.user = user.data.length > 0 ? user.data[0] : null
 
-    this.setToken(user.data[0].UUID_USUA)
+    this.setToken()
 
     await this.saveToken()
 
@@ -96,12 +98,12 @@ class RecoverPasswordUseCase {
     })
   }
 
-  private setToken(user_id: string): void {
+  private setToken(): void {
     const { secret_token_recover_password, expitre_in_token_recover_password } =
       auth
 
     this.token = sign({}, secret_token_recover_password, {
-      subject: user_id,
+      subject: uuidV4(),
       expiresIn: expitre_in_token_recover_password
     })
   }
