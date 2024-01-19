@@ -38,6 +38,33 @@ class UserAuthRepository implements IUserAuthRepository {
     return response
   }
 
+  async findById(userId: string): Promise<IResponseRepository<IUserAuthSQL>> {
+    let response: IResponseRepository<IUserAuthSQL>
+
+    try {
+      const pool = getPool()
+
+      const result = await pool
+        .request()
+        .input('UUID_USUA', sql.NVarChar(36), userId)
+        .query('SELECT DS_PASS FROM [dbo].[TB_USUA] WHERE UUID = @UUID_USUA')
+
+      const { recordset: user } = result
+
+      response = {
+        success: true,
+        data: user
+      }
+    } catch (err) {
+      response = {
+        success: false,
+        message: err.message
+      }
+    }
+
+    return response
+  }
+
   async changePassword({
     uuid_usua,
     password,
