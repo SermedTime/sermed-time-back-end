@@ -25,7 +25,8 @@ class UpdateUserUseCase {
     socialName,
     status,
     resignationDate,
-    uuid
+    uuid,
+    action_user
   }: ICreateUserDTO) {
     const in_stat = status ? (status === 'active' ? 1 : 0) : null
     const user = await this.usersRepository.update({
@@ -42,7 +43,8 @@ class UpdateUserUseCase {
       socialName,
       status: in_stat,
       resignationDate,
-      uuid
+      uuid,
+      action_user
     })
 
     if (!user.success) {

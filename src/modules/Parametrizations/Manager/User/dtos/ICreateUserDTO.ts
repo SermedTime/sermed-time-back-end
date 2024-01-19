@@ -13,6 +13,8 @@ interface ICreateUserDTO {
   admissionDate: string
   resignationDate?: string
   status: string | number
+  action_user: string
+  password?: string
 }
 
 export { ICreateUserDTO }

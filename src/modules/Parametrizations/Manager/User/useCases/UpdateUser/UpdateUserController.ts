@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
+import { userAuthenticated } from 'services/UserAuthenticated/UserAuthenticated'
 import { UpdateUserUseCase } from './UpdateUserUseCase'
 
 class UpdateUserController {
@@ -21,6 +22,8 @@ class UpdateUserController {
       status
     } = req.body
 
+    const userId = userAuthenticated(req)
+
     const updateUserUseCase = container.resolve(UpdateUserUseCase)
 
     const user = await updateUserUseCase.execute({
@@ -37,7 +40,8 @@ class UpdateUserController {
       admissionDate,
       resignationDate,
       status,
-      uuid
+      uuid,
+      action_user: userId
     })
 
     return res.status(user.status).json(user)

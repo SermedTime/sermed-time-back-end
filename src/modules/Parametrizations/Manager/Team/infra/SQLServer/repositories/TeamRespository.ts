@@ -4,8 +4,6 @@ import { getPool } from '@shared/infra/database/config'
 
 import { statusVerify } from '@utils/statusVerify'
 
-import { ACTION_USER } from '@utils/ActionUser'
-
 import { IResponseRepository } from 'services/Response/interfaces'
 import { ITeamSQL } from '../interfaces/ITeamSQL'
 import { ICreateTeamDTO } from '../../../dtos/ICreateTeamDTO'
@@ -26,7 +24,7 @@ class TeamRepository implements ITeamRepository {
         .request()
         .input('UUID', sql.UniqueIdentifier, uuid)
         .input('NM_EQUI', sql.VarChar(128), name)
-        .input('UUID_USUA_ACAO', sql.NVarChar(36), ACTION_USER)
+        // .input('UUID_USUA_ACAO', sql.NVarChar(36), ACTION_USER)
         .input('IN_STAT', sql.Bit, status)
         .execute('[dbo].[PRC_EQUI_GRAV]')
 

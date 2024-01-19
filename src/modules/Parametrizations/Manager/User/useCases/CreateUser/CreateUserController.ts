@@ -1,5 +1,7 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
+
+import { userAuthenticated } from 'services/UserAuthenticated/UserAuthenticated'
 import { CreateUserUseCase } from './CreateUserUseCase'
 
 class CreateUserController {
@@ -20,6 +22,8 @@ class CreateUserController {
       status
     } = req.body
 
+    const userId = userAuthenticated(req)
+
     const createUserUseCase = container.resolve(CreateUserUseCase)
 
     const user = await createUserUseCase.execute({
@@ -35,7 +39,8 @@ class CreateUserController {
       ctps,
       admissionDate,
       resignationDate,
-      status
+      status,
+      action_user: userId
     })
 
     return res.status(user.status).json(user)
