@@ -46,7 +46,8 @@ class ResetPasswordUseCase {
     const change = await this.userAuthRepository.changePassword({
       uuid_usua: userToken.data[0].UUID_USUA,
       password,
-      uuid_token: userToken.data[0].UUID_TOKE
+      uuid_token: userToken.data[0].UUID_TOKE,
+      is_reset: 1
     })
 
     if (!change.success) {

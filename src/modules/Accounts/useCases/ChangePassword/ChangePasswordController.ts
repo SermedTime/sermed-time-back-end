@@ -1,14 +1,25 @@
 import { Request, Response } from 'express'
 import { userAuthenticated } from 'services/UserAuthenticated/UserAuthenticated'
+import { container } from 'tsyringe'
+import { ChangePasswordUseCase } from './ChangePasswordUseCase'
 
 class ChangePasswordController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const { password, confirm_password, oldPassword } = req.body
+    const { password, confirmPassword, oldPassword } = req.body
     const userId = userAuthenticated(req)
 
+    const changePasswordUseCase = container.resolve(ChangePasswordUseCase)
+
+    const changePass = await changePasswordUseCase.execute({
+      password,
+      confirmPassword,
+      userId,
+      oldPassword
+    })
+
     return res
-      .status(200)
-      .json({ password, confirm_password, userId, oldPassword })
+      .status(changePass.status)
+      .json({ message: changePass.message, status: changePass.status })
   }
 }
 

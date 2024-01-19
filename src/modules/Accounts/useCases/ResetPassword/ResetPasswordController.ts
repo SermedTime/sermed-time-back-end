@@ -15,7 +15,9 @@ class ResetPasswordController {
       confirmPassword
     })
 
-    return res.status(200).json(response)
+    return res
+      .status(response.status)
+      .json({ status: response.status, message: response.message })
   }
 }
 

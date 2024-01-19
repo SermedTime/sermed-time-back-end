@@ -15,4 +15,8 @@ interface IUserAuthSQL {
   DT_ULTI_ATUA: Date
 }
 
-export { IUserAuthSQL }
+interface IUserOldPass {
+  DS_PASS: string
+}
+
+export { IUserAuthSQL, IUserOldPass }
