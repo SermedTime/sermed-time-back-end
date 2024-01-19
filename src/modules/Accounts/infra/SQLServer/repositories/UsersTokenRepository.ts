@@ -21,7 +21,7 @@ class UsersTokenRepository implements IUsersTokenRepository {
         .request()
         .input('UUID_USUA', sql.NVarChar(36), user_id)
         .input('DS_TOKE', sql.VarChar(4096), token)
-        .input('UUID_USUA', sql.DateTime, expires_date)
+        .input('DT_EXPI', sql.DateTime, expires_date)
         .execute('[dbo].[PRC_RECU_SENH_GRAV]')
 
       const { recordset: user } = result
