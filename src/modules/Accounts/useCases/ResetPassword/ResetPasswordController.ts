@@ -5,14 +5,13 @@ import { ResetPasswordUseCase } from './ResetPasswordUseCase'
 class ResetPasswordController {
   async handle(req: Request, res: Response): Promise<Response> {
     const { token } = req.params
-    const { password, confirmPassword } = req.body
+    const { password } = req.body
 
     const resetePasswordUseCase = container.resolve(ResetPasswordUseCase)
 
     const response = await resetePasswordUseCase.execute({
       token,
-      password,
-      confirmPassword
+      password
     })
 
     return res

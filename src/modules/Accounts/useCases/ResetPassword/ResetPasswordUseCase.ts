@@ -8,7 +8,6 @@ import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 interface IRequest {
   token: string
   password: string
-  confirmPassword: string
 }
 
 @injectable()
@@ -20,19 +19,7 @@ class ResetPasswordUseCase {
     private usersTokensRepository: IUsersTokenRepository
   ) {}
 
-  async execute({
-    token,
-    password,
-    confirmPassword
-  }: IRequest): Promise<IResponse> {
-    if (password !== confirmPassword) {
-      return ResponseService.setResponseJson({
-        message: 'Senhas não conferem',
-        success: false,
-        status: HTTP_STATUS.BAD_REQUEST
-      })
-    }
-
+  async execute({ token, password }: IRequest): Promise<IResponse> {
     const userToken = await this.usersTokensRepository.findByToken(token)
 
     if (!userToken.success || userToken.data.length === 0) {

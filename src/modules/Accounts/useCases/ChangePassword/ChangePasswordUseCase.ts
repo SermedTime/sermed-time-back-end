@@ -5,9 +5,8 @@ import { IResponse, ResponseService } from 'services/Response/ResponseService'
 import { inject, injectable } from 'tsyringe'
 
 interface IRequest {
-  oldPassword: string
-  password: string
-  confirmPassword: string
+  currentPassword: string
+  newPassword: string
   userId: string
 }
 @injectable()
@@ -19,18 +18,9 @@ class ChangePasswordUseCase {
 
   async execute({
     userId,
-    password,
-    confirmPassword,
-    oldPassword
+    newPassword,
+    currentPassword
   }: IRequest): Promise<IResponse> {
-    if (password !== confirmPassword) {
-      return ResponseService.setResponseJson({
-        success: false,
-        message: 'Senhas não conferem',
-        status: HTTP_STATUS.BAD_REQUEST
-      })
-    }
-
     const oldPasswordMatch =
       await this.userAuthRepository.getPasswordById(userId)
 
@@ -43,7 +33,7 @@ class ChangePasswordUseCase {
     }
 
     const passwordMatch = await compare(
-      oldPassword,
+      currentPassword,
       oldPasswordMatch.data[0].DS_PASS
     )
 
@@ -57,7 +47,7 @@ class ChangePasswordUseCase {
 
     const changePassword = await this.userAuthRepository.changePassword({
       uuid_usua: userId,
-      password,
+      password: newPassword,
       is_reset: 0
     })
 

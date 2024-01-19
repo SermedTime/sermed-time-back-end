@@ -5,16 +5,15 @@ import { ChangePasswordUseCase } from './ChangePasswordUseCase'
 
 class ChangePasswordController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const { password, confirmPassword, oldPassword } = req.body
+    const { newPassword, currentPassword } = req.body
     const userId = userAuthenticated(req)
 
     const changePasswordUseCase = container.resolve(ChangePasswordUseCase)
 
     const changePass = await changePasswordUseCase.execute({
-      password,
-      confirmPassword,
+      newPassword,
       userId,
-      oldPassword
+      currentPassword
     })
 
     return res

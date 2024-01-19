@@ -206,7 +206,7 @@ class UsersRepository implements IUsersRepository {
 
       const result = await pool
         .request()
-        .input('UUID_USUA', sql.NVarChar(36), email)
+        .input('DS_MAIL', sql.VarChar(256), email)
         .execute('[dbo].[PRC_USUA_CONS]')
 
       const { recordset: user } = result

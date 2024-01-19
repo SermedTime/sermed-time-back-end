@@ -5,7 +5,6 @@ import { v4 as uuidV4 } from 'uuid'
 
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 
-import { IUsersRepository } from '@modules/Parametrizations/Manager/User/repositories/IUsersRepository'
 import { IResponse, ResponseService } from 'services/Response/ResponseService'
 import { IMailProvider } from '@shared/container/providers/MailProvider/IMailProvider'
 import { IUsersTokenRepository } from '@modules/Accounts/repositories/IUsersTokenRepository'
@@ -13,7 +12,8 @@ import { IDateProvider } from '@shared/container/providers/DateProvider/IDatePro
 import { sign } from 'jsonwebtoken'
 import auth from '@config/auth'
 import { IResponseRepository } from 'services/Response/interfaces'
-import { IUserSQL } from '@modules/Parametrizations/Manager/User/infra/SQLServer/interfaces'
+import { IUserAuthRepository } from '@modules/Accounts/repositories/IUserAuthRepository'
+import { IUserAuthSQL } from '@modules/Accounts/infra/SQLServer/interfaces/IUserAuthSQL'
 
 interface IVariables {
   name: string
@@ -26,13 +26,13 @@ class RecoverPasswordUseCase {
 
   private expires_date: string | null
 
-  private user: IUserSQL | null
+  private user: IUserAuthSQL | null
 
   private createRecoverPass: IResponseRepository<string> | null
 
   constructor(
-    @inject('UsersRepository')
-    private usersRepository: IUsersRepository,
+    @inject('UserAuthRepository')
+    private userAuthRepository: IUserAuthRepository,
     @inject('UsersTokenRepository')
     private usersTokensRepository: IUsersTokenRepository,
     @inject('DayjsDateProvider')
@@ -49,7 +49,7 @@ class RecoverPasswordUseCase {
   }
 
   async execute(email: string): Promise<IResponse> {
-    const user = await this.usersRepository.findByEmail(email)
+    const user = await this.userAuthRepository.findByEmail(email)
 
     const templatePath = resolve(
       __dirname,
@@ -67,6 +67,8 @@ class RecoverPasswordUseCase {
         status: HTTP_STATUS.BAD_REQUEST
       })
     }
+
+    console.log(user.data[0])
 
     this.user = user.data.length > 0 ? user.data[0] : null
 
