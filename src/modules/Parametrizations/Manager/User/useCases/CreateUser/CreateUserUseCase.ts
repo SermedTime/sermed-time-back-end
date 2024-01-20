@@ -88,7 +88,7 @@ class CreateUserUseCase {
       name: socialName,
       password: pass,
       email,
-      link: `${process.env.APP_WEB_URL}/auth/login`
+      link: `${process.env.WEB_APP_URL}/auth/login`
     }
 
     this.mailProvider.sendMail(
