@@ -1,5 +1,5 @@
 {
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "peacock.remoteColor": "#215732",
   "workbench.colorCustomizations": {
     "activityBar.activeBackground": "#2f7c47",

@@ -68,8 +68,6 @@ class RecoverPasswordUseCase {
       })
     }
 
-    console.log(user.data[0])
-
     this.user = user.data.length > 0 ? user.data[0] : null
 
     this.setToken()
