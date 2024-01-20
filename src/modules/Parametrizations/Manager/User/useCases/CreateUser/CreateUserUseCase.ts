@@ -15,6 +15,7 @@ interface IVariables {
   name: string
   password: string
   email: string
+  link: string
 }
 
 @injectable()
@@ -22,8 +23,8 @@ class CreateUserUseCase {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
-    @inject('EtherealMailProvider')
-    private etherealMailProvider: IMailProvider
+    @inject('MailProvider')
+    private mailProvider: IMailProvider
   ) {}
 
   async execute({
@@ -86,10 +87,11 @@ class CreateUserUseCase {
     const variables: IVariables = {
       name: socialName,
       password: pass,
-      email
+      email,
+      link: `${process.env.APP_WEB_URL}/auth/login`
     }
 
-    this.etherealMailProvider.sendMail(
+    this.mailProvider.sendMail(
       email,
       'Bem vindo ao sistema de gestão de ponto',
       variables,

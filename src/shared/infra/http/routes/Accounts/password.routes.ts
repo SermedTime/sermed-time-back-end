@@ -11,7 +11,7 @@ const recoverPasswordController = container.resolve(RecoverPasswordController)
 const resetPasswordController = container.resolve(ResetPasswordController)
 const changePasswordController = container.resolve(ChangePasswordController)
 
-passwordRoutes.post('/recover_password', recoverPasswordController.handle)
+passwordRoutes.post('/recover', recoverPasswordController.handle)
 passwordRoutes.post('/reset/:token', resetPasswordController.handle)
 passwordRoutes.post(
   '/change',

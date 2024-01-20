@@ -37,8 +37,8 @@ class RecoverPasswordUseCase {
     private usersTokensRepository: IUsersTokenRepository,
     @inject('DayjsDateProvider')
     private dateProvider: IDateProvider,
-    @inject('EtherealMailProvider')
-    private etherealMailProvider: IMailProvider
+    @inject('MailProvider')
+    private mailProvider: IMailProvider
   ) {
     this.token = null
     this.expires_date = this.dateProvider.convertToUTC(
@@ -86,7 +86,7 @@ class RecoverPasswordUseCase {
 
     const variables: IVariables = this.setVariables()
 
-    this.etherealMailProvider.sendMail(
+    this.mailProvider.sendMail(
       email,
       'Recuperação de senha',
       variables,
@@ -121,7 +121,7 @@ class RecoverPasswordUseCase {
   private setVariables(): IVariables {
     return {
       name: this.user.NM_SOCI_USUA,
-      link: `${process.env.FORGOT_MAIL_URL}/${this.token}`
+      link: `${process.env.WEB_APP_URL}/recover/${this.token}`
     }
   }
 }
