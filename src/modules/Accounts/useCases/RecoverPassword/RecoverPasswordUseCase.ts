@@ -119,7 +119,7 @@ class RecoverPasswordUseCase {
   private setVariables(): IVariables {
     return {
       name: this.user.NM_SOCI_USUA,
-      link: `${process.env.WEB_APP_URL}/recover/${this.token}`
+      link: `${process.env.WEB_APP_URL}/auth/reset-password/${this.token}`
     }
   }
 }
