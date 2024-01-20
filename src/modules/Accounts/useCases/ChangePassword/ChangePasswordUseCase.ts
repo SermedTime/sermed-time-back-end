@@ -48,7 +48,8 @@ class ChangePasswordUseCase {
     const changePassword = await this.userAuthRepository.changePassword({
       uuid_usua: userId,
       password: newPassword,
-      is_reset: 0
+      is_reset: 0,
+      user_action: userId
     })
 
     if (!changePassword.success) {

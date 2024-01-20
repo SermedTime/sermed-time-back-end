@@ -34,7 +34,8 @@ class ResetPasswordUseCase {
       uuid_usua: userToken.data[0].UUID_USUA,
       password,
       uuid_token: userToken.data[0].UUID_TOKE,
-      is_reset: 1
+      is_reset: 1,
+      user_action: userToken.data[0].UUID_USUA
     })
 
     if (!change.success) {

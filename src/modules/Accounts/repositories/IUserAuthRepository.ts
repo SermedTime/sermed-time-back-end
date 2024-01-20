@@ -9,6 +9,7 @@ export interface IChangePass {
   password: string
   uuid_token?: string
   is_reset: 0 | 1
+  user_action: string
 }
 
 interface IUserAuthRepository {

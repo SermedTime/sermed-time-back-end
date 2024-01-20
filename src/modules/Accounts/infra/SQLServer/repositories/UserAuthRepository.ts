@@ -42,7 +42,8 @@ class UserAuthRepository implements IUserAuthRepository {
     uuid_usua,
     password,
     uuid_token,
-    is_reset
+    is_reset,
+    user_action
   }: IChangePass): Promise<IResponseRepository> {
     let response: IResponseRepository
 
@@ -54,6 +55,7 @@ class UserAuthRepository implements IUserAuthRepository {
       await pool
         .request()
         .input('UUID_USUA', sql.NVarChar(36), uuid_usua)
+        .input('UUID_USUA_ACAO', sql.NVarChar(36), user_action)
         .input('UUID_TOKE', sql.NVarChar(36), uuid_token)
         .input('DS_PASS', sql.VarChar(128), hashPassword)
         .input('IN_RESE', sql.Bit, is_reset)
