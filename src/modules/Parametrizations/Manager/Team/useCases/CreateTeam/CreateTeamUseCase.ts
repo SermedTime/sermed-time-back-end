@@ -12,10 +12,18 @@ class CreateTeamUseCase {
     private teamRepository: ITeamRepository
   ) {}
 
-  async execute({ name, status }: ICreateTeamDTO): Promise<IResponse> {
+  async execute({
+    name,
+    status,
+    user_action
+  }: ICreateTeamDTO): Promise<IResponse> {
     const in_stat = status ? (status === 'active' ? 1 : 0) : null
 
-    const team = await this.teamRepository.upsert({ name, status: in_stat })
+    const team = await this.teamRepository.upsert({
+      name,
+      status: in_stat,
+      user_action
+    })
 
     if (!team.success) {
       return ResponseService.setResponseJson({

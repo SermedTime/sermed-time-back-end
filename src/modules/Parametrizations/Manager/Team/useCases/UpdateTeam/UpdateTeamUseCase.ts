@@ -13,13 +13,19 @@ class UpdateTeamUseCase {
     private teamRepository: ITeamRepository
   ) {}
 
-  async execute({ uuid, name, status }: ICreateTeamDTO): Promise<IResponse> {
+  async execute({
+    uuid,
+    name,
+    status,
+    user_action
+  }: ICreateTeamDTO): Promise<IResponse> {
     const in_stat = statusVerify(status)
 
     const team = await this.teamRepository.upsert({
       uuid,
       name,
-      status: in_stat
+      status: in_stat,
+      user_action
     })
 
     if (!team.success) {

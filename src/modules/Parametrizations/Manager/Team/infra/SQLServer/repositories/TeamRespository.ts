@@ -14,7 +14,8 @@ class TeamRepository implements ITeamRepository {
   async upsert({
     name,
     status,
-    uuid
+    uuid,
+    user_action
   }: ICreateTeamDTO): Promise<IResponseRepository> {
     let response: IResponseRepository
     try {
@@ -24,7 +25,7 @@ class TeamRepository implements ITeamRepository {
         .request()
         .input('UUID', sql.UniqueIdentifier, uuid)
         .input('NM_EQUI', sql.VarChar(128), name)
-        // .input('UUID_USUA_ACAO', sql.NVarChar(36), ACTION_USER)
+        .input('UUID_USUA_ACAO', sql.NVarChar(36), user_action)
         .input('IN_STAT', sql.Bit, status)
         .execute('[dbo].[PRC_EQUI_GRAV]')
 
