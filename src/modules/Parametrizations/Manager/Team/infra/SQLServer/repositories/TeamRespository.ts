@@ -5,6 +5,7 @@ import { getPool } from '@shared/infra/database/config'
 import { statusVerify } from '@utils/statusVerify'
 
 import { IResponseRepository } from 'services/Response/interfaces'
+import { IRequestTeamsDropdown } from '@modules/Rules/Dropdown/Parametrizations/TeamDropdown/TeamDropdownUseCase'
 import { ITeamSQL } from '../interfaces/ITeamSQL'
 import { ICreateTeamDTO } from '../../../dtos/ICreateTeamDTO'
 import { ITeamRepository } from '../../../repositories/ITeamRepository'
@@ -112,7 +113,10 @@ class TeamRepository implements ITeamRepository {
     return response
   }
 
-  async findAll(allTeams?: string): Promise<IResponseRepository<ITeamSQL>> {
+  async findAll({
+    allTeams,
+    user_id
+  }: IRequestTeamsDropdown): Promise<IResponseRepository<ITeamSQL>> {
     let response: IResponseRepository<ITeamSQL>
 
     try {
@@ -121,6 +125,7 @@ class TeamRepository implements ITeamRepository {
       const result = await pool
         .request()
         .input('ALL', sql.Bit, allTeams === 'true' ? 1 : 0)
+        .input('UUID_USUA', sql.NVarChar(36), user_id)
         .execute('[dbo].[PRC_EQUI_DROP_DOWN]')
 
       const { recordset: team } = result

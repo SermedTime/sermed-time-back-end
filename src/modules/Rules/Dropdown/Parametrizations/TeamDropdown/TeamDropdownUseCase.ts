@@ -5,6 +5,11 @@ import { IResponse, ResponseService } from 'services/Response/ResponseService'
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 import { IDropdown } from 'services/Response/interfaces'
 
+export interface IRequestTeamsDropdown {
+  allTeams: string
+  user_id: string
+}
+
 @injectable()
 class TeamDropdownUseCase {
   constructor(
@@ -12,8 +17,14 @@ class TeamDropdownUseCase {
     private teamRepository: ITeamRepository
   ) {}
 
-  async execute(allTeams: string): Promise<IResponse> {
-    const teams = await this.teamRepository.findAll(allTeams)
+  async execute({
+    allTeams,
+    user_id
+  }: IRequestTeamsDropdown): Promise<IResponse> {
+    const teams = await this.teamRepository.findAll({
+      allTeams,
+      user_id
+    })
 
     if (!teams.success) {
       return ResponseService.setResponseJson({
