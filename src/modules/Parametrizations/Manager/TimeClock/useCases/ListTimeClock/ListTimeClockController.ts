@@ -11,7 +11,7 @@ class ListTimeClockController {
     const timeClock = await listTimeClockUseCase.execute({
       search: search as string,
       searchingBy: searchingBy as string,
-      records: records as string,
+      records: Number(records),
       status: status as string,
       order: order as string,
       page: Number(page)
