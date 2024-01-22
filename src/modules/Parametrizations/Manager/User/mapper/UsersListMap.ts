@@ -7,6 +7,7 @@ interface IUsersList {
   cpf: string
   status: string
   created_at: string
+  resignation_date: string | null
 }
 
 class UsersListMap {
@@ -18,7 +19,8 @@ class UsersListMap {
         socialName: i.NM_SOCI_USUA,
         cpf: i.NR_CPF,
         status: i.IN_STAT,
-        created_at: i.DT_CRIA
+        created_at: i.DT_CRIA,
+        resignation_date: i.DT_DEMI
       }
     })
 

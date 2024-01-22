@@ -7,6 +7,7 @@ interface IAssignTeamRepository {
   Create(data: ICreateAssignTeamDTO): Promise<IResponseRepository>
   Update(data: ICreateAssignTeamDTO): Promise<IResponseRepository>
   List(data: IRequest): Promise<IResponseRepository<IAssignTeamSQL>>
+  Delete(data: ICreateAssignTeamDTO): Promise<IResponseRepository>
 }
 
 export { IAssignTeamRepository }

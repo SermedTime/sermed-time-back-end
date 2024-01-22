@@ -113,6 +113,38 @@ class AssignTeamRepository implements IAssignTeamRepository {
 
     return response
   }
+
+  async Delete({
+    user_action,
+    assign_id
+  }: ICreateAssignTeamDTO): Promise<IResponseRepository<any>> {
+    let response: IResponseRepository
+
+    try {
+      const pool = await getPool()
+
+      const result = await pool
+        .request()
+        .input('UUID_USUA_X_EQUI', sql.NVarChar(36), assign_id)
+        .input('UUID_USUA_ACAO', sql.NVarChar(36), user_action)
+        .input('IN_DELE', sql.Bit, 1)
+        .execute('[dbo].[PRC_USUA_X_EQUI_GRAV]')
+
+      const { recordset: membership } = result
+
+      response = {
+        success: true,
+        data: membership
+      }
+    } catch (err) {
+      response = {
+        success: false,
+        message: err.message
+      }
+    }
+
+    return response
+  }
 }
 
 export { AssignTeamRepository }
