@@ -5,6 +5,7 @@ import { IAssignTeamSQL } from '../infra/SQLServer/interfaces'
 
 interface IAssignTeamRepository {
   Create(data: ICreateAssignTeamDTO): Promise<IResponseRepository>
+  Update(data: ICreateAssignTeamDTO): Promise<IResponseRepository>
   List(data: IRequest): Promise<IResponseRepository<IAssignTeamSQL>>
 }
 

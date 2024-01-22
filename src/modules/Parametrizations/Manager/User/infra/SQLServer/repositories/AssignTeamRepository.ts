@@ -44,6 +44,39 @@ class AssignTeamRepository implements IAssignTeamRepository {
     return response
   }
 
+  async Update({
+    assign_id,
+    is_supervisor,
+    user_action
+  }: ICreateAssignTeamDTO): Promise<IResponseRepository> {
+    let response: IResponseRepository
+
+    try {
+      const pool = await getPool()
+
+      const result = await pool
+        .request()
+        .input('UUID_USUA_X_EQUI', sql.NVarChar(36), assign_id)
+        .input('UUID_USUA_ACAO', sql.NVarChar(36), user_action)
+        .input('IN_SUPE', sql.Bit, is_supervisor)
+        .execute('[dbo].[PRC_USUA_X_EQUI_GRAV]')
+
+      const { recordset: membership } = result
+
+      response = {
+        success: true,
+        data: membership
+      }
+    } catch (err) {
+      response = {
+        success: false,
+        message: err.message
+      }
+    }
+
+    return response
+  }
+
   async List({
     user_id,
     is_supervisor,
