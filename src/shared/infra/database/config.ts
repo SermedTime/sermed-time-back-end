@@ -29,6 +29,22 @@ export async function createConnection() {
   }
 }
 
+export async function closeConnection() {
+  if (pool) {
+    try {
+      await pool.close()
+      console.log('Conexão com o banco de dados fechada')
+      pool = null // Resetar a variável do pool após o fechamento
+    } catch (err) {
+      console.error(
+        'Erro ao fechar a conexão com o banco de dados:',
+        err.message
+      )
+      throw err
+    }
+  }
+}
+
 export function getPool() {
   if (!pool) {
     throw new Error('A conexão com o banco de dados ainda não foi estabelecida')

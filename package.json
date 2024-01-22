@@ -9,8 +9,7 @@
     "test:staged": "jest --watch",
     "prepare": "husky install",
     "lint": "eslint . --ext ts,tsx",
-    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli",
-    "migration:run": "npm run typeorm -- migration:run --dataSource ./src/shared/infra/typeorm/index.ts"
+    "seed:user": "ts-node-dev --env-file=.env -r tsconfig-paths/register src/shared/infra/database/seed/insertFirstUser.ts"
   },
   "keywords": [],
   "author": "",
