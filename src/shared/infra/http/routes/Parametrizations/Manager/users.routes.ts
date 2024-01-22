@@ -21,6 +21,6 @@ userRoutes.post('/', createUserController.handle)
 userRoutes.get('/:uuid', detailsUserController.handle)
 userRoutes.put('/:uuid', updateUserController.handle)
 
-userRoutes.post('/team', createAssignController.handle)
+userRoutes.post('/membership', createAssignController.handle)
 
 export { userRoutes }
