@@ -23,7 +23,8 @@ class CreateCompanyUseCase {
     city,
     state,
     zipCode,
-    status
+    status,
+    user_action
   }: ICreateCompanyDTO): Promise<IResponse> {
     const in_stat = status ? (status === 'active' ? 1 : 0) : null
 
@@ -37,7 +38,8 @@ class CreateCompanyUseCase {
       city,
       state,
       zipCode,
-      status: in_stat
+      status: in_stat,
+      user_action
     })
 
     if (!company.success) {

@@ -21,7 +21,8 @@ class CompaniesRepository implements ICompaniesRepository {
     city,
     state,
     zipCode,
-    status
+    status,
+    user_action
   }: ICreateCompanyDTO): Promise<IResponseRepository> {
     let response: IResponseRepository
 
@@ -41,7 +42,7 @@ class CompaniesRepository implements ICompaniesRepository {
         .input('NM_MUNI', sql.VarChar(128), city)
         .input('DS_UF', sql.Char(2), state)
         .input('IN_STAT', sql.Bit, status)
-        // .input('UUID_USUA_ACAO', sql.NVarChar(36), ACTION_USER)
+        .input('UUID_USUA_ACAO', sql.NVarChar(36), user_action)
         .execute('[dbo].[PRC_EMPR_GRAV]')
 
       const { recordset: company } = result

@@ -2,18 +2,7 @@ import { IResponse, ResponseService } from 'services/Response/ResponseService'
 import { inject, injectable } from 'tsyringe'
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 import { ITimeClockRepository } from '../../repositories/ITimeClockRepository'
-
-interface IRequest {
-  city: string
-  clock_ip: string
-  manufacturer: string
-  model: string
-  name: string
-  sector: string
-  state: string
-  status: string
-  unit: string
-}
+import { ICreateTimeClockDTO } from '../../dtos/ICreateTimeClockDTO'
 
 @injectable()
 class CreateTimeClockUseCase {
@@ -31,8 +20,9 @@ class CreateTimeClockUseCase {
     sector,
     state,
     status,
-    unit
-  }: IRequest): Promise<IResponse> {
+    unit,
+    user_action
+  }: ICreateTimeClockDTO): Promise<IResponse> {
     const in_stat = status ? (status === 'active' ? 1 : 0) : null
 
     const timeClock = await this.timeClockRepository.upsert({
@@ -44,7 +34,8 @@ class CreateTimeClockUseCase {
       sector,
       state,
       status: in_stat,
-      unit
+      unit,
+      user_action
     })
 
     if (!timeClock.success) {

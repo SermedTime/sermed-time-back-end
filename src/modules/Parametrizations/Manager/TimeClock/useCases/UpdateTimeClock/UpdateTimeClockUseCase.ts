@@ -2,9 +2,9 @@ import { IResponse, ResponseService } from 'services/Response/ResponseService'
 import { inject, injectable } from 'tsyringe'
 
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
-import { ICreateTimeClock } from '../CreateTimeClock/CreateTimeClockUseCase'
+
 import { ITimeClockRepository } from '../../repositories/ITimeClockRepository'
-import { ICreateTimeClockDTO } from '../../dtos/ICreateTimeClockDTO'
+import { IUpdateTimeClockDTO } from '../../dtos/ICreateTimeClockDTO'
 
 @injectable()
 class UpdateTimeClockUseCase {
@@ -23,8 +23,9 @@ class UpdateTimeClockUseCase {
     sector,
     state,
     status,
-    unit
-  }: ICreateTimeClockDTO): Promise<IResponse<ICreateTimeClock>> {
+    unit,
+    user_action
+  }: IUpdateTimeClockDTO): Promise<IResponse> {
     const in_stat = status ? (status === 'active' ? 1 : 0) : null
 
     const timeClock = await this.timeClockRepository.upsert({
@@ -37,18 +38,19 @@ class UpdateTimeClockUseCase {
       sector,
       state,
       status: in_stat,
-      unit
+      unit,
+      user_action
     })
 
     if (!timeClock.success) {
-      return ResponseService.setResponseJson<ICreateTimeClock>({
+      return ResponseService.setResponseJson({
         status: HTTP_STATUS.BAD_REQUEST,
         success: timeClock.success,
         message: timeClock.message
       })
     }
 
-    return ResponseService.setResponseJson<ICreateTimeClock>({
+    return ResponseService.setResponseJson({
       data: uuid,
       status: HTTP_STATUS.OK,
       success: timeClock.success,

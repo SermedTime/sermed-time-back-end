@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
+import { userAuthenticated } from 'services/UserAuthenticated/UserAuthenticated'
 import { CreateCompanyUseCase } from './CreateCompanyUseCase'
 
 class CreateCompanyController {
@@ -17,6 +18,8 @@ class CreateCompanyController {
       status
     } = req.body
 
+    const userId = userAuthenticated(req)
+
     const createCompanyUseCase = container.resolve(CreateCompanyUseCase)
 
     const company = await createCompanyUseCase.execute({
@@ -29,7 +32,8 @@ class CreateCompanyController {
       city,
       state,
       zipCode,
-      status
+      status,
+      user_action: userId
     })
 
     return res.status(company.status).json(company)

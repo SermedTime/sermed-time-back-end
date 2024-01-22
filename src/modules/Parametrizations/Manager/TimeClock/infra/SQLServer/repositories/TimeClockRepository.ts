@@ -7,7 +7,10 @@ import { IResponseRepository } from 'services/Response/interfaces'
 
 import { ITimeClockSQL } from '../interfaces/ITimeClockSQL'
 import { ITimeClockRepository } from '../../../repositories/ITimeClockRepository'
-import { ICreateTimeClockDTO } from '../../../dtos/ICreateTimeClockDTO'
+import {
+  ICreateTimeClockDTO,
+  IUpdateTimeClockDTO
+} from '../../../dtos/ICreateTimeClockDTO'
 
 import { IParamsListTimeClock } from '../../../useCases/ListTimeClock/ListTimeClockUseCase'
 
@@ -22,8 +25,9 @@ class TimeClockRepository implements ITimeClockRepository {
     state,
     status,
     unit,
-    uuid
-  }: ICreateTimeClockDTO): Promise<IResponseRepository> {
+    uuid,
+    user_action
+  }: ICreateTimeClockDTO | IUpdateTimeClockDTO): Promise<IResponseRepository> {
     let response: IResponseRepository
     try {
       const pool: ConnectionPool = getPool()
@@ -39,7 +43,7 @@ class TimeClockRepository implements ITimeClockRepository {
         .input('DS_UF', sql.VarChar(128), state)
         .input('NM_FABR', sql.VarChar(128), manufacturer)
         .input('NM_MODE', sql.VarChar(128), model)
-        // .input('UUID_USUA_ACAO', sql.NVarChar(36), ACTION_USER)
+        .input('UUID_USUA_ACAO', sql.NVarChar(36), user_action)
         .input('IN_STAT', sql.Bit, status)
         .execute('[dbo].[PRC_RELO_PONT_GRAV]')
 

@@ -10,6 +10,7 @@ interface ICreateCompanyDTO {
   state: string
   zipCode: string
   status: string | number
+  user_action: string
 }
 
 export { ICreateCompanyDTO }

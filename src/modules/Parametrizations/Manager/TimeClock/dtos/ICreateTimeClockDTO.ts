@@ -9,6 +9,12 @@ interface ICreateTimeClockDTO {
   state: string
   status: string | number
   unit: string
+  user_action: string
 }
 
-export { ICreateTimeClockDTO }
+interface IUpdateTimeClockDTO
+  extends Partial<Omit<ICreateTimeClockDTO, 'user_action'>> {
+  uuid: string
+  user_action: string
+}
+export { ICreateTimeClockDTO, IUpdateTimeClockDTO }
