@@ -5,7 +5,7 @@ import { getPool } from '@shared/infra/database/config'
 import { IResponseRepository } from 'services/Response/interfaces'
 import { ICreateAssignTeamDTO } from '../../../dtos/ICreateAssignTeamDTO'
 import { IAssignTeamRepository } from '../../../repositories/IAssignTeamRepository'
-import { IRequest } from '../../../useCases/AssignTeam/ListAssign/ListAssignUseCase'
+import { IListAssignUseCaseRequest } from '../../../useCases/AssignTeam/ListAssign/ListAssignUseCase'
 import { IAssignTeamSQL } from '../interfaces'
 
 class AssignTeamRepository implements IAssignTeamRepository {
@@ -83,7 +83,7 @@ class AssignTeamRepository implements IAssignTeamRepository {
     order,
     page,
     records
-  }: IRequest): Promise<IResponseRepository<IAssignTeamSQL>> {
+  }: IListAssignUseCaseRequest): Promise<IResponseRepository<IAssignTeamSQL>> {
     let response: IResponseRepository<IAssignTeamSQL>
 
     try {

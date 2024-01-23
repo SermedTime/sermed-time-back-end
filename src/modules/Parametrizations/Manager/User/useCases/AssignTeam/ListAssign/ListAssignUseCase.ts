@@ -5,7 +5,7 @@ import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 import { IAssignTeamRepository } from '../../../repositories/IAssignTeamRepository'
 import { AssignTeamMap, IAssignTeamList } from '../../../mapper/AssignTeamMap'
 
-export interface IRequest extends IManagerFilters {
+export interface IListAssignUseCaseRequest extends IManagerFilters {
   user_id: string
   is_supervisor: string
 }
@@ -23,7 +23,7 @@ class ListAssignUseCase {
     order,
     page = 1,
     records = 1
-  }: IRequest): Promise<IResponse<IAssignTeamList>> {
+  }: IListAssignUseCaseRequest): Promise<IResponse<IAssignTeamList>> {
     const membership = await this.assignTeamRepository.List({
       user_id,
       is_supervisor,

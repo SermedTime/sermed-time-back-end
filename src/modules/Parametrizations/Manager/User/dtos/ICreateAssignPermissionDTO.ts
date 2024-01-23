@@ -1,5 +1,5 @@
 interface ICreateAssignPermissionDTO {
-  uuid?: string
+  uuid: string
   user_id: string
   permission_id: string
   is_writer: 1 | 0

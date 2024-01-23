@@ -1,9 +1,9 @@
 interface IManagerFilters {
   search?: string
   searchingBy?: string
-  records?: number
   status?: string
-  order: string
+  order?: string
+  records: number
   page: number
 }
 
