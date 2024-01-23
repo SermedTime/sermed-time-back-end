@@ -4,7 +4,8 @@ import {
   teamRoutes,
   timeClockRoutes,
   userRoutes,
-  usersMembershipRoutes
+  usersMembershipRoutes,
+  usersPermissionsRoutes
 } from './Parametrizations/Manager'
 import { dropdownRoutes } from './Rules/Dropdown'
 import { authenticateRoutes, passwordRoutes } from './Accounts'
@@ -19,6 +20,11 @@ router.use(
   '/parametrizations/assign-teams',
   ensureAuthenticated,
   usersMembershipRoutes
+)
+router.use(
+  '/parametrizations/assing-permissions',
+  ensureAuthenticated,
+  usersPermissionsRoutes
 )
 router.use('/parametrizations/companies', ensureAuthenticated, companyRoutes)
 
