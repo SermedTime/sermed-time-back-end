@@ -16,7 +16,7 @@ router.use('/parametrizations/time-clock', ensureAuthenticated, timeClockRoutes)
 router.use('/parametrizations/team', ensureAuthenticated, teamRoutes)
 router.use('/parametrizations/users', ensureAuthenticated, userRoutes)
 router.use(
-  '/parametrizations/assign-users',
+  '/parametrizations/assign-teams',
   ensureAuthenticated,
   usersMembershipRoutes
 )

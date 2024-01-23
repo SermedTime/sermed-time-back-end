@@ -16,6 +16,8 @@ import { IUsersTokenRepository } from '@modules/Accounts/repositories/IUsersToke
 import { UsersTokenRepository } from '@modules/Accounts/infra/SQLServer/repositories/UsersTokenRepository'
 import { AssignTeamRepository } from '@modules/Parametrizations/Manager/User/infra/SQLServer/repositories/AssignTeamRepository'
 import { IAssignTeamRepository } from '@modules/Parametrizations/Manager/User/repositories/IAssignTeamRepository'
+import { IAssignPermissionRepository } from '@modules/Parametrizations/Manager/User/repositories/IAssignPermissionRepository'
+import { AssignPermissionRepository } from '@modules/Parametrizations/Manager/User/infra/SQLServer/repositories/AssignPermissionRepository'
 
 container.registerSingleton<ITimeClockRepository>(
   'TimeClockRepository',
@@ -52,4 +54,9 @@ container.registerSingleton<IUsersTokenRepository>(
 container.registerSingleton<IAssignTeamRepository>(
   'AssignTeamRepository',
   AssignTeamRepository
+)
+
+container.registerSingleton<IAssignPermissionRepository>(
+  'AssignPermissionRepository',
+  AssignPermissionRepository
 )
