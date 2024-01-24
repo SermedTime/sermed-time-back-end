@@ -9,6 +9,7 @@ import {
 import { IResponseRepository } from 'services/Response/interfaces'
 import { hash } from 'bcrypt'
 import { IUserAuthSQL, IUserOldPass } from '../interfaces/IUserAuthSQL'
+import { IUserRulesSQL } from '../interfaces/IUserRulesSQL'
 
 class UserAuthRepository implements IUserAuthRepository {
   async findByEmail(email: string): Promise<IResponseRepository<IUserAuthSQL>> {
@@ -86,6 +87,35 @@ class UserAuthRepository implements IUserAuthRepository {
         .request()
         .input('UUID_USUA', sql.NVarChar(36), userId)
         .query('SELECT DS_PASS FROM [dbo].[TB_USUA] WHERE UUID = @UUID_USUA')
+
+      const { recordset: user } = result
+
+      response = {
+        success: true,
+        data: user
+      }
+    } catch (err) {
+      response = {
+        success: false,
+        message: err.message
+      }
+    }
+
+    return response
+  }
+
+  async getPermissions(
+    userId: string
+  ): Promise<IResponseRepository<IUserRulesSQL>> {
+    let response: IResponseRepository<IUserRulesSQL>
+
+    try {
+      const pool = getPool()
+
+      const result = await pool
+        .request()
+        .input('UUID_USUA', sql.NVarChar(36), userId)
+        .execute('[dbo].PRC_USUA_LOGI_PERM')
 
       const { recordset: user } = result
 

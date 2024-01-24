@@ -2,6 +2,12 @@ import { encryptToPayload } from '@utils/crypt'
 import { container } from 'tsyringe'
 import { IDateProvider } from '@shared/container/providers/DateProvider/IDateProvider'
 import { IUserAuthSQL } from '../infra/SQLServer/interfaces/IUserAuthSQL'
+import { IUserRulesSQL } from '../infra/SQLServer/interfaces/IUserRulesSQL'
+
+interface IRoles {
+  permission: string
+  is_writer: string
+}
 
 interface IUserAuth {
   userUuid: string
@@ -17,11 +23,11 @@ interface IUserAuth {
   cpf: string
   admissionDate: string
   lastUpdateDate: string
-  rules?: string[]
+  roles?: IRoles[]
 }
 
 class UserAuthMap {
-  static toDTO(data: IUserAuthSQL): IUserAuth {
+  static toDTO(data: IUserAuthSQL, rules: IUserRulesSQL[]): IUserAuth {
     const dateProvider = container.resolve('DayjsDateProvider') as IDateProvider
 
     return {
@@ -40,7 +46,15 @@ class UserAuthMap {
       lastUpdateDate: encryptToPayload(
         dateProvider.convertToUTC(data.DT_ULTI_ATUA)
       ),
-      rules: []
+      roles:
+        rules.length > 0
+          ? rules.map(r => {
+              return {
+                permission: encryptToPayload(r.SG_PERM),
+                is_writer: encryptToPayload(r.IN_ESCR ? 'true' : 'false')
+              }
+            })
+          : []
     }
   }
 }

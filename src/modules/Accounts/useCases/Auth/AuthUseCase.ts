@@ -9,6 +9,7 @@ import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 import { IResponse, ResponseService } from 'services/Response/ResponseService'
 import { IUserAuthRepository } from '@modules/Accounts/repositories/IUserAuthRepository'
 import { IUserAuth, UserAuthMap } from '@modules/Accounts/mapper/UserAuthMap'
+import { IUserRulesSQL } from '@modules/Accounts/infra/SQLServer/interfaces/IUserRulesSQL'
 
 interface IRequest {
   email: string
@@ -50,7 +51,9 @@ class AuthUseCase {
       })
     }
 
-    const userData = UserAuthMap.toDTO(user.data[0])
+    const permissions = await this.getPermissions(user.data[0].UUID_USUA)
+
+    const userData = UserAuthMap.toDTO(user.data[0], permissions)
 
     const token = sign({}, secret_token, {
       subject: user.data[0].UUID_USUA,
@@ -73,6 +76,12 @@ class AuthUseCase {
       create: true,
       data
     })
+  }
+
+  private async getPermissions(user_id: string): Promise<IUserRulesSQL[]> {
+    const permissions = await this.userAuthRepository.getPermissions(user_id)
+
+    return permissions.data
   }
 }
 

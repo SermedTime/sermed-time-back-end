@@ -3,6 +3,7 @@ import {
   IUserAuthSQL,
   IUserOldPass
 } from '../infra/SQLServer/interfaces/IUserAuthSQL'
+import { IUserRulesSQL } from '../infra/SQLServer/interfaces/IUserRulesSQL'
 
 export interface IChangePass {
   uuid_usua: string
@@ -16,6 +17,7 @@ interface IUserAuthRepository {
   findByEmail(email: string): Promise<IResponseRepository<IUserAuthSQL>>
   changePassword(data: IChangePass): Promise<IResponseRepository>
   getPasswordById(userId: string): Promise<IResponseRepository<IUserOldPass>>
+  getPermissions(userId: string): Promise<IResponseRepository<IUserRulesSQL>>
 }
 
 export { IUserAuthRepository }
