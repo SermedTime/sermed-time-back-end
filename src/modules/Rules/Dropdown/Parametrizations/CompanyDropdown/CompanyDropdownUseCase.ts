@@ -1,8 +1,10 @@
-import { ICompaniesRepository } from '@modules/Parametrizations/Manager/Company/repositories/ICompaniesRepository'
+import { inject, injectable } from 'tsyringe'
+
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
+
+import { ICompaniesRepository } from '@modules/Parametrizations/Manager/Company/repositories/ICompaniesRepository'
 import { IResponse, ResponseService } from 'services/Response/ResponseService'
 import { IDropdown } from 'services/Response/interfaces'
-import { inject, injectable } from 'tsyringe'
 
 @injectable()
 class CompanyDropdownUseCase {

@@ -10,9 +10,11 @@ import {
 import { dropdownRoutes } from './Rules/Dropdown'
 import { authenticateRoutes, passwordRoutes } from './Accounts'
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated'
+import { schedulesRoutes } from './Schedules'
 
 const router = Router()
 
+// PARAMETRIZATIONS
 router.use('/parametrizations/time-clock', ensureAuthenticated, timeClockRoutes)
 router.use('/parametrizations/team', ensureAuthenticated, teamRoutes)
 router.use('/parametrizations/users', ensureAuthenticated, userRoutes)
@@ -28,8 +30,13 @@ router.use(
 )
 router.use('/parametrizations/companies', ensureAuthenticated, companyRoutes)
 
+// RULES -> DROPDOWN
 router.use('/dropdown', ensureAuthenticated, dropdownRoutes)
 
+// SCHEDULES
+router.use('/schedule', ensureAuthenticated, schedulesRoutes)
+
+// ACCOUNTS
 router.use('/auth', authenticateRoutes)
 router.use('/password', passwordRoutes)
 

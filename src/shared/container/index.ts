@@ -18,6 +18,10 @@ import { AssignTeamRepository } from '@modules/Parametrizations/Manager/User/inf
 import { IAssignTeamRepository } from '@modules/Parametrizations/Manager/User/repositories/IAssignTeamRepository'
 import { IAssignPermissionRepository } from '@modules/Parametrizations/Manager/User/repositories/IAssignPermissionRepository'
 import { AssignPermissionRepository } from '@modules/Parametrizations/Manager/User/infra/SQLServer/repositories/AssignPermissionRepository'
+import { IShiftRepository } from '@modules/Schedules/repositories/IShiftRepository'
+import { ShiftRepository } from '@modules/Schedules/infra/repositories/ShiftRepository'
+import { IScheduleRepository } from '@modules/Schedules/repositories/IScheduleRepository'
+import { ScheduleRepository } from '@modules/Schedules/infra/repositories/ScheduleRepository'
 
 container.registerSingleton<ITimeClockRepository>(
   'TimeClockRepository',
@@ -59,4 +63,14 @@ container.registerSingleton<IAssignTeamRepository>(
 container.registerSingleton<IAssignPermissionRepository>(
   'AssignPermissionRepository',
   AssignPermissionRepository
+)
+
+container.registerSingleton<IShiftRepository>(
+  'ShiftRepository',
+  ShiftRepository
+)
+
+container.registerSingleton<IScheduleRepository>(
+  'ScheduleRepository',
+  ScheduleRepository
 )
