@@ -47,7 +47,7 @@ class UserAuthMap {
         dateProvider.convertToUTC(data.DT_ULTI_ATUA)
       ),
       roles:
-        rules.length > 0
+        rules && rules.length > 0
           ? rules.map(r => {
               return {
                 permission: encryptToPayload(r.SG_PERM),
