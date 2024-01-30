@@ -28,8 +28,8 @@ class ScheduleListMap {
         title: i.NM_SOCI_USUA,
         shift_id: i.UUID_TURN,
         shift_name: i.NM_TURN,
-        start: new Date(`${date_schedule}T${i.HR_INIC_TURN}-0300`),
-        end: new Date(`${date_schedule}T${i.HR_FINA_TURN}-0300`),
+        start: new Date(`${date_schedule}T${i.HR_INIC_TURN}Z`),
+        end: new Date(`${date_schedule}T${i.HR_FINA_TURN}Z`),
         shift_initials: i.SG_TURN
       }
     })
