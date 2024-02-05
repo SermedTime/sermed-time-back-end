@@ -12,6 +12,7 @@ export interface IRequestListSchedule {
   shift_id: string
   schedule_date: string
   month: number
+  is_home?: string
   order?: string
   records?: number
   page?: number
@@ -31,6 +32,7 @@ class ListScheduleUseCase {
     schedule_date,
     month,
     order,
+    is_home,
     records,
     page = 1
   }: IRequestListSchedule): Promise<IResponse> {
@@ -40,6 +42,7 @@ class ListScheduleUseCase {
       shift_id,
       schedule_date,
       month,
+      is_home,
       order,
       records,
       page

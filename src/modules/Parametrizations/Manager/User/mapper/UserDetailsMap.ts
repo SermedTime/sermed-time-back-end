@@ -7,6 +7,8 @@ interface IUserDetails {
   socialName: string
   email: string
   companyUuid: string
+  companyCnpj: string
+  companyName: string
   position: string
   payrollNumber: string
   employeeCode: string
@@ -26,6 +28,8 @@ class UserDetailsMap {
       socialName: data.NM_SOCI_USUA,
       email: data.DS_MAIL,
       companyUuid: data.UUID_EMPR,
+      companyCnpj: data.NR_CNPJ_EMPR,
+      companyName: data.NM_EMPR,
       position: data.DS_FUNC,
       payrollNumber: data.NR_FOLH_PAGA,
       employeeCode: data.NR_IDEN_USUA,

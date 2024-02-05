@@ -53,6 +53,7 @@ class ScheduleRepository implements IScheduleRepository {
     shift_id,
     schedule_date,
     month,
+    is_home,
     page,
     records,
     order
@@ -69,6 +70,7 @@ class ScheduleRepository implements IScheduleRepository {
         .input('UUID_TURN', sql.NVarChar(36), shift_id)
         .input('DT_ESCA', sql.Date, schedule_date)
         .input('MES', sql.Int, month)
+        .input('IS_HOME', sql.Bit, is_home === 'active' ? 1 : 0)
         .input('NR_PAGE_INIC', sql.Int, page)
         .input('TT_REGI_PAGI', sql.Int, records)
         .input('DS_ORDE_TYPE', sql.VarChar(4), order)

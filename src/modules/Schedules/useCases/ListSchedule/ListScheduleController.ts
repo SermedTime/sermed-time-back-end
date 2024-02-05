@@ -8,6 +8,7 @@ class ListScheduleController {
   async handle(req: Request, res: Response): Promise<Response> {
     const {
       user_id,
+      is_home,
       team_id,
       shift_id,
       schedule_date,
@@ -25,6 +26,7 @@ class ListScheduleController {
       shift_id: shift_id as string,
       schedule_date: schedule_date as string,
       month: Number(month),
+      is_home: is_home as string,
       order: order as string,
       records: Number(records),
       page: Number(page)

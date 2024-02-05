@@ -25,7 +25,7 @@ class ScheduleListMap {
         team_name: i.NM_EQUI,
         user_id: i.UUID_USUA,
         user_name: i.NM_USUA,
-        title: i.NM_SOCI_USUA,
+        title: `${i.NM_SOCI_USUA} - ${i.SG_TURN} `,
         shift_id: i.UUID_TURN,
         shift_name: i.NM_TURN,
         start: new Date(`${date_schedule}T${i.HR_INIC_TURN}Z`),

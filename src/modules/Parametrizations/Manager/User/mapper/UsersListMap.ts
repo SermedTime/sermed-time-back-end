@@ -6,6 +6,7 @@ interface IUsersList {
   socialName: string
   cpf: string
   status: string
+  employeeCode: string
   created_at: string
   resignation_date: string | null
 }
@@ -20,6 +21,7 @@ class UsersListMap {
         cpf: i.NR_CPF,
         status: i.IN_STAT,
         created_at: i.DT_CRIA,
+        employeeCode: i.NR_IDEN_USUA,
         resignation_date: i.DT_DEMI
       }
     })
