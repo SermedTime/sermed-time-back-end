@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-npm run commitlint ${1}
+npx --no -- commitlint --edit $1
