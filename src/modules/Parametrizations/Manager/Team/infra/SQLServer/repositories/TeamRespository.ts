@@ -124,7 +124,7 @@ class TeamRepository implements ITeamRepository {
 
       const result = await pool
         .request()
-        .input('ALL', sql.Bit, allTeams === 'true' ? 1 : 0)
+        .input('ALL', sql.Bit, allTeams === 'active' ? 1 : null)
         .input('UUID_USUA', sql.NVarChar(36), user_id)
         .execute('[dbo].[PRC_EQUI_DROP_DOWN]')
 
