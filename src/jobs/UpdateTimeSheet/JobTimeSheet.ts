@@ -1,4 +1,6 @@
 import { ITimeClockRepository } from '@modules/Parametrizations/Manager/TimeClock/repositories/ITimeClockRepository'
+import { ICreateRegisterDTO } from '@modules/TimeSheet/dto/ICreateRegisterDTO'
+import { ITimeSheetRepository } from '@modules/TimeSheet/repositories/ITimeSheetRepository'
 import { ConvertTextToArrayRegisters } from '@utils/Register'
 import { post } from 'services/api/Control_id'
 import { auth } from 'services/api/Control_id/auth'
@@ -8,7 +10,9 @@ import { inject, injectable } from 'tsyringe'
 class JobTimeSheet {
   constructor(
     @inject('TimeClockRepository')
-    private timeClockRepository: ITimeClockRepository
+    private timeClockRepository: ITimeClockRepository,
+    @inject('TimeSheetRepository')
+    private timeSheetRepository: ITimeSheetRepository
   ) {}
 
   async UpdateTimeSheet(): Promise<void> {
@@ -32,9 +36,12 @@ class JobTimeSheet {
       if (params.session) {
         const time_sheet = await this.getTimeSheet(params, item.ip_time_clock)
 
-        const registers = ConvertTextToArrayRegisters(time_sheet)
+        const registers = ConvertTextToArrayRegisters(
+          time_sheet,
+          item.uuid_time_clock
+        )
 
-        console.log(registers)
+        await this.saveRegister(registers)
       }
     })
   }
@@ -71,6 +78,12 @@ class JobTimeSheet {
     })
 
     return data
+  }
+
+  async saveRegister(data: ICreateRegisterDTO[]): Promise<void> {
+    data.forEach(async item => {
+      await this.timeSheetRepository.Create(item)
+    })
   }
 }
 

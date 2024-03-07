@@ -22,6 +22,8 @@ import { IShiftRepository } from '@modules/Schedules/repositories/IShiftReposito
 import { ShiftRepository } from '@modules/Schedules/infra/repositories/ShiftRepository'
 import { IScheduleRepository } from '@modules/Schedules/repositories/IScheduleRepository'
 import { ScheduleRepository } from '@modules/Schedules/infra/repositories/ScheduleRepository'
+import { ITimeSheetRepository } from '@modules/TimeSheet/repositories/ITimeSheetRepository'
+import { TimeSheetRepository } from '@modules/TimeSheet/infra/repositories/TimeSheetRepository'
 
 container.registerSingleton<ITimeClockRepository>(
   'TimeClockRepository',
@@ -73,4 +75,9 @@ container.registerSingleton<IShiftRepository>(
 container.registerSingleton<IScheduleRepository>(
   'ScheduleRepository',
   ScheduleRepository
+)
+
+container.registerSingleton<ITimeSheetRepository>(
+  'TimeSheetRepository',
+  TimeSheetRepository
 )

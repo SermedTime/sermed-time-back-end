@@ -2,8 +2,8 @@ import { IResponseRepository } from 'services/Response/interfaces'
 
 import { ICreateRegisterDTO } from '../dto/ICreateRegisterDTO'
 
-interface ITimeSheet {
+interface ITimeSheetRepository {
   Create(data: ICreateRegisterDTO): Promise<IResponseRepository>
 }
 
-export { ITimeSheet }
+export { ITimeSheetRepository }
