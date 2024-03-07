@@ -12,6 +12,7 @@ interface ITimeClockRepository {
     data: ICreateTimeClockDTO | IUpdateTimeClockDTO
   ): Promise<IResponseRepository>
   list(data: IParamsListTimeClock): Promise<IResponseRepository<ITimeClockSQL>>
+  listIps(): Promise<IResponseRepository<ITimeClockSQL>>
   findById(uuid: string): Promise<IResponseRepository<ITimeClockSQL>>
 }
 

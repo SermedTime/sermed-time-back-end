@@ -131,6 +131,33 @@ class TimeClockRepository implements ITimeClockRepository {
 
     return response
   }
+
+  async listIps(): Promise<IResponseRepository<ITimeClockSQL>> {
+    let response: IResponseRepository<ITimeClockSQL>
+
+    try {
+      const pool = getPool()
+
+      const result = await pool
+        .request()
+        .input('IN_STAT', sql.Bit, 1)
+        .execute('[dbo].[PRC_RELO_PONT_CONS]')
+
+      const { recordset: timeClock } = result
+
+      response = {
+        success: true,
+        data: timeClock
+      }
+    } catch (err) {
+      response = {
+        success: false,
+        message: err.message
+      }
+    }
+
+    return response
+  }
 }
 
 export { TimeClockRepository }
