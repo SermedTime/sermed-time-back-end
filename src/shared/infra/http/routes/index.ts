@@ -11,6 +11,7 @@ import { dropdownRoutes } from './Rules/Dropdown'
 import { authenticateRoutes, passwordRoutes } from './Accounts'
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated'
 import { schedulesRoutes } from './Schedules'
+import { timeSheetRoutes } from './TimeSheet'
 
 const router = Router()
 
@@ -35,6 +36,9 @@ router.use('/dropdown', ensureAuthenticated, dropdownRoutes)
 
 // SCHEDULES
 router.use('/schedule', ensureAuthenticated, schedulesRoutes)
+
+// TIME SHEET
+router.use('/time-sheet', ensureAuthenticated, timeSheetRoutes)
 
 // ACCOUNTS
 router.use('/auth', authenticateRoutes)

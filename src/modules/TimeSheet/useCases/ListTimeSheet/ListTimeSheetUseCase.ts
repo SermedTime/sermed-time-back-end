@@ -1,0 +1,61 @@
+import { inject, injectable } from 'tsyringe'
+
+import { ITimeSheetRepository } from '@modules/TimeSheet/repositories/ITimeSheetRepository'
+import { IResponse, ResponseService } from 'services/Response/ResponseService'
+import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
+
+import { IDateProvider } from '@shared/container/providers/DateProvider/IDateProvider'
+
+export interface IListTimeSheetParams {
+  user_id: string
+  year: number
+  month: number
+  page: number
+}
+
+@injectable()
+class ListTimeSheetUseCase {
+  constructor(
+    @inject('TimeSheetRepository')
+    private timeSheetRepository: ITimeSheetRepository,
+    @inject('DayjsDateProvider')
+    private dateProvider: IDateProvider
+  ) {}
+
+  async execute({
+    user_id,
+    year,
+    month,
+    page
+  }: IListTimeSheetParams): Promise<IResponse> {
+    const registers = await this.timeSheetRepository.List({
+      user_id,
+      year,
+      month,
+      page
+    })
+
+    if (!registers.success) {
+      return ResponseService.setResponseJson({
+        status: HTTP_STATUS.BAD_REQUEST,
+        message: registers.message,
+        success: registers.success
+      })
+    }
+
+    const date = new Date()
+
+    this.dateProvider.monthDates(date, page)
+
+    const data = registers.data.length > 0 ? [] : []
+
+    return ResponseService.setResponseJson({
+      status: data.length > 0 ? HTTP_STATUS.OK : HTTP_STATUS.NO_CONTENT,
+      data,
+      page: page > 0 ? page : 1,
+      success: registers.success
+    })
+  }
+}
+
+export { ListTimeSheetUseCase }

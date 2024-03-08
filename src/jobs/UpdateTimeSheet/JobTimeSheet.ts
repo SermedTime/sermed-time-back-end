@@ -18,32 +18,36 @@ class JobTimeSheet {
   async UpdateTimeSheet(): Promise<void> {
     const { data } = await this.timeClockRepository.listIps()
 
-    const time_clocks =
-      data.length > 0
-        ? data.map(item => {
-            return {
-              ip_time_clock: item.IP_RELO_PONT.split('.')
-                .map(octet => parseInt(octet, 10).toString())
-                .join('.'),
-              uuid_time_clock: item.UUID_RELO_PONT
-            }
-          })
-        : []
+    try {
+      const time_clocks =
+        data.length > 0
+          ? data.map(item => {
+              return {
+                ip_time_clock: item.IP_RELO_PONT.split('.')
+                  .map(octet => parseInt(octet, 10).toString())
+                  .join('.'),
+                uuid_time_clock: item.UUID_RELO_PONT
+              }
+            })
+          : []
 
-    time_clocks.forEach(async item => {
-      const params = await this.getParams(item.ip_time_clock)
+      time_clocks.forEach(async item => {
+        const params = await this.getParams(item.ip_time_clock)
 
-      if (params.session) {
-        const time_sheet = await this.getTimeSheet(params, item.ip_time_clock)
+        if (params.session) {
+          const time_sheet = await this.getTimeSheet(params, item.ip_time_clock)
 
-        const registers = ConvertTextToArrayRegisters(
-          time_sheet,
-          item.uuid_time_clock
-        )
+          const registers = ConvertTextToArrayRegisters(
+            time_sheet,
+            item.uuid_time_clock
+          )
 
-        await this.saveRegister(registers)
-      }
-    })
+          await this.saveRegister(registers)
+        }
+      })
+    } catch (err) {
+      console.log(err.message)
+    }
   }
 
   async getParams(ipConnection: string): Promise<Record<string, any>> {

@@ -5,8 +5,45 @@ import { getPool } from '@shared/infra/database/config'
 import { ICreateRegisterDTO } from '@modules/TimeSheet/dto/ICreateRegisterDTO'
 import { ITimeSheetRepository } from '@modules/TimeSheet/repositories/ITimeSheetRepository'
 import { IResponseRepository } from 'services/Response/interfaces'
+import { IListTimeSheetParams } from '@modules/TimeSheet/useCases/ListTimeSheet/ListTimeSheetUseCase'
+import { ITimeSheetRegisteSQL } from '../interfaces'
 
 class TimeSheetRepository implements ITimeSheetRepository {
+  async List({
+    user_id,
+    year,
+    month,
+    page
+  }: IListTimeSheetParams): Promise<IResponseRepository<ITimeSheetRegisteSQL>> {
+    let response: IResponseRepository<ITimeSheetRegisteSQL>
+
+    try {
+      const pool = getPool()
+
+      const result = await pool
+        .request()
+        .input('UUID_USUA', sql.NVarChar(36), user_id)
+        .input('ANO', sql.Int, year)
+        .input('MES', sql.Int, month)
+        .input('NR_PAGE_INIC', sql.Int, page)
+        .execute('[dbo].[PRC_FOLH_PONT_CONS]')
+
+      const { recordset: register } = result
+
+      response = {
+        success: true,
+        data: register
+      }
+    } catch (err) {
+      response = {
+        success: false,
+        message: err.message
+      }
+    }
+
+    return response
+  }
+
   async Create(data: ICreateRegisterDTO): Promise<IResponseRepository<any>> {
     let response: IResponseRepository<any>
 

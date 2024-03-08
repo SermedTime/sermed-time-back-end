@@ -39,6 +39,33 @@ class DayjsDateProvider implements IDateProvider {
   compareIfBefore(start_date: Date, end_date: Date): boolean {
     return dayjs(start_date).isBefore(end_date)
   }
+
+  monthDates(date: Date, page: number): string[] {
+    const dates = []
+
+    if (page > 4) return []
+
+    const lastDayMonth = dayjs(date).endOf('month')
+
+    const day = lastDayMonth.day()
+
+    // const month = dayjs(date).month()
+
+    console.log(day)
+
+    // const range = {
+    //   initialDate: page * 10 - 9,
+    //   finalDate: Number(lastDayMonth) < 31 && page < 4 ? page * 10 : 31
+    // }
+
+    // for (let i = 1; i <= Number(lastDayMonth); i++) {
+    //   const diaDoMes = dayjs(date).date(i)
+
+    //   dates.push(diaDoMes.format('YYYY-MM-DD'))
+    // }
+
+    return dates
+  }
 }
 
 export { DayjsDateProvider }
