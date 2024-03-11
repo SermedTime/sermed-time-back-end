@@ -5,6 +5,7 @@ import { IResponse, ResponseService } from 'services/Response/ResponseService'
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 
 import { IDateProvider } from '@shared/container/providers/DateProvider/IDateProvider'
+import { TimeSheetRegisterMap } from '@modules/TimeSheet/mapper/TimeSheetRegisterMap'
 
 export interface IListTimeSheetParams {
   user_id: string
@@ -43,11 +44,10 @@ class ListTimeSheetUseCase {
       })
     }
 
-    const date = new Date()
-
-    this.dateProvider.monthDates(date, page)
-
-    const data = registers.data.length > 0 ? [] : []
+    const data =
+      registers.data.length > 0
+        ? TimeSheetRegisterMap.ToDTO(registers.data)
+        : []
 
     return ResponseService.setResponseJson({
       status: data.length > 0 ? HTTP_STATUS.OK : HTTP_STATUS.NO_CONTENT,

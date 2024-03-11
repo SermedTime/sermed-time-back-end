@@ -51,22 +51,25 @@ class JobTimeSheet {
   }
 
   async getParams(ipConnection: string): Promise<Record<string, any>> {
-    const {
-      data: { session }
-    } = await auth({ baseURL: ipConnection })
+    let params = {} as Record<string, any>
+    try {
+      const {
+        data: { session }
+      } = await auth({ baseURL: ipConnection })
 
-    const date = new Date()
+      const date = new Date()
 
-    const params = session
-      ? {
-          session,
-          initial_date: {
-            day: date.getDate(),
-            month: date.getMonth() + 1,
-            year: date.getFullYear()
-          }
+      params = session && {
+        session,
+        initial_date: {
+          day: date.getDate(),
+          month: date.getMonth() + 1,
+          year: date.getFullYear()
         }
-      : ({} as Record<string, any>)
+      }
+    } catch (err) {
+      console.error(err)
+    }
 
     return params
   }
@@ -86,7 +89,15 @@ class JobTimeSheet {
 
   async saveRegister(data: ICreateRegisterDTO[]): Promise<void> {
     data.forEach(async item => {
-      await this.timeSheetRepository.Create(item)
+      await this.timeSheetRepository.Create(item).then(data => {
+        if (data.success) {
+          console.log(data)
+        } else {
+          console.error(
+            `${item.appointment_number} - ${item.time_clock_uuid} - ${data.message}`
+          )
+        }
+      })
     })
   }
 }

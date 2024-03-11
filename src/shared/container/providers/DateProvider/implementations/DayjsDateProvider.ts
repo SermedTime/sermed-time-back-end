@@ -9,7 +9,7 @@ dayjs.extend(timezone)
 
 class DayjsDateProvider implements IDateProvider {
   convertToUTC(date: Date): string {
-    return dayjs(date).local().format()
+    return dayjs(date).local().format('YYYY-MM-DD')
   }
 
   compareInHours(start_date: Date, end_date: Date): number {
@@ -43,26 +43,21 @@ class DayjsDateProvider implements IDateProvider {
   monthDates(date: Date, page: number): string[] {
     const dates = []
 
-    if (page > 4) return []
+    const lastDayMonth = dayjs(date).daysInMonth()
+    const month = dayjs(date).month()
 
-    const lastDayMonth = dayjs(date).endOf('month')
+    if (page > 4 || (month === 1 && page > 3)) return []
 
-    const day = lastDayMonth.day()
+    const range = {
+      initialDate: page * 10 - 9,
+      finalDate: page * 10 < lastDayMonth ? page * 10 : lastDayMonth
+    }
 
-    // const month = dayjs(date).month()
+    for (let i = range.initialDate; i <= range.finalDate; i++) {
+      const diaDoMes = dayjs(date).date(i)
 
-    console.log(day)
-
-    // const range = {
-    //   initialDate: page * 10 - 9,
-    //   finalDate: Number(lastDayMonth) < 31 && page < 4 ? page * 10 : 31
-    // }
-
-    // for (let i = 1; i <= Number(lastDayMonth); i++) {
-    //   const diaDoMes = dayjs(date).date(i)
-
-    //   dates.push(diaDoMes.format('YYYY-MM-DD'))
-    // }
+      dates.push(diaDoMes.format('YYYY-MM-DD'))
+    }
 
     return dates
   }

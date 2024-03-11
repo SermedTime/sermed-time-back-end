@@ -55,8 +55,7 @@ class TimeSheetRepository implements ITimeSheetRepository {
         .input('NR_PIS', sql.VarChar(12), data.pis)
         .input('UUID_RELO_PONT', sql.NVarChar(36), data.time_clock_uuid)
         .input('NR_MARC', sql.Int, data.appointment_number)
-        .input('DT_MARC', sql.Date, data.appointment_date)
-        .input('HR_MARC', sql.VarChar(8), data.appointment_time)
+        .input('DT_MARC', sql.DateTime, data.appointment_date)
         .input('CD_CRC_16', sql.Char(4), data.crc16)
         .execute('[dbo].[PRC_FOLH_PONT_GRAV]')
 

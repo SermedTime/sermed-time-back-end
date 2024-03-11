@@ -16,9 +16,10 @@ export function ConvertTextToArrayRegisters(
       appointment_date: new Date(
         Number(r.substring(14, 18)),
         Number(r.substring(12, 14)) - 1,
-        Number(r.substring(10, 12))
+        Number(r.substring(10, 12)),
+        Number(r.substring(18, 20)),
+        Number(r.substring(20, 22))
       ),
-      appointment_time: `${r.substring(18, 20)}:${r.substring(20, 22)}:00`,
       pis: r.substring(22, 34),
       crc16: r.substring(34, 38),
       time_clock_uuid
