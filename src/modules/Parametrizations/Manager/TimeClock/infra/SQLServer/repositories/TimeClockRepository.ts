@@ -5,7 +5,7 @@ import { statusVerify } from '@utils/statusVerify'
 
 import { IResponseRepository } from 'services/Response/interfaces'
 
-import { ITimeClockSQL } from '../interfaces/ITimeClockSQL'
+import { ITimeClockRegister, ITimeClockSQL } from '../interfaces/ITimeClockSQL'
 import { ITimeClockRepository } from '../../../repositories/ITimeClockRepository'
 import {
   ICreateTimeClockDTO,
@@ -132,16 +132,15 @@ class TimeClockRepository implements ITimeClockRepository {
     return response
   }
 
-  async listIps(): Promise<IResponseRepository<ITimeClockSQL>> {
-    let response: IResponseRepository<ITimeClockSQL>
+  async listIps(): Promise<IResponseRepository<ITimeClockRegister>> {
+    let response: IResponseRepository<ITimeClockRegister>
 
     try {
       const pool = getPool()
 
       const result = await pool
         .request()
-        .input('IN_STAT', sql.Bit, 1)
-        .execute('[dbo].[PRC_RELO_PONT_CONS]')
+        .execute('[dbo].[PRC_RELO_PONT_REGI_CONS]')
 
       const { recordset: timeClock } = result
 

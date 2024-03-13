@@ -26,13 +26,17 @@ class JobTimeSheet {
                 ip_time_clock: item.IP_RELO_PONT.split('.')
                   .map(octet => parseInt(octet, 10).toString())
                   .join('.'),
-                uuid_time_clock: item.UUID_RELO_PONT
+                uuid_time_clock: item.UUID_RELO_PONT,
+                last_register: item.NR_ULTI_MARC
               }
             })
           : []
 
       time_clocks.forEach(async item => {
-        const params = await this.getParams(item.ip_time_clock)
+        const params = await this.getParams(
+          item.ip_time_clock,
+          item.last_register
+        )
 
         if (params.session) {
           const time_sheet = await this.getTimeSheet(params, item.ip_time_clock)
@@ -50,22 +54,19 @@ class JobTimeSheet {
     }
   }
 
-  async getParams(ipConnection: string): Promise<Record<string, any>> {
+  async getParams(
+    ipConnection: string,
+    lastRegister: number
+  ): Promise<Record<string, any>> {
     let params = {} as Record<string, any>
     try {
       const {
         data: { session }
       } = await auth({ baseURL: ipConnection })
 
-      const date = new Date()
-
       params = session && {
         session,
-        initial_date: {
-          day: date.getDate(),
-          month: date.getMonth() + 1,
-          year: date.getFullYear()
-        }
+        initial_nsr: lastRegister + 1
       }
     } catch (err) {
       console.error(err)

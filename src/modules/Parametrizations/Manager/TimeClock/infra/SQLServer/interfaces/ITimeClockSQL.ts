@@ -19,3 +19,10 @@ export interface ITimeClockSQL {
   IN_STAT: string
   TT_REGI: number
 }
+
+export interface ITimeClockRegister {
+  ID_RELO_PONT: string
+  UUID_RELO_PONT: string
+  IP_RELO_PONT: string
+  NR_ULTI_MARC: number
+}
