@@ -1,4 +1,4 @@
-interface ITimeSheetRegisteSQL {
+interface ITimeSheetRegisterSQL {
   ID_REGI: string
   UUID_REGI: string
   NR_MARC: string
@@ -11,4 +11,4 @@ interface ITimeSheetRegisteSQL {
   IN_EDIT: boolean
 }
 
-export { ITimeSheetRegisteSQL }
+export { ITimeSheetRegisterSQL }

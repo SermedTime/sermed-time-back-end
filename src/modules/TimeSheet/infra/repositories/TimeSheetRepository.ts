@@ -6,7 +6,7 @@ import { ICreateRegisterDTO } from '@modules/TimeSheet/dto/ICreateRegisterDTO'
 import { ITimeSheetRepository } from '@modules/TimeSheet/repositories/ITimeSheetRepository'
 import { IResponseRepository } from 'services/Response/interfaces'
 import { IListTimeSheetParams } from '@modules/TimeSheet/useCases/ListTimeSheet/ListTimeSheetUseCase'
-import { ITimeSheetRegisteSQL } from '../interfaces'
+import { ITimeSheetListRegisters } from '../interfaces'
 
 class TimeSheetRepository implements ITimeSheetRepository {
   async List({
@@ -14,8 +14,10 @@ class TimeSheetRepository implements ITimeSheetRepository {
     year,
     month,
     page
-  }: IListTimeSheetParams): Promise<IResponseRepository<ITimeSheetRegisteSQL>> {
-    let response: IResponseRepository<ITimeSheetRegisteSQL>
+  }: IListTimeSheetParams): Promise<
+    IResponseRepository<ITimeSheetListRegisters>
+  > {
+    let response: IResponseRepository<ITimeSheetListRegisters>
 
     try {
       const pool = getPool()

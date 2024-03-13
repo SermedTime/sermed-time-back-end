@@ -40,6 +40,12 @@ class DayjsDateProvider implements IDateProvider {
     return dayjs(start_date).isBefore(end_date)
   }
 
+  lastDayInMonth(date: Date): number {
+    const lastDayMonth = dayjs(date).daysInMonth()
+
+    return lastDayMonth
+  }
+
   monthDates(date: Date, page: number): string[] {
     const dates = []
 
@@ -60,6 +66,38 @@ class DayjsDateProvider implements IDateProvider {
     }
 
     return dates
+  }
+
+  convertDateToWeekDay(date: Date): string {
+    let day = ''
+
+    switch (dayjs(date).day()) {
+      case 0:
+        day = 'Domingo'
+        break
+      case 1:
+        day = 'Segunda-Feira'
+        break
+      case 2:
+        day = 'Terça-Feira'
+        break
+      case 3:
+        day = 'Quarta-Feira'
+        break
+      case 4:
+        day = 'Quinta-Feira'
+        break
+      case 5:
+        day = 'Sexta-Feira'
+        break
+      case 6:
+        day = 'Sábado'
+        break
+      default:
+        day = ''
+    }
+
+    return day
   }
 }
 

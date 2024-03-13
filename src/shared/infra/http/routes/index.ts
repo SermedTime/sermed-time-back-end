@@ -38,7 +38,7 @@ router.use('/dropdown', ensureAuthenticated, dropdownRoutes)
 router.use('/schedule', ensureAuthenticated, schedulesRoutes)
 
 // TIME SHEET
-router.use('/time-sheet', ensureAuthenticated, timeSheetRoutes)
+router.use('/overview/time-sheet', ensureAuthenticated, timeSheetRoutes)
 
 // ACCOUNTS
 router.use('/auth', authenticateRoutes)

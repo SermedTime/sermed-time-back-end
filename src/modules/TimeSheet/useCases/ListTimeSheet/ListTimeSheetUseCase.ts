@@ -4,7 +4,6 @@ import { ITimeSheetRepository } from '@modules/TimeSheet/repositories/ITimeSheet
 import { IResponse, ResponseService } from 'services/Response/ResponseService'
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 
-import { IDateProvider } from '@shared/container/providers/DateProvider/IDateProvider'
 import { TimeSheetRegisterMap } from '@modules/TimeSheet/mapper/TimeSheetRegisterMap'
 
 export interface IListTimeSheetParams {
@@ -18,9 +17,7 @@ export interface IListTimeSheetParams {
 class ListTimeSheetUseCase {
   constructor(
     @inject('TimeSheetRepository')
-    private timeSheetRepository: ITimeSheetRepository,
-    @inject('DayjsDateProvider')
-    private dateProvider: IDateProvider
+    private timeSheetRepository: ITimeSheetRepository
   ) {}
 
   async execute({
@@ -53,7 +50,8 @@ class ListTimeSheetUseCase {
       status: data.length > 0 ? HTTP_STATUS.OK : HTTP_STATUS.NO_CONTENT,
       data,
       page: page > 0 ? page : 1,
-      success: registers.success
+      success: registers.success,
+      records: data.length > 0 ? registers.data[0].TT_REGI : 0
     })
   }
 }
