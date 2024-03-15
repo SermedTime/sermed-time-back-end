@@ -11,6 +11,7 @@ export interface IListTimeSheetParams {
   year: number
   month: number
   page: number
+  isHome: string
 }
 
 @injectable()
@@ -24,13 +25,15 @@ class ListTimeSheetUseCase {
     user_id,
     year,
     month,
-    page
+    page,
+    isHome
   }: IListTimeSheetParams): Promise<IResponse> {
     const registers = await this.timeSheetRepository.List({
       user_id,
       year,
       month,
-      page
+      page,
+      isHome
     })
 
     if (!registers.success) {

@@ -6,7 +6,7 @@ import { ListTimeSheetUseCase } from './ListTimeSheetUseCase'
 
 class ListTimeSheetController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const { month, year, page } = req.query
+    const { month, year, page, isHome } = req.query
     const { user_id } = req.params
 
     const service = container.resolve(ListTimeSheetUseCase)
@@ -15,7 +15,8 @@ class ListTimeSheetController {
       user_id: user_id as string,
       year: Number(year),
       month: Number(month),
-      page: Number(page)
+      page: Number(page),
+      isHome: isHome as string
     })
 
     return res.status(register.status).json(register)

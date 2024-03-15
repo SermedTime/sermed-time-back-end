@@ -1,3 +1,4 @@
+import { statusVerify } from '@utils/statusVerify'
 import sql from 'mssql'
 
 import { getPool } from '@shared/infra/database/config'
@@ -13,7 +14,8 @@ class TimeSheetRepository implements ITimeSheetRepository {
     user_id,
     year,
     month,
-    page
+    page,
+    isHome
   }: IListTimeSheetParams): Promise<
     IResponseRepository<ITimeSheetListRegisters>
   > {
@@ -21,6 +23,9 @@ class TimeSheetRepository implements ITimeSheetRepository {
 
     try {
       const pool = getPool()
+      const is_home = statusVerify(isHome)
+
+      console.log(is_home)
 
       const result = await pool
         .request()
@@ -28,6 +33,7 @@ class TimeSheetRepository implements ITimeSheetRepository {
         .input('ANO', sql.Int, year)
         .input('MES', sql.Int, month)
         .input('NR_PAGE_INIC', sql.Int, page)
+        .input('IS_HOME', sql.Bit, is_home)
         .execute('[dbo].[PRC_FOLH_PONT_CONS]')
 
       const { recordset: register } = result
