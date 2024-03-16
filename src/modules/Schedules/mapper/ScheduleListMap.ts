@@ -11,6 +11,8 @@ interface IScheculeList {
   shift_name: string
   start: Date
   end: Date
+  start_string: Date
+  end_string: Date
   shift_initials: string
 }
 
@@ -30,6 +32,8 @@ class ScheduleListMap {
         shift_name: i.NM_TURN,
         start: new Date(`${date_schedule}T${i.HR_INIC_TURN}Z`),
         end: new Date(`${date_schedule}T${i.HR_FINA_TURN}Z`),
+        start_string: new Date(`${date_schedule}T${i.HR_INIC_TURN}Z`),
+        end_string: new Date(`${date_schedule}T${i.HR_FINA_TURN}Z`),
         shift_initials: i.SG_TURN
       }
     })

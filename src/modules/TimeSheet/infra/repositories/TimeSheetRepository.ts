@@ -25,8 +25,6 @@ class TimeSheetRepository implements ITimeSheetRepository {
       const pool = getPool()
       const is_home = statusVerify(isHome)
 
-      console.log(is_home)
-
       const result = await pool
         .request()
         .input('UUID_USUA', sql.NVarChar(36), user_id)
