@@ -24,6 +24,8 @@ import { IScheduleRepository } from '@modules/Schedules/repositories/IScheduleRe
 import { ScheduleRepository } from '@modules/Schedules/infra/repositories/ScheduleRepository'
 import { ITimeSheetRepository } from '@modules/TimeSheet/repositories/ITimeSheetRepository'
 import { TimeSheetRepository } from '@modules/TimeSheet/infra/repositories/TimeSheetRepository'
+import { IUnitRepository } from '@modules/Parametrizations/Manager/Unit/repositories/IUnitRepository'
+import { UnitRepository } from '@modules/Parametrizations/Manager/Unit/infra/SQLServer/repositories/UnitRepository'
 
 container.registerSingleton<ITimeClockRepository>(
   'TimeClockRepository',
@@ -31,6 +33,8 @@ container.registerSingleton<ITimeClockRepository>(
 )
 
 container.registerSingleton<ITeamRepository>('TeamRepository', TeamRepository)
+
+container.registerSingleton<IUnitRepository>('UnitRepository', UnitRepository)
 
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',

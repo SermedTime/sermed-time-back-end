@@ -3,6 +3,7 @@ import {
   companyRoutes,
   teamRoutes,
   timeClockRoutes,
+  unitRoutes,
   userRoutes,
   usersMembershipRoutes,
   usersPermissionsRoutes
@@ -18,6 +19,7 @@ const router = Router()
 // PARAMETRIZATIONS
 router.use('/parametrizations/time-clock', ensureAuthenticated, timeClockRoutes)
 router.use('/parametrizations/team', ensureAuthenticated, teamRoutes)
+router.use('/parametrizations/units', ensureAuthenticated, unitRoutes)
 router.use('/parametrizations/users', ensureAuthenticated, userRoutes)
 router.use(
   '/parametrizations/assign-teams',

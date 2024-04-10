@@ -41,7 +41,7 @@ class ListTeamUseCase {
       })
     }
 
-    const data = TeamMap.ToDTO(team.data)
+    const data = team.data.length > 0 ? TeamMap.ToDTO(team.data) : []
 
     return ResponseService.setResponseJson<IListTeam>({
       status: data.length > 0 ? HTTP_STATUS.OK : HTTP_STATUS.NO_CONTENT,
