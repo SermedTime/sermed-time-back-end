@@ -6,10 +6,12 @@ import { TeamDropdownController } from '@modules/Rules/Dropdown/Parametrizations
 import { PermissionDropdownController } from '@modules/Rules/Dropdown/Parametrizations/PermissionDropdown/PermissionDropdownController'
 import { UsersDropdownController } from '@modules/Rules/Dropdown/Parametrizations/UsersDropdown/UsersDropdownController'
 import { ShiftDropdownController } from '@modules/Rules/Dropdown/Schedules/ShiftDropdown/ShiftDropdownController'
+import { UnitDropdownController } from '@modules/Rules/Dropdown/Parametrizations/UnitDropdown/UnitDropdownController'
 
 const dropdownRoutes = Router()
 
 const companyDropdownController = container.resolve(CompanyDropdownController)
+const unitDropdownController = container.resolve(UnitDropdownController)
 const teamDropdownController = container.resolve(TeamDropdownController)
 const permissionsDropdownController = container.resolve(
   PermissionDropdownController
@@ -18,6 +20,7 @@ const usersDropdownController = container.resolve(UsersDropdownController)
 const shiftDropdownController = container.resolve(ShiftDropdownController)
 
 dropdownRoutes.get('/company', companyDropdownController.handle)
+dropdownRoutes.get('/unit', unitDropdownController.handle)
 dropdownRoutes.get('/team', teamDropdownController.handle)
 dropdownRoutes.get('/permissions', permissionsDropdownController.handle)
 dropdownRoutes.get('/users', usersDropdownController.handle)
