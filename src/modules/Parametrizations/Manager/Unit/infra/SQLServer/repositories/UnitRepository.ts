@@ -7,8 +7,44 @@ import { IResponseRepository } from 'services/Response/interfaces'
 import { IUnitRepository } from '../../../repositories/IUnitRepository'
 import { IParamsListUnit } from '../../../useCases/ListUnit/ListUnitUseCase'
 import { IUnitSQL } from '../interfaces/IUnitSQL'
+import { ICreateUnitDTO } from '../../../dtos/ICreateUnitDTO'
 
 class UnitRepository implements IUnitRepository {
+  async upsert({
+    uuid,
+    unitName,
+    status,
+    user_action
+  }: ICreateUnitDTO): Promise<IResponseRepository<any>> {
+    let response: IResponseRepository
+
+    try {
+      const pool = getPool()
+
+      const result = await pool
+        .request()
+        .input('UUID_UNID', sql.UniqueIdentifier, uuid)
+        .input('NM_UNID', sql.VarChar(128), unitName)
+        .input('IN_STAT', sql.Bit, status)
+        .input('UUID_USUA_ACAO', sql.UniqueIdentifier, user_action)
+        .execute('[dbo].[PRC_UNID_GRAV]')
+
+      const { recordset: unit } = result
+
+      response = {
+        success: true,
+        data: unit
+      }
+    } catch (err) {
+      response = {
+        success: false,
+        message: err.message
+      }
+    }
+
+    return response
+  }
+
   async list({
     page,
     order,
