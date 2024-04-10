@@ -48,6 +48,33 @@ class UnitRepository implements IUnitRepository {
 
     return response
   }
+
+  async findById(uuid: string): Promise<IResponseRepository<IUnitSQL>> {
+    let response: IResponseRepository<IUnitSQL>
+
+    try {
+      const pool = getPool()
+
+      const result = await pool
+        .request()
+        .input('UUID_UNID', sql.UniqueIdentifier, uuid)
+        .execute('[dbo].[PRC_UNID_CONS]')
+
+      const { recordset: companies } = result
+
+      response = {
+        success: true,
+        data: companies
+      }
+    } catch (err) {
+      response = {
+        success: false,
+        message: err.message
+      }
+    }
+
+    return response
+  }
 }
 
 export { UnitRepository }
