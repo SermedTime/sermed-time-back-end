@@ -3,6 +3,7 @@ import { ITeamSQL } from '../infra/SQLServer/interfaces/ITeamSQL'
 interface ITeamDetailsMap {
   uuid: string
   name: string
+  unitId: string
   status: string
 }
 
@@ -11,6 +12,7 @@ class TeamDetailsMap {
     return {
       uuid: data.UUID_EQUI,
       name: data.NM_EQUI,
+      unitId: data.UUID_UNID,
       status: data.IN_STAT
     }
   }
