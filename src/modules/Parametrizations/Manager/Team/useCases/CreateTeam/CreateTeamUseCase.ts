@@ -14,6 +14,7 @@ class CreateTeamUseCase {
 
   async execute({
     name,
+    unitId,
     status,
     user_action
   }: ICreateTeamDTO): Promise<IResponse> {
@@ -21,6 +22,7 @@ class CreateTeamUseCase {
 
     const team = await this.teamRepository.upsert({
       name,
+      unitId,
       status: in_stat,
       user_action
     })

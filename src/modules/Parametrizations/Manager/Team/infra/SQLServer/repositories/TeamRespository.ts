@@ -14,6 +14,7 @@ import { IParamsListTeam } from '../../../useCases/ListTeam/ListTeamUseCase'
 class TeamRepository implements ITeamRepository {
   async upsert({
     name,
+    unitId,
     status,
     uuid,
     user_action
@@ -26,6 +27,7 @@ class TeamRepository implements ITeamRepository {
         .request()
         .input('UUID', sql.UniqueIdentifier, uuid)
         .input('NM_EQUI', sql.VarChar(128), name)
+        .input('UUID_UNID', sql.UniqueIdentifier, unitId)
         .input('UUID_USUA_ACAO', sql.NVarChar(36), user_action)
         .input('IN_STAT', sql.Bit, status)
         .execute('[dbo].[PRC_EQUI_GRAV]')

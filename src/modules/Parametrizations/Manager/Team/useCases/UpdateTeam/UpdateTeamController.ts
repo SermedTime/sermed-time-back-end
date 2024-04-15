@@ -6,7 +6,7 @@ import { UpdateTeamUseCase } from './UpdateTeamUseCase'
 class UpdateTeamController {
   async handle(req: Request, res: Response): Promise<Response> {
     const { uuid } = req.params
-    const { name, status } = req.body
+    const { name, unit, status } = req.body
     const userId = userAuthenticated(req)
 
     const updateTeamUseCase = container.resolve(UpdateTeamUseCase)
@@ -14,6 +14,7 @@ class UpdateTeamController {
     const team = await updateTeamUseCase.execute({
       uuid,
       name,
+      unitId: unit,
       status,
       user_action: userId
     })
