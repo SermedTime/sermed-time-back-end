@@ -7,7 +7,9 @@ import { IManagerFilters } from '@modules/Parametrizations/Manager/shared/interf
 import { ITeamRepository } from '../../repositories/ITeamRepository'
 import { IListTeam, TeamMap } from '../../mapper/TeamMap'
 
-export interface IParamsListTeam extends IManagerFilters {}
+export interface IParamsListTeam extends IManagerFilters {
+  unit?: string
+}
 
 @injectable()
 class ListTeamUseCase {
@@ -22,7 +24,8 @@ class ListTeamUseCase {
     records = 1,
     search,
     searchingBy,
-    status
+    status,
+    unit
   }: IParamsListTeam): Promise<IResponse<IListTeam>> {
     const team = await this.teamRepository.list({
       order,
@@ -30,7 +33,8 @@ class ListTeamUseCase {
       records,
       search,
       searchingBy,
-      status
+      status,
+      unit
     })
 
     if (!team.success) {

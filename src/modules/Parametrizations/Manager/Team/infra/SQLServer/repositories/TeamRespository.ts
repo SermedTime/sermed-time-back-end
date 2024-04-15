@@ -52,7 +52,8 @@ class TeamRepository implements ITeamRepository {
     records,
     search,
     searchingBy,
-    status
+    status,
+    unit
   }: IParamsListTeam): Promise<IResponseRepository<ITeamSQL>> {
     let response: IResponseRepository<ITeamSQL>
     const name = searchingBy === 'name' ? search : ''
@@ -64,6 +65,7 @@ class TeamRepository implements ITeamRepository {
       const result = await pool
         .request()
         .input('NM_EQUI', sql.VarChar(128), name)
+        .input('UUID_UNID', sql.UniqueIdentifier, unit)
         .input('IN_STAT', sql.Bit, in_stat)
         .input('NR_PAGE_INIC', sql.Int, page)
         .input('TT_REGI_PAGI', sql.Int, records)
