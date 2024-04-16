@@ -5,7 +5,9 @@ import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 import { IUsersRepository } from '../../repositories/IUsersRepository'
 import { IUsersList, UsersListMap } from '../../mapper/UsersListMap'
 
-export interface IParamsListUsers extends IManagerFilters {}
+export interface IParamsListUsers extends IManagerFilters {
+  team: string
+}
 
 @injectable()
 class ListUsersUseCase {
@@ -20,7 +22,8 @@ class ListUsersUseCase {
     records = 1,
     search,
     searchingBy,
-    status
+    status,
+    team
   }: IParamsListUsers): Promise<IResponse<IUsersList>> {
     const users = await this.usersRepository.list({
       order,
@@ -28,7 +31,8 @@ class ListUsersUseCase {
       records,
       search,
       searchingBy,
-      status
+      status,
+      team
     })
 
     if (!users.success) {
@@ -42,7 +46,7 @@ class ListUsersUseCase {
     const data = users.data.length > 0 ? UsersListMap.ToDTO(users.data) : []
 
     return ResponseService.setResponseJson<IUsersList>({
-      status: data.length > 0 ? HTTP_STATUS.OK : HTTP_STATUS.NO_CONTENT,
+      status: HTTP_STATUS.OK,
       data,
       page: page > 0 ? page : 1,
       records: data.length > 0 ? Number(users.data[0].TT_REGI) : 0,

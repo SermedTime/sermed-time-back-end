@@ -1,4 +1,4 @@
-import sql from 'mssql'
+import sql, { UniqueIdentifier } from 'mssql'
 
 import { statusVerify } from '@utils/statusVerify'
 import { getPool } from '@shared/infra/database/config'
@@ -133,7 +133,8 @@ class UsersRepository implements IUsersRepository {
     records,
     search,
     searchingBy,
-    status
+    status,
+    team
   }: IParamsListUsers): Promise<IResponseRepository<IUserSQL>> {
     let response: IResponseRepository<IUserSQL>
 
@@ -147,6 +148,7 @@ class UsersRepository implements IUsersRepository {
       const result = await pool
         .request()
         .input('NM_USUA', sql.VarChar(256), name)
+        .input('UUID_EQUI', UniqueIdentifier, team)
         .input('NM_SOCI_USUA', sql.VarChar(256), socialName)
         .input('NR_CPF_USUA', sql.VarChar(11), cpf)
         .input('IN_STAT', sql.Bit, in_stat)

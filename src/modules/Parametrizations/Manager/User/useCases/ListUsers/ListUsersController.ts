@@ -4,7 +4,8 @@ import { ListUsersUseCase } from './ListUsersUseCase'
 
 class ListUsersController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const { search, searchingBy, records, status, order, page } = req.query
+    const { search, searchingBy, records, status, order, page, team } =
+      req.query
 
     const listUsersUseCase = container.resolve(ListUsersUseCase)
 
@@ -14,7 +15,8 @@ class ListUsersController {
       searchingBy: searchingBy as string,
       status: status as string,
       page: Number(page),
-      records: Number(records)
+      records: Number(records),
+      team: team as string
     })
 
     return res.status(users.status).json(users)
