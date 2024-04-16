@@ -79,6 +79,7 @@ class AssignTeamRepository implements IAssignTeamRepository {
 
   async List({
     user_id,
+    team,
     is_supervisor,
     order,
     page,
@@ -91,7 +92,8 @@ class AssignTeamRepository implements IAssignTeamRepository {
 
       const result = await pool
         .request()
-        .input('UUID_USUA', sql.NVarChar(36), user_id)
+        .input('UUID_USUA', sql.UniqueIdentifier, user_id)
+        .input('UUID_EQUI', sql.UniqueIdentifier, team)
         .input('IN_SUPE', sql.Bit, is_supervisor === 'active' ? 1 : 0)
         .input('DS_ORDE_TYPE', sql.VarChar(4), order)
         .input('NR_PAGE_INIC', sql.Int, page)

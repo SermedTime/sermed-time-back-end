@@ -8,6 +8,7 @@ import { AssignTeamMap, IAssignTeamList } from '../../../mapper/AssignTeamMap'
 export interface IListAssignUseCaseRequest extends IManagerFilters {
   user_id: string
   is_supervisor: string
+  team: string
 }
 
 @injectable()
@@ -19,6 +20,7 @@ class ListAssignUseCase {
 
   async execute({
     user_id,
+    team,
     is_supervisor,
     order,
     page = 1,
@@ -26,6 +28,7 @@ class ListAssignUseCase {
   }: IListAssignUseCaseRequest): Promise<IResponse<IAssignTeamList>> {
     const membership = await this.assignTeamRepository.List({
       user_id,
+      team,
       is_supervisor,
       order,
       page,

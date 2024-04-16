@@ -14,7 +14,7 @@ const updateAssignController = container.resolve(UpdateAssignController)
 const deleteAssignController = container.resolve(DeleteAssignController)
 
 usersMembershipRoutes.post('/', createAssignController.handle)
-usersMembershipRoutes.get('/:uuid', listAssignController.handle)
+usersMembershipRoutes.get('/', listAssignController.handle)
 usersMembershipRoutes.put('/:uuid', updateAssignController.handle)
 usersMembershipRoutes.delete('/:uuid', deleteAssignController.handle)
 
