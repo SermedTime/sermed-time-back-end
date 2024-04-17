@@ -7,6 +7,7 @@ import { IUsersList, UsersListMap } from '../../mapper/UsersListMap'
 
 export interface IParamsListUsers extends IManagerFilters {
   team: string
+  unit: string
 }
 
 @injectable()
@@ -23,7 +24,8 @@ class ListUsersUseCase {
     search,
     searchingBy,
     status,
-    team
+    team,
+    unit
   }: IParamsListUsers): Promise<IResponse<IUsersList>> {
     const users = await this.usersRepository.list({
       order,
@@ -32,7 +34,8 @@ class ListUsersUseCase {
       search,
       searchingBy,
       status,
-      team
+      team,
+      unit
     })
 
     if (!users.success) {
