@@ -6,6 +6,10 @@ interface IAssignTeamList {
   team_id: string
   is_supervisor: string
   created_at: string
+  unit_name: string
+  unit_id: string
+  user_name: string
+  user_id: string
 }
 
 class AssignTeamMap {
@@ -15,6 +19,10 @@ class AssignTeamMap {
         uuid: i.UUID_USUA_X_EQUI,
         team_name: i.NM_EQUI,
         team_id: i.UUID_EQUI,
+        unit_name: i.NM_UNID,
+        unit_id: i.UUID_UNID,
+        user_name: i.NM_USUA,
+        user_id: i.UUID_USUA,
         is_supervisor: i.IN_SUPE ? 'active' : 'inactive',
         created_at: i.DT_CRIA
       }

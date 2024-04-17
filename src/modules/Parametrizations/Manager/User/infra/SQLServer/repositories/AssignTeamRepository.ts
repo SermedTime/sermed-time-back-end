@@ -80,6 +80,7 @@ class AssignTeamRepository implements IAssignTeamRepository {
   async List({
     user_id,
     team,
+    unit,
     is_supervisor,
     order,
     page,
@@ -94,6 +95,7 @@ class AssignTeamRepository implements IAssignTeamRepository {
         .request()
         .input('UUID_USUA', sql.UniqueIdentifier, user_id)
         .input('UUID_EQUI', sql.UniqueIdentifier, team)
+        .input('UUID_UNID', sql.UniqueIdentifier, unit)
         .input('IN_SUPE', sql.Bit, is_supervisor === 'active' ? 1 : 0)
         .input('DS_ORDE_TYPE', sql.VarChar(4), order)
         .input('NR_PAGE_INIC', sql.Int, page)

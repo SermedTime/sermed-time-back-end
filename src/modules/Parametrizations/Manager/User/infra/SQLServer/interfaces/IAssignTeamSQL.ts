@@ -7,6 +7,8 @@ interface IAssignTeamSQL {
   ID_EQUI: string
   UUID_EQUI: string
   NM_EQUI: string
+  UUID_UNID: string
+  NM_UNID: string
   IN_SUPE: boolean
   DT_CRIA: string
   UUID_USUA_CRIA: string
