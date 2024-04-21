@@ -26,6 +26,8 @@ import { ITimeSheetRepository } from '@modules/TimeSheet/repositories/ITimeSheet
 import { TimeSheetRepository } from '@modules/TimeSheet/infra/repositories/TimeSheetRepository'
 import { IUnitRepository } from '@modules/Parametrizations/Manager/Unit/repositories/IUnitRepository'
 import { UnitRepository } from '@modules/Parametrizations/Manager/Unit/infra/SQLServer/repositories/UnitRepository'
+import { ICityRepository } from '@modules/Rules/Dropdown/repositories/ICityRepository'
+import { CityRepository } from '@modules/Rules/Dropdown/infra/SQLServer/repositories/CityRepository'
 
 container.registerSingleton<ITimeClockRepository>(
   'TimeClockRepository',
@@ -85,3 +87,5 @@ container.registerSingleton<ITimeSheetRepository>(
   'TimeSheetRepository',
   TimeSheetRepository
 )
+
+container.registerSingleton<ICityRepository>('CityRepository', CityRepository)
