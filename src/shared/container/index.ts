@@ -28,6 +28,8 @@ import { IUnitRepository } from '@modules/Parametrizations/Manager/Unit/reposito
 import { UnitRepository } from '@modules/Parametrizations/Manager/Unit/infra/SQLServer/repositories/UnitRepository'
 import { ICityRepository } from '@modules/Rules/Dropdown/repositories/ICityRepository'
 import { CityRepository } from '@modules/Rules/Dropdown/infra/SQLServer/repositories/CityRepository'
+import { IHolidayRepository } from '@modules/Parametrizations/Operational/Holiday/repositories/IHolidayRepository'
+import { HolidayRepository } from '@modules/Parametrizations/Operational/Holiday/infra/SQLServer/repositories/HolidayRepository'
 
 container.registerSingleton<ITimeClockRepository>(
   'TimeClockRepository',
@@ -86,6 +88,11 @@ container.registerSingleton<IScheduleRepository>(
 container.registerSingleton<ITimeSheetRepository>(
   'TimeSheetRepository',
   TimeSheetRepository
+)
+
+container.registerSingleton<IHolidayRepository>(
+  'HolidayRepository',
+  HolidayRepository
 )
 
 container.registerSingleton<ICityRepository>('CityRepository', CityRepository)

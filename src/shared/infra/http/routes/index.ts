@@ -1,4 +1,5 @@
 import { Router } from 'express'
+
 import {
   companyRoutes,
   teamRoutes,
@@ -8,15 +9,22 @@ import {
   usersMembershipRoutes,
   usersPermissionsRoutes
 } from './Parametrizations/Manager'
+
+import { holidayRoutes } from './Parametrizations/Operational'
+
 import { dropdownRoutes } from './Rules/Dropdown'
+
 import { authenticateRoutes, passwordRoutes } from './Accounts'
+
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated'
+
 import { schedulesRoutes } from './Schedules'
+
 import { timeSheetRoutes } from './TimeSheet'
 
 const router = Router()
 
-// PARAMETRIZATIONS
+// PARAMETRIZATIONS MANAGEMENT
 router.use('/parametrizations/time-clock', ensureAuthenticated, timeClockRoutes)
 router.use('/parametrizations/team', ensureAuthenticated, teamRoutes)
 router.use('/parametrizations/units', ensureAuthenticated, unitRoutes)
@@ -32,6 +40,13 @@ router.use(
   usersPermissionsRoutes
 )
 router.use('/parametrizations/companies', ensureAuthenticated, companyRoutes)
+
+// PARAMETRIZATIONS OPERATIONAL
+router.use(
+  '/parametrizations/operational/holiday',
+  ensureAuthenticated,
+  holidayRoutes
+)
 
 // RULES -> DROPDOWN
 router.use('/dropdown', ensureAuthenticated, dropdownRoutes)
