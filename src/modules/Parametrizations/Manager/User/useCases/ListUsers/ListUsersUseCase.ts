@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 import { IManagerFilters } from '@modules/Parametrizations/shared/interfaces'
-import { IResponse, ResponseService } from 'services/Response/ResponseService'
+import { IResponse, ResponseService } from '@services/Response/ResponseService'
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 import { IUsersRepository } from '../../repositories/IUsersRepository'
 import { IUsersList, UsersListMap } from '../../mapper/UsersListMap'

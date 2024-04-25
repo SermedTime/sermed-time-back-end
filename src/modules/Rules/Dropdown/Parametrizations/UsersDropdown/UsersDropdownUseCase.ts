@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe'
 
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 
-import { IResponse, ResponseService } from 'services/Response/ResponseService'
+import { IResponse, ResponseService } from '@services/Response/ResponseService'
 
 import { IDropdown } from 'services/Response/interfaces'
 

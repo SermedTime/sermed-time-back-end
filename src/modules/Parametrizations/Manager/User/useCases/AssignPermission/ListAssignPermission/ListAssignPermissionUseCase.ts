@@ -3,7 +3,7 @@ import { inject, injectable } from 'tsyringe'
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 
 import { IManagerFilters } from '@modules/Parametrizations/shared/interfaces'
-import { IResponse, ResponseService } from 'services/Response/ResponseService'
+import { IResponse, ResponseService } from '@services/Response/ResponseService'
 import { IAssignPermissionRepository } from '../../../repositories/IAssignPermissionRepository'
 
 import { AssignPermissionMap } from '../../../mapper/AssignPermissionMap'

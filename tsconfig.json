@@ -7,10 +7,11 @@
     "rootDir": "./",
     "baseUrl": "./src",
     "paths": {
-      "@modules/*": ["modules/*"],
+      "@jobs/*": ["jobs/*"],
       "@config/*": ["config/*"],
+      "@modules/*": ["modules/*"],
+      "@services/*": ["services/*"],
       "@shared/*": ["shared/*"],
-      "@errors/*": ["errors/*"],
       "@utils/*": ["utils/*"]
     },
     "resolveJsonModule": true,

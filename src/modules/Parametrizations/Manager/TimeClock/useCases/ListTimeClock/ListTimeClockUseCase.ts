@@ -1,4 +1,4 @@
-import { ResponseService } from 'services/Response/ResponseService'
+import { ResponseService } from '@services/Response/ResponseService'
 
 import { inject, injectable } from 'tsyringe'
 

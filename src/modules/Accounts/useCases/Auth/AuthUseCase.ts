@@ -6,7 +6,7 @@ import auth from '@config/auth'
 
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 
-import { IResponse, ResponseService } from 'services/Response/ResponseService'
+import { IResponse, ResponseService } from '@services/Response/ResponseService'
 import { IUserAuthRepository } from '@modules/Accounts/repositories/IUserAuthRepository'
 import { IUserAuth, UserAuthMap } from '@modules/Accounts/mapper/UserAuthMap'
 import { IUserRulesSQL } from '@modules/Accounts/infra/SQLServer/interfaces/IUserRulesSQL'

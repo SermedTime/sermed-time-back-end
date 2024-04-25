@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe'
-import { IResponse, ResponseService } from 'services/Response/ResponseService'
+import { IResponse, ResponseService } from '@services/Response/ResponseService'
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 import { IAssignTeamRepository } from '../../../repositories/IAssignTeamRepository'
 

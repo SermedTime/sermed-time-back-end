@@ -1,6 +1,6 @@
 import { IAssignPermissionRepository } from '@modules/Parametrizations/Manager/User/repositories/IAssignPermissionRepository'
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
-import { IResponse, ResponseService } from 'services/Response/ResponseService'
+import { IResponse, ResponseService } from '@services/Response/ResponseService'
 import { IDropdown } from 'services/Response/interfaces'
 import { inject, injectable } from 'tsyringe'
 

@@ -5,7 +5,7 @@ import { v4 as uuidV4 } from 'uuid'
 
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 
-import { IResponse, ResponseService } from 'services/Response/ResponseService'
+import { IResponse, ResponseService } from '@services/Response/ResponseService'
 import { IMailProvider } from '@shared/container/providers/MailProvider/IMailProvider'
 import { IUsersTokenRepository } from '@modules/Accounts/repositories/IUsersTokenRepository'
 import { IDateProvider } from '@shared/container/providers/DateProvider/IDateProvider'

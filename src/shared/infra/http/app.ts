@@ -7,9 +7,9 @@ import schedule from 'node-schedule'
 
 import 'express-async-errors'
 
-import { JobTimeSheet } from 'jobs/UpdateTimeSheet/JobTimeSheet'
 import { container } from 'tsyringe'
 import schedule_rules from '@config/schedule_rules'
+import { JobTimeSheet } from '@jobs/UpdateTimeSheet/JobTimeSheet'
 import { createConnection } from '../database/config'
 
 import { router } from './routes'

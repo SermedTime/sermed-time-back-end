@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 
-import { IResponse, ResponseService } from 'services/Response/ResponseService'
+import { IResponse, ResponseService } from '@services/Response/ResponseService'
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 import { IDropdown } from 'services/Response/interfaces'
 import { ICityRepository } from '../../repositories/ICityRepository'

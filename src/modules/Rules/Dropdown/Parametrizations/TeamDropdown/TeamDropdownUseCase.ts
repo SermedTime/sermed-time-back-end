@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe'
 
 import { ITeamRepository } from '@modules/Parametrizations/Manager/Team/repositories/ITeamRepository'
-import { IResponse, ResponseService } from 'services/Response/ResponseService'
+import { IResponse, ResponseService } from '@services/Response/ResponseService'
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 import { IDropdown } from 'services/Response/interfaces'
 

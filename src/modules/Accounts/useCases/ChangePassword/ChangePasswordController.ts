@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { userAuthenticated } from 'services/UserAuthenticated/UserAuthenticated'
+import { userAuthenticated } from '@services/UserAuthenticated/UserAuthenticated'
 import { container } from 'tsyringe'
 import { ChangePasswordUseCase } from './ChangePasswordUseCase'
 

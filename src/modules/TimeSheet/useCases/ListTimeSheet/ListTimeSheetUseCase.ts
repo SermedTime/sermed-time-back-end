@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe'
 
 import { ITimeSheetRepository } from '@modules/TimeSheet/repositories/ITimeSheetRepository'
-import { IResponse, ResponseService } from 'services/Response/ResponseService'
+import { IResponse, ResponseService } from '@services/Response/ResponseService'
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 
 import { TimeSheetRegisterMap } from '@modules/TimeSheet/mapper/TimeSheetRegisterMap'

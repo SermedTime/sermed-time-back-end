@@ -33,7 +33,8 @@
         "camelcase": ["off", { "ignoreDestructuring": true }],
         "class-methods-use-this": ["off"],
         "no-useless-constructor": "off",
-        "no-empty-function": "off"
+        "no-empty-function": "off",
+        "import/no-unresolved": "off"
       }
     }
   ],

@@ -1,9 +1,10 @@
 import { ITimeClockRepository } from '@modules/Parametrizations/Manager/TimeClock/repositories/ITimeClockRepository'
 import { ICreateRegisterDTO } from '@modules/TimeSheet/dto/ICreateRegisterDTO'
 import { ITimeSheetRepository } from '@modules/TimeSheet/repositories/ITimeSheetRepository'
+import { post } from '@services/api/Control_id'
+import { auth } from '@services/api/Control_id/auth'
 import { ConvertTextToArrayRegisters } from '@utils/Register'
-import { post } from 'services/api/Control_id'
-import { auth } from 'services/api/Control_id/auth'
+
 import { inject, injectable } from 'tsyringe'
 
 @injectable()

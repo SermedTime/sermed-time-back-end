@@ -1,7 +1,7 @@
 import { IUserAuthRepository } from '@modules/Accounts/repositories/IUserAuthRepository'
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 import { compare } from 'bcrypt'
-import { IResponse, ResponseService } from 'services/Response/ResponseService'
+import { IResponse, ResponseService } from '@services/Response/ResponseService'
 import { inject, injectable } from 'tsyringe'
 
 interface IRequest {

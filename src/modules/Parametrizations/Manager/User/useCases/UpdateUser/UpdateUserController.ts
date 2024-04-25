@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
-import { userAuthenticated } from 'services/UserAuthenticated/UserAuthenticated'
+import { userAuthenticated } from '@services/UserAuthenticated/UserAuthenticated'
 import { UpdateUserUseCase } from './UpdateUserUseCase'
 
 class UpdateUserController {

@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 
-import { IResponse, ResponseService } from 'services/Response/ResponseService'
+import { IResponse, ResponseService } from '@services/Response/ResponseService'
 import { statusVerify } from '@utils/statusVerify'
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 import { ICreateTeamDTO } from '../../dtos/ICreateTeamDTO'

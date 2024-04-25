@@ -4,7 +4,7 @@ import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 
 import { resolve } from 'path'
 
-import { IResponse, ResponseService } from 'services/Response/ResponseService'
+import { IResponse, ResponseService } from '@services/Response/ResponseService'
 import { IMailProvider } from '@shared/container/providers/MailProvider/IMailProvider'
 import { randonPasswordGenerate } from '@utils/RandonPasswordGenerate'
 import { hash } from 'bcrypt'

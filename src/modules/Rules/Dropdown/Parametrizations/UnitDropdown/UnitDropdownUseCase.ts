@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe'
 
 import { IUnitRepository } from '@modules/Parametrizations/Manager/Unit/repositories/IUnitRepository'
-import { IResponse, ResponseService } from 'services/Response/ResponseService'
+import { IResponse, ResponseService } from '@services/Response/ResponseService'
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 import { IDropdown } from 'services/Response/interfaces'
 

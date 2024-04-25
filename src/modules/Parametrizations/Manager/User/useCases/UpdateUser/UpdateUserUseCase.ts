@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe'
-import { ResponseService } from 'services/Response/ResponseService'
+import { ResponseService } from '@services/Response/ResponseService'
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 import { IUsersRepository } from '../../repositories/IUsersRepository'
 import { ICreateUserDTO } from '../../dtos/ICreateUserDTO'

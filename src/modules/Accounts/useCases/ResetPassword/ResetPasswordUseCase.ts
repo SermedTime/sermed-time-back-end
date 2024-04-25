@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe'
 
 import { IUsersTokenRepository } from '@modules/Accounts/repositories/IUsersTokenRepository'
 import { IUserAuthRepository } from '@modules/Accounts/repositories/IUserAuthRepository'
-import { IResponse, ResponseService } from 'services/Response/ResponseService'
+import { IResponse, ResponseService } from '@services/Response/ResponseService'
 import { HTTP_STATUS } from '@shared/infra/http/status/http-status'
 
 interface IRequest {
