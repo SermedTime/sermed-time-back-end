@@ -1,3 +1,3 @@
 export default {
-  second: 5
+  minute: 30
 }

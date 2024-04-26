@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import 'reflect-metadata'
 import '@shared/container'
 import cors from 'cors'
@@ -20,7 +21,7 @@ const app = express()
 app.use(express.json())
 
 app.use(cors())
-app.use('/api', router)
+app.use('/', router)
 
 const jobTimeSheet = container.resolve(JobTimeSheet)
 
