@@ -1,4 +1,4 @@
-import { ITimeClockRepository } from '@modules/Parametrizations/Manager/TimeClock/repositories/ITimeClockRepository'
+import { ITimeClockRepository } from '@modules/Parametrizations/Operational/TimeClock/repositories/ITimeClockRepository'
 import { ICreateRegisterDTO } from '@modules/TimeSheet/dto/ICreateRegisterDTO'
 import { ITimeSheetRepository } from '@modules/TimeSheet/repositories/ITimeSheetRepository'
 import { post } from '@services/api/Control_id'

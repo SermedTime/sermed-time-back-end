@@ -1,9 +1,9 @@
 import { Router } from 'express'
 
-import { CreateTimeClockController } from '@modules/Parametrizations/Manager/TimeClock/useCases/CreateTimeClock/CreateTimeClockController'
-import { DetailsTimeClockController } from '@modules/Parametrizations/Manager/TimeClock/useCases/DetailsTimeClock/DetailsTimeClockController'
-import { ListTimeClockController } from '@modules/Parametrizations/Manager/TimeClock/useCases/ListTimeClock/ListTimeClockController'
-import { UpdateTimeClockController } from '@modules/Parametrizations/Manager/TimeClock/useCases/UpdateTimeClock/UpdateTimeClockController'
+import { CreateTimeClockController } from '@modules/Parametrizations/Operational/TimeClock/useCases/CreateTimeClock/CreateTimeClockController'
+import { DetailsTimeClockController } from '@modules/Parametrizations/Operational/TimeClock/useCases/DetailsTimeClock/DetailsTimeClockController'
+import { ListTimeClockController } from '@modules/Parametrizations/Operational/TimeClock/useCases/ListTimeClock/ListTimeClockController'
+import { UpdateTimeClockController } from '@modules/Parametrizations/Operational/TimeClock/useCases/UpdateTimeClock/UpdateTimeClockController'
 
 const timeClockRoutes = Router()
 

@@ -7,7 +7,8 @@ import {
   unitRoutes,
   userRoutes,
   usersMembershipRoutes,
-  usersPermissionsRoutes
+  usersPermissionsRoutes,
+  workingDay
 } from './Parametrizations/Manager'
 
 import { holidayRoutes } from './Parametrizations/Operational'
@@ -40,6 +41,11 @@ router.use(
   usersPermissionsRoutes
 )
 router.use('/parametrizations/companies', ensureAuthenticated, companyRoutes)
+router.use(
+  '/parametrizations/management/working-day',
+  ensureAuthenticated,
+  workingDay
+)
 
 // PARAMETRIZATIONS OPERATIONAL
 router.use(

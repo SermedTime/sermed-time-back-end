@@ -6,8 +6,8 @@ import { CompaniesRepository } from '@modules/Parametrizations/Manager/Company/i
 import { ICompaniesRepository } from '@modules/Parametrizations/Manager/Company/repositories/ICompaniesRepository'
 import { TeamRepository } from '@modules/Parametrizations/Manager/Team/infra/SQLServer/repositories/TeamRespository'
 import { ITeamRepository } from '@modules/Parametrizations/Manager/Team/repositories/ITeamRepository'
-import { TimeClockRepository } from '@modules/Parametrizations/Manager/TimeClock/infra/SQLServer/repositories/TimeClockRepository'
-import { ITimeClockRepository } from '@modules/Parametrizations/Manager/TimeClock/repositories/ITimeClockRepository'
+import { TimeClockRepository } from '@modules/Parametrizations/Operational/TimeClock/infra/SQLServer/repositories/TimeClockRepository'
+import { ITimeClockRepository } from '@modules/Parametrizations/Operational/TimeClock/repositories/ITimeClockRepository'
 import { UsersRepository } from '@modules/Parametrizations/Manager/User/infra/SQLServer/repositories/UsersRepository'
 import { IUsersRepository } from '@modules/Parametrizations/Manager/User/repositories/IUsersRepository'
 import { IUserAuthRepository } from '@modules/Accounts/repositories/IUserAuthRepository'
@@ -30,6 +30,8 @@ import { ICityRepository } from '@modules/Rules/Dropdown/repositories/ICityRepos
 import { CityRepository } from '@modules/Rules/Dropdown/infra/SQLServer/repositories/CityRepository'
 import { IHolidayRepository } from '@modules/Parametrizations/Operational/Holiday/repositories/IHolidayRepository'
 import { HolidayRepository } from '@modules/Parametrizations/Operational/Holiday/infra/SQLServer/repositories/HolidayRepository'
+import { IWorkingDayRepository } from '@modules/Parametrizations/Manager/WorkingDay/repositories/IWorkingDayRepository'
+import { WorkingDayRepository } from '@modules/Parametrizations/Manager/WorkingDay/infra/repositories/WorkingDayRepository'
 
 container.registerSingleton<ITimeClockRepository>(
   'TimeClockRepository',
@@ -93,6 +95,11 @@ container.registerSingleton<ITimeSheetRepository>(
 container.registerSingleton<IHolidayRepository>(
   'HolidayRepository',
   HolidayRepository
+)
+
+container.registerSingleton<IWorkingDayRepository>(
+  'WorkingDayRepository',
+  WorkingDayRepository
 )
 
 container.registerSingleton<ICityRepository>('CityRepository', CityRepository)
