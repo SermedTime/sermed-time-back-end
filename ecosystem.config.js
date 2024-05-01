@@ -8,11 +8,13 @@ module.exports = {
       instances: 1,
       autorestart: true,
       env: {
-        WEB_APP_URL: 'http://localhost:3001',
+        WEB_APP_URL: 'time.sermedsaude.com.br',
+        ENVIRONMENT: 'development',
         DB_USER: 'app_sermed',
-        DB_PWD: 'app_sermed',
+        DB_PWD: '@pp_s3rm3d',
         DB_NAME: 'SERMED_TIME',
-        DB_HOST: '192.168.0.103',
+        DB_HOST: '10.10.11.139',
+        DB_PORT: '11433',
         SECRET_TOKEN: '9280bd757682951adb652313dc00f87f1aa94b16',
         SECRET_TOKEN_RECOVER_PASSWORD:
           'e2a6147a05fc9e652d073df274de52d825d244b6',
