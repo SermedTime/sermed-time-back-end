@@ -9,6 +9,7 @@ interface IWorkingDayRepository {
     data: IParamsListWorkingDay
   ): Promise<IResponseRepository<IWorkingDaySQL>>
   findById(uuid: string): Promise<IResponseRepository<IWorkingDaySQL>>
+  findOptionsDropdown(): Promise<IResponseRepository<IWorkingDaySQL>>
 }
 
 export { IWorkingDayRepository }

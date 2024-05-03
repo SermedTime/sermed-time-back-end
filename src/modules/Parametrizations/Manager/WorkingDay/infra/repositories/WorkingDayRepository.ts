@@ -10,6 +10,30 @@ import { IWorkingDaySQL } from '../../repositories/interfaces/IWorkingDaySQL'
 import { IParamsListWorkingDay } from '../../useCases/ListWorkingDay/ListWorkingDayUseCase'
 
 class WorkingDayRepository implements IWorkingDayRepository {
+  async findOptionsDropdown(): Promise<IResponseRepository<IWorkingDaySQL>> {
+    let response: IResponseRepository<IWorkingDaySQL>
+
+    try {
+      const pool = getPool()
+
+      const result = await pool.request().execute('[dbo].[PRC_JORN_TRAB_CONS]')
+
+      const { recordset: workingDay } = result
+
+      response = {
+        success: true,
+        data: workingDay
+      }
+    } catch (err) {
+      response = {
+        success: false,
+        message: err.message
+      }
+    }
+
+    return response
+  }
+
   async upsert({
     uuid,
     workingDayName,

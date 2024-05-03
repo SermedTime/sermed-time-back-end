@@ -8,6 +8,7 @@ import { UsersDropdownController } from '@modules/Rules/Dropdown/Parametrization
 import { ShiftDropdownController } from '@modules/Rules/Dropdown/Schedules/ShiftDropdown/ShiftDropdownController'
 import { UnitDropdownController } from '@modules/Rules/Dropdown/Parametrizations/UnitDropdown/UnitDropdownController'
 import { CityDropdownController } from '@modules/Rules/Dropdown/Parametrizations/CityDropdown/CityDropdownController'
+import { WorkingDayDropdownController } from '@modules/Rules/Dropdown/Parametrizations/WorkingDayDropdown/WorkingDayDropdownController'
 
 const dropdownRoutes = Router()
 
@@ -20,6 +21,9 @@ const permissionsDropdownController = container.resolve(
 const usersDropdownController = container.resolve(UsersDropdownController)
 const shiftDropdownController = container.resolve(ShiftDropdownController)
 const cityDropdownController = container.resolve(CityDropdownController)
+const workingDayDropdownController = container.resolve(
+  WorkingDayDropdownController
+)
 
 dropdownRoutes.get('/company', companyDropdownController.handle)
 dropdownRoutes.get('/unit', unitDropdownController.handle)
@@ -28,5 +32,6 @@ dropdownRoutes.get('/permissions', permissionsDropdownController.handle)
 dropdownRoutes.get('/users', usersDropdownController.handle)
 dropdownRoutes.get('/shifts', shiftDropdownController.handle)
 dropdownRoutes.get('/city', cityDropdownController.handle)
+dropdownRoutes.get('/working-day', workingDayDropdownController.handle)
 
 export { dropdownRoutes }
