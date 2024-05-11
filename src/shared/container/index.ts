@@ -32,6 +32,8 @@ import { IHolidayRepository } from '@modules/Parametrizations/Operational/Holida
 import { HolidayRepository } from '@modules/Parametrizations/Operational/Holiday/infra/SQLServer/repositories/HolidayRepository'
 import { IWorkingDayRepository } from '@modules/Parametrizations/Manager/WorkingDay/repositories/IWorkingDayRepository'
 import { WorkingDayRepository } from '@modules/Parametrizations/Manager/WorkingDay/infra/repositories/WorkingDayRepository'
+import { IWorkingTimeRepository } from '@modules/Parametrizations/Manager/WorkingTime/repositories/IWorkingTimeRepository'
+import { WorkingTimeRepository } from '@modules/Parametrizations/Manager/WorkingTime/infra/repositories/SQLServer/WorkingTimeRepository'
 
 container.registerSingleton<ITimeClockRepository>(
   'TimeClockRepository',
@@ -100,6 +102,11 @@ container.registerSingleton<IHolidayRepository>(
 container.registerSingleton<IWorkingDayRepository>(
   'WorkingDayRepository',
   WorkingDayRepository
+)
+
+container.registerSingleton<IWorkingTimeRepository>(
+  'WorkingTimeRepository',
+  WorkingTimeRepository
 )
 
 container.registerSingleton<ICityRepository>('CityRepository', CityRepository)
