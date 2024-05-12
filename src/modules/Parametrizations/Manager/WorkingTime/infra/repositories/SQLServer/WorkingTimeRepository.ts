@@ -1,3 +1,5 @@
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-restricted-syntax */
 import sql from 'mssql'
 
 import { getPool } from '@shared/infra/database/config'
@@ -7,8 +9,56 @@ import { formatTime } from '@shared/helpers/formatTime'
 import { IWorkingTimeRepository } from '../../../repositories/IWorkingTimeRepository'
 import { IWorkingTimeSQL } from '../../interfaces/IWorkingTimeSQL'
 import { IWorkingTimeDetails } from '../../../useCases/DetailsWorkingTime/DetailsWorkingTimeUseCase'
+import { IRegisterWorkingTimeDTO } from '../../../dtos/IRegisterWorkingTimeDTO'
 
 class WorkingTimeRepository implements IWorkingTimeRepository {
+  async upsert({
+    userAction,
+    workingDayId,
+    workingTime
+  }: IRegisterWorkingTimeDTO): Promise<IResponseRepository<any>> {
+    let response: IResponseRepository<any>
+
+    const pool = getPool()
+
+    const transaction = new sql.Transaction(pool)
+
+    try {
+      await transaction.begin()
+
+      const request = new sql.Request(transaction)
+
+      for (const time of workingTime) {
+        request.input('UUID_JORN_TRAB', sql.UniqueIdentifier, workingDayId)
+        request.input('ID_DIA_SEMA', sql.TinyInt, time.day)
+        request.input('HR_ENTR_1', sql.VarChar(5), time.firstEntry)
+        request.input('HR_SAID_1', sql.VarChar(5), time.firstExit)
+        request.input('HR_ENTR_2', sql.VarChar(5), time.secondEntry)
+        request.input('HR_SAID_2', sql.VarChar(5), time.secondExit)
+        request.input('HR_ENTR_3', sql.VarChar(5), time.thirdEntry)
+        request.input('HR_SAID_3', sql.VarChar(5), time.thirdExit)
+        request.input('UUID_USUA_ACAO', sql.UniqueIdentifier, userAction)
+
+        await request.execute('[dbo].[PRC_JORN_TRAB_DETA_GRAV]')
+        request.parameters = {}
+      }
+
+      await transaction.commit()
+      response = {
+        success: true,
+        data: workingTime
+      }
+    } catch (err) {
+      await transaction.rollback()
+      response = {
+        success: false,
+        message: err.message
+      }
+    }
+
+    return response
+  }
+
   mapDetails(data: IWorkingTimeSQL[]): IWorkingTimeDetails[] {
     const workingTime: IWorkingTimeDetails[] = Array.from(
       { length: 7 },
