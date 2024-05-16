@@ -9,6 +9,8 @@ interface IUserDetails {
   companyUuid: string
   companyCnpj: string
   companyName: string
+  workingDayId: string
+  workingDayName: string
   position: string
   payrollNumber: string
   employeeCode: string
@@ -30,6 +32,8 @@ class UserDetailsMap {
       companyUuid: data.UUID_EMPR,
       companyCnpj: data.NR_CNPJ_EMPR,
       companyName: data.NM_EMPR,
+      workingDayId: data.UUID_JORN_TRAB,
+      workingDayName: data.NM_JORN_TRAB,
       position: data.DS_FUNC,
       payrollNumber: data.NR_FOLH_PAGA,
       employeeCode: data.NR_IDEN_USUA,

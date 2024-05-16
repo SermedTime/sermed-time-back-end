@@ -6,6 +6,8 @@ interface IUserSQL {
   ID_EMPR: string
   UUID_EMPR: string
   NM_EMPR: string
+  UUID_JORN_TRAB: string
+  NM_JORN_TRAB: string
   NR_CNPJ_EMPR: string
   DS_FUNC: string
   NR_FOLH_PAGA: string

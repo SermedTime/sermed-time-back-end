@@ -21,7 +21,7 @@ const deleteAssignPermissionController = container.resolve(
 )
 
 usersPermissionsRoutes.post('/', createAssignPermissionController.handle)
-usersPermissionsRoutes.get('/:user_id', listAssignPermissionController.handle)
+usersPermissionsRoutes.get('/', listAssignPermissionController.handle)
 usersPermissionsRoutes.put(
   '/:assign_id',
   updateAssignPermissionController.handle
