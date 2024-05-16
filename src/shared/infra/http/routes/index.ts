@@ -37,7 +37,7 @@ router.use(
   usersMembershipRoutes
 )
 router.use(
-  '/parametrizations/assing-permissions',
+  '/parametrizations/assign-permissions',
   ensureAuthenticated,
   usersPermissionsRoutes
 )
