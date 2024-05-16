@@ -9,8 +9,41 @@ import { IUserSQL } from '../interfaces'
 import { IParamsListUsers } from '../../../useCases/ListUsers/ListUsersUseCase'
 import { IUsersRepository } from '../../../repositories/IUsersRepository'
 import { ICreateUserDTO } from '../../../dtos/ICreateUserDTO'
+import { IAssignWorkingDay } from '../../../useCases/AssignWorkingDay/AssignWorkingDayUseCase'
 
 class UsersRepository implements IUsersRepository {
+  async assignWorkingDay({
+    userAction,
+    userId,
+    workingDayId
+  }: IAssignWorkingDay): Promise<IResponseRepository<any>> {
+    let response: IResponseRepository
+
+    const pool = getPool()
+    try {
+      const result = await pool
+        .request()
+        .input('UUID_USUA', sql.UniqueIdentifier, userId)
+        .input('UUID_JORN_TRAB', sql.UniqueIdentifier, workingDayId)
+        .input('UUID_USUA_ACAO', sql.UniqueIdentifier, userAction)
+        .execute('[dbo].[PRC_USUA_GRAV]')
+
+      const { recordset: user } = result
+
+      response = {
+        success: true,
+        data: user
+      }
+    } catch (err) {
+      response = {
+        success: false,
+        message: err.message
+      }
+    }
+
+    return response
+  }
+
   async create({
     admissionDate,
     companyUuid,
