@@ -8,6 +8,7 @@ import { IDropdown } from 'services/Response/interfaces'
 export interface IRequestTeamsDropdown {
   allTeams: string
   user_id: string
+  unitId: string
 }
 
 @injectable()
@@ -19,11 +20,13 @@ class TeamDropdownUseCase {
 
   async execute({
     allTeams,
-    user_id
+    user_id,
+    unitId
   }: IRequestTeamsDropdown): Promise<IResponse> {
     const teams = await this.teamRepository.findAll({
       allTeams,
-      user_id
+      user_id,
+      unitId
     })
 
     if (!teams.success) {

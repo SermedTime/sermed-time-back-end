@@ -10,7 +10,8 @@ interface ITeamRepository {
   findById(uuid: string): Promise<IResponseRepository<ITeamSQL>>
   findAll({
     allTeams,
-    user_id
+    user_id,
+    unitId
   }: IRequestTeamsDropdown): Promise<IResponseRepository<ITeamSQL>>
 }
 

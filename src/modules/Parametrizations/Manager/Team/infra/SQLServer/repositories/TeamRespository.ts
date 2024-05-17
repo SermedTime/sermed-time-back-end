@@ -119,7 +119,8 @@ class TeamRepository implements ITeamRepository {
 
   async findAll({
     allTeams,
-    user_id
+    user_id,
+    unitId
   }: IRequestTeamsDropdown): Promise<IResponseRepository<ITeamSQL>> {
     let response: IResponseRepository<ITeamSQL>
 
@@ -129,7 +130,8 @@ class TeamRepository implements ITeamRepository {
       const result = await pool
         .request()
         .input('ALL', sql.Bit, allTeams === 'active' ? 1 : null)
-        .input('UUID_USUA', sql.NVarChar(36), user_id)
+        .input('UUID_USUA', sql.UniqueIdentifier, user_id)
+        .input('UUID_UNID', sql.UniqueIdentifier, unitId)
         .execute('[dbo].[PRC_EQUI_DROP_DOWN]')
 
       const { recordset: team } = result
