@@ -167,8 +167,9 @@ class UsersRepository implements IUsersRepository {
     search,
     searchingBy,
     status,
-    team,
-    unit
+    companyId,
+    unitId,
+    teamId
   }: IParamsListUsers): Promise<IResponseRepository<IUserSQL>> {
     let response: IResponseRepository<IUserSQL>
 
@@ -182,8 +183,9 @@ class UsersRepository implements IUsersRepository {
       const result = await pool
         .request()
         .input('NM_USUA', sql.VarChar(256), name)
-        .input('UUID_EQUI', UniqueIdentifier, team)
-        .input('UUID_UNID', UniqueIdentifier, unit)
+        .input('UUID_EMPR', UniqueIdentifier, companyId)
+        .input('UUID_UNID', UniqueIdentifier, unitId)
+        .input('UUID_EQUI', UniqueIdentifier, teamId)
         .input('NM_SOCI_USUA', sql.VarChar(256), socialName)
         .input('NR_CPF_USUA', sql.VarChar(11), cpf)
         .input('IN_STAT', sql.Bit, in_stat)
