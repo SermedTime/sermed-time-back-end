@@ -8,6 +8,8 @@ export interface ITimeClockSQL {
   DS_UF: string
   NM_FABR: string
   NM_MODE: string
+  NR_ULTI_MARC: string
+  DT_ULTI_MARC: string
   DT_CRIA: string
   ID_USUA_CRIA: string
   UUID_USUA_CRIA: string
