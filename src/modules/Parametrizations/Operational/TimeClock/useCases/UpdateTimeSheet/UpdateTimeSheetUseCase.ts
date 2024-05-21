@@ -55,7 +55,7 @@ class UpdateTimeSheetUseCase {
     }
 
     return ResponseService.setResponseJson({
-      data: timeClock,
+      data: uuid,
       status: HTTP_STATUS.OK,
       success: timeClock.success,
       create: true
