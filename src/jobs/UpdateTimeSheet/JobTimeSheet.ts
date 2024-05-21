@@ -6,9 +6,10 @@ import { auth } from '@services/api/Control_id/auth'
 import { ConvertTextToArrayRegisters } from '@utils/Register'
 
 import { inject, injectable } from 'tsyringe'
+import { IJobTimeSheet } from './IJobTimeSheet'
 
 @injectable()
-class JobTimeSheet {
+class JobTimeSheet implements IJobTimeSheet {
   constructor(
     @inject('TimeClockRepository')
     private timeClockRepository: ITimeClockRepository,

@@ -34,6 +34,8 @@ import { IWorkingDayRepository } from '@modules/Parametrizations/Manager/Working
 import { WorkingDayRepository } from '@modules/Parametrizations/Manager/WorkingDay/infra/repositories/WorkingDayRepository'
 import { IWorkingTimeRepository } from '@modules/Parametrizations/Manager/WorkingTime/repositories/IWorkingTimeRepository'
 import { WorkingTimeRepository } from '@modules/Parametrizations/Manager/WorkingTime/infra/repositories/SQLServer/WorkingTimeRepository'
+import { JobTimeSheet } from '@jobs/UpdateTimeSheet/JobTimeSheet'
+import { IJobTimeSheet } from '@jobs/UpdateTimeSheet/IJobTimeSheet'
 
 container.registerSingleton<ITimeClockRepository>(
   'TimeClockRepository',
@@ -108,5 +110,7 @@ container.registerSingleton<IWorkingTimeRepository>(
   'WorkingTimeRepository',
   WorkingTimeRepository
 )
+
+container.registerSingleton<IJobTimeSheet>('JobTimeSheet', JobTimeSheet)
 
 container.registerSingleton<ICityRepository>('CityRepository', CityRepository)
