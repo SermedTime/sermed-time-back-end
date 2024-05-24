@@ -28,3 +28,11 @@ export function ConvertTextToArrayRegisters(
 
   return registers
 }
+
+export function base64ToString(base64String: string) {
+  const buffer = Buffer.from(base64String, 'base64')
+
+  const text = buffer.toString('utf8')
+
+  return text
+}
