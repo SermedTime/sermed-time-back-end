@@ -13,6 +13,14 @@ class UnitRepository implements IUnitRepository {
   async upsert({
     uuid,
     unitName,
+    streetName,
+    streetNumber,
+    complement,
+    neighborhood,
+    city,
+    state,
+    zipCode,
+    ibgeCode,
     status,
     user_action
   }: ICreateUnitDTO): Promise<IResponseRepository<any>> {
@@ -25,6 +33,14 @@ class UnitRepository implements IUnitRepository {
         .request()
         .input('UUID_UNID', sql.UniqueIdentifier, uuid)
         .input('NM_UNID', sql.VarChar(128), unitName)
+        .input('NR_CEP', sql.VarChar(9), zipCode)
+        .input('DS_LOGR', sql.VarChar(128), streetName)
+        .input('NR_LOGR', sql.VarChar(10), streetNumber)
+        .input('DS_COMP', sql.VarChar(16), complement)
+        .input('NM_BAIR', sql.VarChar(128), neighborhood)
+        .input('NM_MUNI', sql.VarChar(128), city)
+        .input('DS_UF', sql.Char(2), state)
+        .input('CD_IBGE', sql.Int, ibgeCode)
         .input('IN_STAT', sql.Bit, status)
         .input('UUID_USUA_ACAO', sql.UniqueIdentifier, user_action)
         .execute('[dbo].[PRC_UNID_GRAV]')

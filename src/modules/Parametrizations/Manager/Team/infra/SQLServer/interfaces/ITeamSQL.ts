@@ -10,6 +10,8 @@ interface ITeamSQL {
   UUID_USUA_ULTI_ATUA: string
   NM_USUA_ULTI_ATUA: string
   IN_STAT: 'active' | 'inactive'
+  TT_FUNC: number
+  TT_FUNC_ATIV: number
   TT_REGI: number
 }
 

@@ -7,7 +7,18 @@ import { CreateUnitUseCase } from './CreateUnitUseCase'
 
 class CreateUnitController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const { unitName, status } = req.body
+    const {
+      unitName,
+      streetName,
+      streetNumber,
+      complement,
+      neighborhood,
+      city,
+      state,
+      zipCode,
+      ibgeCode,
+      status
+    } = req.body
 
     const userId = userAuthenticated(req)
 
@@ -15,7 +26,15 @@ class CreateUnitController {
 
     const unit = await service.execute({
       unitName,
+      streetName,
+      streetNumber,
+      complement,
+      neighborhood,
+      city,
+      state,
+      zipCode,
       status,
+      ibgeCode,
       user_action: userId
     })
 

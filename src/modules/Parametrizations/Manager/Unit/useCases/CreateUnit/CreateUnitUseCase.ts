@@ -14,6 +14,14 @@ class CreateUnitUseCase {
 
   async execute({
     unitName,
+    streetName,
+    streetNumber,
+    complement,
+    neighborhood,
+    city,
+    state,
+    zipCode,
+    ibgeCode,
     status,
     user_action
   }: ICreateUnitDTO): Promise<IResponse> {
@@ -21,6 +29,14 @@ class CreateUnitUseCase {
 
     const unit = await this.unitRepository.upsert({
       unitName,
+      streetName,
+      streetNumber,
+      complement,
+      neighborhood,
+      city,
+      state,
+      zipCode,
+      ibgeCode,
       status: in_stat,
       user_action
     })
