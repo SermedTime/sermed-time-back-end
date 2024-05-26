@@ -14,8 +14,16 @@ class UpdateUnitUseCase {
 
   async execute({
     uuid,
-    status,
     unitName,
+    streetName,
+    streetNumber,
+    complement,
+    neighborhood,
+    city,
+    state,
+    zipCode,
+    ibgeCode,
+    status,
     user_action
   }: ICreateUnitDTO): Promise<IResponse> {
     const in_stat = status ? (status === 'active' ? 1 : 0) : null
@@ -23,6 +31,14 @@ class UpdateUnitUseCase {
     const unit = await this.unitRepository.upsert({
       uuid,
       unitName,
+      streetName,
+      streetNumber,
+      complement,
+      neighborhood,
+      city,
+      state,
+      zipCode,
+      ibgeCode,
       status: in_stat,
       user_action
     })

@@ -10,14 +10,33 @@ class UpdateUnitController {
 
     const userId = userAuthenticated(req)
 
-    const { unitName, status } = req.body
+    const {
+      unitName,
+      streetName,
+      streetNumber,
+      complement,
+      neighborhood,
+      city,
+      state,
+      zipCode,
+      ibgeCode,
+      status
+    } = req.body
 
     const service = container.resolve(UpdateUnitUseCase)
 
     const unit = await service.execute({
       uuid,
       unitName,
+      streetName,
+      streetNumber,
+      complement,
+      neighborhood,
+      city,
+      state,
+      zipCode,
       status,
+      ibgeCode,
       user_action: userId
     })
 
