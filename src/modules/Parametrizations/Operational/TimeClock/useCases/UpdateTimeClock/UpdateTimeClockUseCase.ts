@@ -15,13 +15,11 @@ class UpdateTimeClockUseCase {
 
   async execute({
     uuid,
-    city,
     clock_ip,
     manufacturer,
     model,
     name,
     sector,
-    state,
     status,
     unit,
     user_action
@@ -30,13 +28,11 @@ class UpdateTimeClockUseCase {
 
     const timeClock = await this.timeClockRepository.upsert({
       uuid,
-      city,
       clock_ip,
       manufacturer,
       model,
       name,
       sector,
-      state,
       status: in_stat,
       unit,
       user_action

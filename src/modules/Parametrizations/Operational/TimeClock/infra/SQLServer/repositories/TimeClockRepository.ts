@@ -16,13 +16,11 @@ import { IParamsListTimeClock } from '../../../useCases/ListTimeClock/ListTimeCl
 
 class TimeClockRepository implements ITimeClockRepository {
   async upsert({
-    city,
     clock_ip,
     manufacturer,
     model,
     name,
     sector,
-    state,
     status,
     unit,
     uuid,
@@ -37,10 +35,8 @@ class TimeClockRepository implements ITimeClockRepository {
         .input('UUID', sql.UniqueIdentifier, uuid)
         .input('NM_RELO_PONT', sql.VarChar(128), name)
         .input('IP_RELO_PONT', sql.VarChar(15), clock_ip)
-        .input('DS_UNID', sql.VarChar(128), unit)
+        .input('UUID_UNID', sql.UniqueIdentifier, unit)
         .input('NM_SETO', sql.VarChar(128), sector)
-        .input('DS_MUNI', sql.VarChar(128), city)
-        .input('DS_UF', sql.VarChar(128), state)
         .input('NM_FABR', sql.VarChar(128), manufacturer)
         .input('NM_MODE', sql.VarChar(128), model)
         .input('UUID_USUA_ACAO', sql.NVarChar(36), user_action)

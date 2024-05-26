@@ -6,17 +6,8 @@ import { UpdateTimeClockUseCase } from './UpdateTimeClockUseCase'
 class UpdateTimeClockController {
   async handle(req: Request, res: Response): Promise<Response> {
     const { uuid } = req.params
-    const {
-      city,
-      clock_ip,
-      manufacturer,
-      model,
-      name,
-      sector,
-      state,
-      status,
-      unit
-    } = req.body
+    const { clock_ip, manufacturer, model, name, sector, status, unit } =
+      req.body
 
     const userId = userAuthenticated(req)
 
@@ -24,13 +15,11 @@ class UpdateTimeClockController {
 
     const timeClock = await updateTimeClockUseCase.execute({
       uuid,
-      city,
       clock_ip,
       manufacturer,
       model,
       name,
       sector,
-      state,
       status,
       unit,
       user_action: userId
