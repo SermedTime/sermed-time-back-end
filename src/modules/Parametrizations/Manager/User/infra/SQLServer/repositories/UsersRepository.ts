@@ -24,7 +24,11 @@ class UsersRepository implements IUsersRepository {
       const result = await pool
         .request()
         .input('UUID_USUA', sql.UniqueIdentifier, userId)
-        .input('UUID_JORN_TRAB', sql.UniqueIdentifier, workingDayId)
+        .input(
+          'UUID_JORN_TRAB',
+          sql.UniqueIdentifier,
+          workingDayId.length > 0 ? workingDayId : null
+        )
         .input('UUID_USUA_ACAO', sql.UniqueIdentifier, userAction)
         .execute('[dbo].[PRC_USUA_GRAV]')
 
