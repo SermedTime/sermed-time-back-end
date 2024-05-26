@@ -20,7 +20,8 @@ export async function auth({ baseURL }: IParams): Promise<ApiAuthResponse> {
       baseURL: `https://${baseURL}`,
       httpsAgent: new https.Agent({
         rejectUnauthorized: false
-      })
+      }),
+      timeout: 15000
     })
 
     const params = {
@@ -35,9 +36,9 @@ export async function auth({ baseURL }: IParams): Promise<ApiAuthResponse> {
     const err = error as AxiosError
 
     return {
-      status: err.response?.status ?? 0,
+      status: err.response?.status ?? 408,
       error: true,
-      message: ''
+      message: err.response?.statusText ?? 'Request Timeout'
     }
   }
 }

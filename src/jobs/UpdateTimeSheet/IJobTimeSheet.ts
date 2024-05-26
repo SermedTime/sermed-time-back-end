@@ -4,7 +4,8 @@ interface IJobTimeSheet {
   UpdateTimeSheet(): Promise<void>
   getParams(
     ipConnection: string,
-    lastRegister: number
+    lastRegister: number,
+    isJob: boolean
   ): Promise<Record<string, any>>
   getTimeSheet(
     params: Record<string, any>,

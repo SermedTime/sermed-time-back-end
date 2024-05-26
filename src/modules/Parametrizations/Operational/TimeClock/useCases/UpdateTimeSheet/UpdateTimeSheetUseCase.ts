@@ -39,7 +39,8 @@ class UpdateTimeSheetUseCase {
 
       const params = await this.jobTimeSheet.getParams(
         updateTimeSheet.timeClockIp,
-        Number(updateTimeSheet.lastRegister)
+        Number(updateTimeSheet.lastRegister),
+        false
       )
 
       if (params.session) {
@@ -51,6 +52,13 @@ class UpdateTimeSheetUseCase {
         const registers = ConvertTextToArrayRegisters(time_sheet, uuid)
 
         await this.jobTimeSheet.saveRegister(registers)
+      } else {
+        return ResponseService.setResponseJson({
+          status: HTTP_STATUS.BAD_REQUEST,
+          success: false,
+          message:
+            'Houve um erro no comportamento da aplicação verifique se o IP está correto e tente novamente!'
+        })
       }
     }
 

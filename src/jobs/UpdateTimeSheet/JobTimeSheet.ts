@@ -37,7 +37,8 @@ class JobTimeSheet implements IJobTimeSheet {
       time_clocks.forEach(async item => {
         const params = await this.getParams(
           item.ip_time_clock,
-          item.last_register
+          item.last_register,
+          true
         )
 
         if (params.session) {
@@ -58,7 +59,8 @@ class JobTimeSheet implements IJobTimeSheet {
 
   async getParams(
     ipConnection: string,
-    lastRegister: number
+    lastRegister: number,
+    isJob: boolean
   ): Promise<Record<string, any>> {
     let params = {} as Record<string, any>
     try {
@@ -71,7 +73,13 @@ class JobTimeSheet implements IJobTimeSheet {
         initial_nsr: lastRegister + 1
       }
     } catch (err) {
-      console.error(err)
+      if (isJob) {
+        console.error(err)
+      } else {
+        params = {
+          session: null
+        }
+      }
     }
 
     return params
