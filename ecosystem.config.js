@@ -7,6 +7,7 @@ module.exports = {
       watch: true,
       instances: 1,
       autorestart: true,
+      node_args: '--insecure-http-parser',
       env: {
         WEB_APP_URL: 'time.sermedsaude.com.br',
         ENVIRONMENT: 'development',
@@ -32,6 +33,7 @@ module.exports = {
       watch: true,
       instances: 1,
       autorestart: true,
+      node_args: '--insecure-http-parser',
       env: {
         WEB_APP_URL: 'http://localhost:3001',
         DB_USER: 'app_sermed',
@@ -56,6 +58,7 @@ module.exports = {
       instances: 'max', // Usa o máximo de instâncias possíveis
       exec_mode: 'cluster', // Ativa o modo de cluster para produção
       autorestart: true,
+      node_args: '--insecure-http-parser',
       env: {
         WEB_APP_URL: 'http://localhost:3001',
         DB_USER: 'app_sermed',
