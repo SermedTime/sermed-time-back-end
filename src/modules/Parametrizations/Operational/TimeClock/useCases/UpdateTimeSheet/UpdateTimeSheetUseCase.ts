@@ -39,8 +39,7 @@ class UpdateTimeSheetUseCase {
 
       const params = await this.jobTimeSheet.getParams(
         updateTimeSheet.timeClockIp,
-        Number(updateTimeSheet.lastRegister),
-        false
+        Number(updateTimeSheet.lastRegister)
       )
 
       if (params.session) {

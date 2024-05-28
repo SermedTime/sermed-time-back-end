@@ -37,8 +37,7 @@ class JobTimeSheet implements IJobTimeSheet {
       time_clocks.forEach(async item => {
         const params = await this.getParams(
           item.ip_time_clock,
-          item.last_register,
-          true
+          item.last_register
         )
 
         if (params.session) {
@@ -59,8 +58,7 @@ class JobTimeSheet implements IJobTimeSheet {
 
   async getParams(
     ipConnection: string,
-    lastRegister: number,
-    isJob: boolean
+    lastRegister: number
   ): Promise<Record<string, any>> {
     let params = {} as Record<string, any>
     try {
@@ -73,12 +71,11 @@ class JobTimeSheet implements IJobTimeSheet {
         initial_nsr: lastRegister + 1
       }
     } catch (err) {
-      if (isJob) {
-        console.error(err)
-      } else {
-        params = {
-          session: null
-        }
+      console.log(
+        `Não foi possível acessa o relógio no endereço https://${ipConnection}`
+      )
+      params = {
+        session: null
       }
     }
 
