@@ -11,6 +11,7 @@ import { ICompanySQL } from '../interfaces/ICompanySQL'
 
 class CompaniesRepository implements ICompaniesRepository {
   async upsert({
+    idErp,
     uuid,
     companyName,
     companyCnpj,
@@ -31,6 +32,7 @@ class CompaniesRepository implements ICompaniesRepository {
 
       const result = await pool
         .request()
+        .input('ID_REFE_ERP', sql.Int, idErp)
         .input('UUID_EMPR', sql.NVarChar(36), uuid)
         .input('NM_EMPR', sql.VarChar(128), companyName)
         .input('NR_CNPJ', sql.VarChar(18), companyCnpj)

@@ -14,6 +14,7 @@ class CreateCompanyUseCase {
   ) {}
 
   async execute({
+    idErp,
     companyName,
     companyCnpj,
     streetName,
@@ -29,6 +30,7 @@ class CreateCompanyUseCase {
     const in_stat = status ? (status === 'active' ? 1 : 0) : null
 
     const company = await this.companiesRepository.upsert({
+      idErp,
       companyName,
       companyCnpj,
       streetName,

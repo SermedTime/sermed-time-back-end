@@ -6,6 +6,7 @@ import { CreateCompanyUseCase } from './CreateCompanyUseCase'
 class CreateCompanyController {
   async handle(req: Request, res: Response): Promise<Response> {
     const {
+      idErp,
       companyName,
       companyCnpj,
       streetName,
@@ -23,6 +24,7 @@ class CreateCompanyController {
     const createCompanyUseCase = container.resolve(CreateCompanyUseCase)
 
     const company = await createCompanyUseCase.execute({
+      idErp,
       companyName,
       companyCnpj,
       streetName,

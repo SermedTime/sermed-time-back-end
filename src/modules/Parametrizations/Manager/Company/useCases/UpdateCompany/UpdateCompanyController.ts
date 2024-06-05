@@ -10,6 +10,7 @@ class UpdateCompanyController {
     const userId = userAuthenticated(req)
 
     const {
+      idErp,
       companyName,
       companyCnpj,
       streetName,
@@ -25,6 +26,7 @@ class UpdateCompanyController {
     const updateCompanyUseCase = container.resolve(UpdateCompanyUseCase)
 
     const company = await updateCompanyUseCase.execute({
+      idErp,
       uuid,
       companyName,
       companyCnpj,

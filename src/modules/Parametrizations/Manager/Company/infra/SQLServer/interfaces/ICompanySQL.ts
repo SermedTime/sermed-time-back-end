@@ -10,6 +10,7 @@ interface ICompanySQL {
   NM_MUNI: string
   DS_UF: string
   IN_STAT: string
+  ID_REFE_ERP: string
   DT_CRIA: string
   UUID_USUA_CRIA: string
   NM_USUA_CRIA: string

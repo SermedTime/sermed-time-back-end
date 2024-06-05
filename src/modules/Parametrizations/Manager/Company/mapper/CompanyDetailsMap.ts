@@ -1,6 +1,7 @@
 import { ICompanySQL } from '../infra/SQLServer/interfaces/ICompanySQL'
 
 interface ICompanyDetailsMap {
+  idErp: string
   uuid: string
   companyName: string
   companyCnpj: string
@@ -17,6 +18,7 @@ interface ICompanyDetailsMap {
 class CompanyDetailsMap {
   static toDTO(data: ICompanySQL): ICompanyDetailsMap {
     return {
+      idErp: data.ID_REFE_ERP,
       uuid: data.UUID_EMPR,
       companyName: data.NM_EMPR,
       companyCnpj: data.NR_CNPJ,

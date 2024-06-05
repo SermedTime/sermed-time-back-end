@@ -1,5 +1,6 @@
 interface ICreateCompanyDTO {
   uuid?: string
+  idErp: number
   companyName: string
   companyCnpj: string
   streetName: string

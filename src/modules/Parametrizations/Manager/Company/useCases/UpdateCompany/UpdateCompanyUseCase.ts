@@ -13,6 +13,7 @@ class UpdateCompanyUseCase {
   ) {}
 
   async execute({
+    idErp,
     uuid,
     companyName,
     companyCnpj,
@@ -29,6 +30,7 @@ class UpdateCompanyUseCase {
     const in_stat = status ? (status === 'active' ? 1 : 0) : null
 
     const company = await this.companiesRepository.upsert({
+      idErp,
       uuid,
       companyName,
       companyCnpj,
