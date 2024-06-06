@@ -1,59 +1,172 @@
-import {
-  closeConnection,
-  closeSageConnection,
-  createSageConnection,
-  createSermedTimeConnection,
-  getSagePool
-} from '@shared/infra/database/config'
-import { IJobUsers } from './IJobUsers'
+import CryptoJS from 'crypto-js'
 
+import { getSagePool } from '@shared/infra/database/config.sage'
+import { IRecordSet, IResult } from 'mssql'
+import { getPool } from '@shared/infra/database/config'
+import { IUsersRepository } from '@modules/Parametrizations/Manager/User/repositories/IUsersRepository'
+import { inject, injectable } from 'tsyringe'
+import { randonPasswordGenerate } from '@utils/RandonPasswordGenerate'
+import { hash } from 'bcrypt'
+import { IJobUsers, ISysUser, IUserSage } from './IJobUsers'
+
+@injectable()
 class JobUsers implements IJobUsers {
-  async getUsers(): Promise<void> {
+  constructor(
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository
+  ) {}
+
+  async executeJob() {
+    const sysUsers = await this.getSysUsers()
+    const sageUsers = await this.getUsers()
+
+    sageUsers.forEach(async sageUser => {
+      const sageUserMd5 = CryptoJS.MD5(JSON.stringify(sageUser)).toString(
+        CryptoJS.enc.Hex
+      )
+
+      const sysUser = sysUsers.find(
+        user => String(user.NR_IDEN_USUA) === String(sageUser.NR_IDEN_FUNC)
+      )
+
+      if (!sysUser) {
+        const pass = await randonPasswordGenerate(12)
+
+        const hashPass = await hash(pass, 8)
+
+        const userInsert = await this.usersRepository.create({
+          isJob: true,
+          admissionDate: sageUser.DT_ADMI,
+          companyIdErp: Number(sageUser.ID_EMPR_REF_ERP),
+          cpf: String(sageUser.NR_CPF.replace(/\D/g, '')),
+          ctps: String(sageUser.NR_CTPS),
+          email: String(sageUser.DS_MAIL),
+          employeeCode: String(sageUser.NR_IDEN_FUNC),
+          name: String(sageUser.NM_COMP),
+          payrollNumber: String(sageUser.NR_FOLH_PAGA),
+          pis: String(sageUser.NR_PIS.replace(/\D/g, '')),
+          position: String(sageUser.DS_FUNCA),
+          socialName: String(sageUser.NM_SOCI),
+          status: sageUser.DT_DEMI ? 0 : 1,
+          resignationDate: sageUser.DT_DEMI,
+          hash: sageUserMd5,
+          action_user: '6890F4B8-8700-43CA-A205-E880833F5988',
+          password: hashPass
+        })
+
+        if (userInsert.success) {
+          console.log('insert')
+          console.log(userInsert.data)
+        } else {
+          console.log(sageUser.NR_CPF)
+          console.log(sageUser.NR_CTPS)
+          console.log(userInsert.message)
+        }
+      } else if (sageUserMd5 !== sysUser.CD_HASH) {
+        const userUpdate = await this.usersRepository.update({
+          uuid: sysUser.UUID_USUA,
+          isJob: true,
+          admissionDate: sageUser.DT_ADMI,
+          companyIdErp: Number(sageUser.ID_EMPR_REF_ERP),
+          cpf: String(sageUser.NR_CPF.replace(/\D/g, '')),
+          ctps: String(sageUser.NR_CTPS),
+          email: String(sageUser.DS_MAIL),
+          employeeCode: String(sageUser.NR_IDEN_FUNC),
+          name: String(sageUser.NM_COMP),
+          payrollNumber: String(sageUser.NR_FOLH_PAGA),
+          pis: String(sageUser.NR_PIS.replace(/\D/g, '')),
+          position: String(sageUser.DS_FUNCA),
+          socialName: String(sageUser.NM_SOCI),
+          status: sageUser.DT_DEMI ? 0 : 1,
+          hash: sageUserMd5,
+          resignationDate: sageUser.DT_DEMI,
+          action_user: '6890F4B8-8700-43CA-A205-E880833F5988'
+        })
+
+        if (userUpdate.success) {
+          console.log('update')
+          console.log(userUpdate.data)
+        } else {
+          console.log(userUpdate.message)
+        }
+      } else {
+        console.log(
+          `Não há alterações no usuário ${sageUser.NM_COMP?.trim()} Matrícula: ${sageUser.NR_IDEN_FUNC}`
+        )
+      }
+    })
+  }
+
+  async getUsers(): Promise<IRecordSet<IUserSage>> {
+    let users: IRecordSet<IUserSage>
+
     try {
-      await closeConnection()
-
-      await createSageConnection()
-
-      const pool = await getSagePool()
-
       const query = `
       SELECT 
-	       D.CPF                      AS NR_CPF
-	      ,F.nomecompleto             AS NOME
-        ,F.nome_social              AS NM_SOCI
-	      ,F.email                    AS DS_MAIL
-	      ,F.cd_empresa
-	      ,FUN.descricao_completa
-	      ,FFUN.nr_registro
-	      ,F.cd_funcionario
-	      ,D.pis
-	      ,D.nr_carteira
-	      ,FFUN.dt_admissao
-	      ,R.dt_desligamento
+           D.CPF							      AS NR_CPF
+          ,F.nomecompleto					  AS NM_COMP
+          ,F.nome_social					  AS NM_SOCI
+          ,F.email						      AS DS_MAIL
+          ,F.cd_empresa					    AS ID_EMPR_REF_ERP
+          ,FUN.descricao_completa		AS DS_FUNCA
+          ,FFUN.nr_registro				  AS NR_FOLH_PAGA		
+          ,F.cd_funcionario				  AS NR_IDEN_FUNC
+          ,D.pis							      AS NR_PIS
+          ,D.nr_carteira					  AS NR_CTPS
+          ,FFUN.dt_admissao				  AS DT_ADMI
+          ,R.dt_desligamento				AS DT_DEMI
       FROM Funcionario		F
-      JOIN FunDocumento		D		ON F.cd_funcionario = D.cd_funcionario AND F.cd_empresa = D.cd_empresa
+      JOIN FunDocumento		D		    ON F.cd_funcionario = D.cd_funcionario AND F.cd_empresa = D.cd_empresa
       OUTER APPLY(
-	        SELECT TOP(1) *
-	        FROM FunFuncao
-	        WHERE cd_funcionario = F.cd_funcionario AND cd_empresa = F.cd_empresa
-	        ORDER BY dt_funcao DESC
-        ) FF
-      JOIN Funcao				FUN		ON FUN.cd_funcao = FF.cd_funcao AND FUN.enterprise_id = FF.cd_empresa
-      JOIN FunFuncional		FFUN	ON F.cd_funcionario = FFUN.cd_funcionario AND F.cd_empresa = FFUN.cd_empresa
-      LEFT JOIN Rescisao		R		ON F.cd_funcionario = R.cd_funcionario AND F.cd_empresa = R.cd_empresa
+        SELECT TOP(1) *
+        FROM FunFuncao
+        WHERE cd_funcionario = F.cd_funcionario AND cd_empresa = F.cd_empresa
+        ORDER BY dt_funcao DESC
+      ) FF
+      JOIN Funcao				    FUN		ON FUN.cd_funcao = FF.cd_funcao AND FUN.enterprise_id = FF.cd_empresa
+      JOIN FunFuncional		  FFUN	ON F.cd_funcionario = FFUN.cd_funcionario AND F.cd_empresa = FFUN.cd_empresa
+      LEFT JOIN Rescisao		R		  ON F.cd_funcionario = R.cd_funcionario AND F.cd_empresa = R.cd_empresa
+      WHERE 
+            F.cd_empresa = 1 
+        AND F.email IS NOT NULL
+        AND FFUN.nr_registro IS NOT NULL
       ORDER BY F.cd_empresa DESC
       `
 
-      const result = await pool.request().query(query)
+      const sagePool = await getSagePool()
 
-      console.log(result.recordset[0])
+      const result: IResult<IUserSage> = await sagePool.request().query(query)
+
+      users = result.recordset
     } catch (err) {
       throw new Error(err)
-    } finally {
-      await closeSageConnection()
-
-      await createSermedTimeConnection()
     }
+    return users
+  }
+
+  async getSysUsers(): Promise<IRecordSet<ISysUser>> {
+    let users: IRecordSet<ISysUser>
+
+    const query = `
+    SELECT
+       UUID		      AS UUID_USUA
+      ,NR_IDEN_USUA	AS NR_IDEN_USUA
+      ,CD_HASH	    AS CD_HASH
+    FROM
+      TB_USUA
+    `
+
+    try {
+      const pool = getPool()
+
+      const result = await pool.request().query(query)
+
+      users = result.recordset
+    } catch (err) {
+      throw new Error(err)
+    }
+
+    return users
   }
 }
 

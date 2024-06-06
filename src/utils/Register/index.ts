@@ -20,7 +20,7 @@ export function ConvertTextToArrayRegisters(
         Number(r.substring(18, 20)),
         Number(r.substring(20, 22))
       ),
-      pis: r.substring(22, 34),
+      pis: r.substring(23, 34),
       crc16: r.substring(34, 38),
       time_clock_uuid
     }

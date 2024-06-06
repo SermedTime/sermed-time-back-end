@@ -1,10 +1,12 @@
 interface ICreateUserDTO {
   uuid?: string
+  isJob?: boolean
   cpf: string
   name: string
   socialName: string
   email: string
-  companyUuid: string
+  companyIdErp?: number
+  companyUuid?: string
   position: string
   payrollNumber: string
   employeeCode: string
@@ -14,6 +16,7 @@ interface ICreateUserDTO {
   resignationDate?: string
   status: string | number
   action_user: string
+  hash?: string
   password?: string
 }
 

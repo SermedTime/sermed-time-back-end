@@ -33,7 +33,7 @@ schedule.scheduleJob(schedule_rules, () => {
 })
 
 schedule.scheduleJob(jobUserRules, () => {
-  jobUser.getUsers()
+  jobUser.executeJob()
 })
 
 export { app }
