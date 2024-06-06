@@ -1,6 +1,6 @@
 import { RecurrenceRule } from 'node-schedule'
 
 const jobUserRules: RecurrenceRule = new RecurrenceRule()
-jobUserRules.hour = 23
+jobUserRules.minute = 0
 
 export default jobUserRules
