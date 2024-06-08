@@ -20,7 +20,7 @@ class UserAuthRepository implements IUserAuthRepository {
 
       const result = await pool
         .request()
-        .input('DS_MAIL', sql.NVarChar(36), email)
+        .input('DS_MAIL', sql.VarChar(256), email)
         .execute('[dbo].[PRC_USUA_LOGI]')
 
       const { recordset: user } = result
