@@ -18,6 +18,7 @@ interface IUserSage {
 interface ISysUser {
   UUID_USUA: string
   NR_IDEN_USUA: string
+  ID_EMPR_REFE_ERP: string
   CD_HASH: string
 }
 

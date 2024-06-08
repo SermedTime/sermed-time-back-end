@@ -29,22 +29,26 @@ module.exports = {
           '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',
         MAIL_PROVIDER: 'sendgrid',
         FROM_MAIL: 'tainan.pino@bilgi.com.br',
+        USER_ACTION: '6890F4B8-8700-43CA-A205-E880833F5988',
         PORT: '3000'
       }
     },
     {
       name: 'app-hom',
-      script: '/home/bilgiadmin/applications/homologacao/api/server.js',
+      script:
+        '/home/bilgiadmin/applications/homologacao/api/dist/shared/infra/http/server.js',
       watch: true,
       instances: 1,
       autorestart: true,
       node_args: '--insecure-http-parser',
       env: {
-        WEB_APP_URL: 'http://localhost:3001',
+        WEB_APP_URL: 'homolog.sermedsaude.com.br',
+        ENVIRONMENT: 'homologacao',
         DB_USER: 'app_sermed',
-        DB_PWD: 'app_sermed',
+        DB_PWD: '@pp_s3rm3d',
         DB_NAME: 'SERMED_TIME',
-        DB_HOST: '192.168.0.103',
+        DB_HOST: '10.10.11.139',
+        DB_PORT: '11434',
         DB_SAGE_USER: 'sa',
         DB_SAGE_PWD: 'S@geBr.2014',
         DB_SAGE_NAME: 'Sage_Gestao_Contabil',
@@ -58,6 +62,7 @@ module.exports = {
           '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',
         MAIL_PROVIDER: 'sendgrid',
         FROM_MAIL: 'tainan.pino@bilgi.com.br',
+        USER_ACTION: '6890F4B8-8700-43CA-A205-E880833F5988',
         PORT: '3001'
       }
     },

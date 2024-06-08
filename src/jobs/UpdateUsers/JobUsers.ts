@@ -50,7 +50,7 @@ class JobUsers implements IJobUsers {
           status: sageUser.DT_DEMI ? 0 : 1,
           resignationDate: sageUser.DT_DEMI,
           hash: sageUserMd5,
-          action_user: '6890F4B8-8700-43CA-A205-E880833F5988',
+          action_user: process.env.USER_ACTION,
           password: hashPass
         })
 
@@ -62,7 +62,10 @@ class JobUsers implements IJobUsers {
           console.log(sageUser.NR_CTPS)
           console.log(userInsert.message)
         }
-      } else if (sageUserMd5 !== sysUser.CD_HASH) {
+      } else if (
+        sageUserMd5 !== sysUser.CD_HASH ||
+        sageUser.ID_EMPR_REF_ERP !== sysUser.ID_EMPR_REFE_ERP
+      ) {
         const userUpdate = await this.usersRepository.update({
           uuid: sysUser.UUID_USUA,
           isJob: true,
@@ -80,7 +83,7 @@ class JobUsers implements IJobUsers {
           status: sageUser.DT_DEMI ? 0 : 1,
           hash: sageUserMd5,
           resignationDate: sageUser.DT_DEMI,
-          action_user: '6890F4B8-8700-43CA-A205-E880833F5988'
+          action_user: process.env.USER_ACTION
         })
 
         if (userUpdate.success) {
@@ -149,11 +152,15 @@ class JobUsers implements IJobUsers {
 
     const query = `
     SELECT
-       UUID		      AS UUID_USUA
-      ,NR_IDEN_USUA	AS NR_IDEN_USUA
-      ,CD_HASH	    AS CD_HASH
+       U.UUID		        AS UUID_USUA
+      ,U.NR_IDEN_USUA	  AS NR_IDEN_USUA
+      ,E.ID_REFE_ERP    AS ID_EMPR_REFE_ERP
+      ,U.CD_HASH	      AS CD_HASH
     FROM
-      TB_USUA
+         TB_USUA U
+    JOIN TB_EMPR E ON U.ID_EMPR = E.ID
+    WHERE
+      ID > 1
     `
 
     try {
