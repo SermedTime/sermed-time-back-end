@@ -160,7 +160,7 @@ class JobUsers implements IJobUsers {
          TB_USUA U
     JOIN TB_EMPR E ON U.ID_EMPR = E.ID
     WHERE
-      ID > 1
+      U.ID > 1
     `
 
     try {
