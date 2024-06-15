@@ -9,6 +9,7 @@ interface ITimeSheetRepository {
   List(
     data: IListTimeSheetParams
   ): Promise<IResponseRepository<ITimeSheetListRegisters>>
+  CalculateHoursWorked(): Promise<IResponseRepository<any>>
 }
 
 export { ITimeSheetRepository }

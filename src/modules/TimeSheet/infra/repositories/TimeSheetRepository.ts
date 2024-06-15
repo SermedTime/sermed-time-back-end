@@ -80,6 +80,28 @@ class TimeSheetRepository implements ITimeSheetRepository {
 
     return response
   }
+
+  async CalculateHoursWorked(): Promise<IResponseRepository<any>> {
+    let response: IResponseRepository<any>
+
+    try {
+      const pool = getPool()
+
+      await pool.request().execute('[dbo].[PRC_RESU_HORA_JOB]')
+
+      response = {
+        success: true,
+        data: []
+      }
+    } catch (err) {
+      response = {
+        success: false,
+        message: err.message
+      }
+    }
+
+    return response
+  }
 }
 
 export { TimeSheetRepository }

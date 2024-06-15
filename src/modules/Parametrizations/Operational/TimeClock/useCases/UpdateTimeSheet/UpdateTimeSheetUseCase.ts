@@ -51,6 +51,8 @@ class UpdateTimeSheetUseCase {
         const registers = ConvertTextToArrayRegisters(time_sheet, uuid)
 
         await this.jobTimeSheet.saveRegister(registers)
+
+        await this.jobTimeSheet.calculateHoursWorked()
       } else {
         return ResponseService.setResponseJson({
           status: HTTP_STATUS.BAD_REQUEST,

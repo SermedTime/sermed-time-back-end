@@ -36,6 +36,8 @@ class UploadTimeSheetUseCase {
 
     await this.jobTimeSheet.saveRegister(registers)
 
+    await this.jobTimeSheet.calculateHoursWorked()
+
     return ResponseService.setResponseJson({
       data: uuid,
       status: HTTP_STATUS.OK,

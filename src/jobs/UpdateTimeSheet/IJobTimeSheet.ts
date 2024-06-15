@@ -11,6 +11,7 @@ interface IJobTimeSheet {
     ipConnection: string
   ): Promise<string>
   saveRegister(data: ICreateRegisterDTO[]): Promise<void>
+  calculateHoursWorked(): Promise<void>
 }
 
 export { IJobTimeSheet }
