@@ -1,5 +1,7 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
+import { OnlyTeam } from '@services/OnlyTeam/OnlyTeam'
+import { userAuthenticated } from '@services/UserAuthenticated/UserAuthenticated'
 import { ListUsersUseCase } from './ListUsersUseCase'
 
 class ListUsersController {
@@ -16,6 +18,10 @@ class ListUsersController {
       teamId
     } = req.query
 
+    const teamLeadId = userAuthenticated(req)
+
+    const onlyTeam = await OnlyTeam(req, res)
+
     const listUsersUseCase = container.resolve(ListUsersUseCase)
 
     const users = await listUsersUseCase.execute({
@@ -27,7 +33,9 @@ class ListUsersController {
       records: Number(records),
       companyId: companyId as string,
       unitId: unitId as string,
-      teamId: teamId as string
+      teamId: teamId as string,
+      onlyTeam,
+      teamLeadId
     })
 
     return res.status(users.status).json(users)

@@ -7,7 +7,9 @@ import { IAssignWorkingDay } from '../useCases/AssignWorkingDay/AssignWorkingDay
 interface IUsersRepository {
   create(data: ICreateUserDTO): Promise<IResponseRepository>
   update(data: ICreateUserDTO): Promise<IResponseRepository>
-  list(data: IParamsListUsers): Promise<IResponseRepository<IUserSQL>>
+  list(
+    data: Omit<IParamsListUsers, 'onlyTeam'>
+  ): Promise<IResponseRepository<IUserSQL>>
   findById(uuid: string): Promise<IResponseRepository<IUserSQL>>
   findByEmail(email: string): Promise<IResponseRepository<IUserSQL>>
   findByTeamId(team_id: string): Promise<IResponseRepository<IUserSQL>>

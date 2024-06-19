@@ -40,7 +40,7 @@ export async function validateUserTimeSheetPermission(
   })
 }
 
-async function permissionVerify(
+export async function permissionVerify(
   userAuth: string,
   res: Response,
   permission: 'ponto_geral' | 'ponto_equipe'
