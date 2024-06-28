@@ -6,6 +6,7 @@ import { ICreateRegisterDTO } from '@modules/TimeSheet/dto/ICreateRegisterDTO'
 import { ITimeSheetRepository } from '@modules/TimeSheet/repositories/ITimeSheetRepository'
 import { IResponseRepository } from 'services/Response/interfaces'
 import { IListTimeSheetParams } from '@modules/TimeSheet/useCases/ListTimeSheet/ListTimeSheetUseCase'
+import { IUpdateOvertimeDTO } from '@modules/TimeSheet/dto/IUpdateOvertimeDTO'
 import { ITimeSheetListRegistersSQL } from '../interfaces'
 
 class TimeSheetRepository implements ITimeSheetRepository {
@@ -92,6 +93,43 @@ class TimeSheetRepository implements ITimeSheetRepository {
       response = {
         success: true,
         data: []
+      }
+    } catch (err) {
+      response = {
+        success: false,
+        message: err.message
+      }
+    }
+
+    return response
+  }
+
+  async UpdateOvertime({
+    timesheetId,
+    overtimeStatus,
+    reasorForRejection,
+    releaseType,
+    userAction
+  }: IUpdateOvertimeDTO): Promise<IResponseRepository> {
+    let response: IResponseRepository
+
+    try {
+      const pool = getPool()
+
+      const result = await pool
+        .request()
+        .input('UUID_RESU_HORA', sql.UniqueIdentifier, timesheetId)
+        .input('CD_STAT', sql.Char(1), overtimeStatus)
+        .input('CD_TIPO_SALD', sql.Char(2), releaseType)
+        .input('DS_MOTI_REPR', sql.VarChar(128), reasorForRejection)
+        .input('UUID_USUA_ACAO', sql.UniqueIdentifier, userAction)
+        .execute('[dbo].[PRC_RESU_HORA_GRAV]')
+
+      const { recordset: overtime } = result
+
+      response = {
+        success: true,
+        data: overtime
       }
     } catch (err) {
       response = {
