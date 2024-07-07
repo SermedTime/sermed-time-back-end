@@ -11,6 +11,9 @@ interface IRegister {
   thirdEntry: Date
   thirdExit: Date
   overtime: number
+  overtimeStatus: string
+  reasonForRejection: string
+  overtimeAcceptType: string
 }
 
 class TimeSheetRegisterMap {
@@ -26,7 +29,10 @@ class TimeSheetRegisterMap {
         secondExit: i.HR_SAID_2,
         thirdEntry: i.HR_ENTR_3,
         thirdExit: i.HR_SAID_3,
-        overtime: i.HR_SALD
+        overtime: i.HR_SALD,
+        overtimeStatus: i.CD_STAT,
+        reasonForRejection: i.DS_MOTI_REPR,
+        overtimeAcceptType: i.CD_TIPO_SALD
       }
     })
 

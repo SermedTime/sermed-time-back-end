@@ -1,4 +1,4 @@
-import { Router } from 'express'
+import { Request, Response, Router } from 'express'
 import { container } from 'tsyringe'
 
 import { ListTimeSheetController } from '@modules/TimeSheet/useCases/ListTimeSheet/ListTimeSheetController'
@@ -20,6 +20,16 @@ timeSheetRoutes.put(
   '/update-overtime/user/:user_id/timesheet/:id',
   validateUserTimeSheetPermission,
   updateOverTimeController.handle
+)
+
+timeSheetRoutes.post(
+  '/update/:user_id',
+  validateUserTimeSheetPermission,
+  (req: Request, res: Response) => {
+    const { user_id } = req.params
+
+    return res.status(200).json({ statue: 200, status: user_id })
+  }
 )
 
 export { timeSheetRoutes }
