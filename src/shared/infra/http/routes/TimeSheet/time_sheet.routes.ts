@@ -1,15 +1,17 @@
-import { Request, Response, Router } from 'express'
+import { Router } from 'express'
 import { container } from 'tsyringe'
 
 import { ListTimeSheetController } from '@modules/TimeSheet/useCases/ListTimeSheet/ListTimeSheetController'
 import { UpdateOverTimeController } from '@modules/TimeSheet/useCases/UpdateOverTime/UpdateOverTimeController'
 
+import { UpdateTimeSheetController } from '@modules/TimeSheet/useCases/UpdateTimeSheet/UpdateTimeSheetController'
 import { validateUserTimeSheetPermission } from '../../middlewares/validateUserTimeSheetPermission'
 
 const timeSheetRoutes = Router()
 
 const listTimeSheetController = container.resolve(ListTimeSheetController)
 const updateOverTimeController = container.resolve(UpdateOverTimeController)
+const updateTimeSheetController = container.resolve(UpdateTimeSheetController)
 
 timeSheetRoutes.get(
   '/list/:user_id',
@@ -25,11 +27,7 @@ timeSheetRoutes.put(
 timeSheetRoutes.post(
   '/update/:user_id',
   validateUserTimeSheetPermission,
-  (req: Request, res: Response) => {
-    const { user_id } = req.params
-
-    return res.status(200).json({ statue: 200, status: user_id })
-  }
+  updateTimeSheetController.handle
 )
 
 export { timeSheetRoutes }
