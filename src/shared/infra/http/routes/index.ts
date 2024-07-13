@@ -24,6 +24,8 @@ import { schedulesRoutes } from './Schedules'
 
 import { timeSheetRoutes } from './TimeSheet'
 
+import { homeRoutes } from './Home'
+
 const router = Router()
 
 // PARAMETRIZATIONS MANAGEMENT
@@ -73,5 +75,8 @@ router.use('/overview/time-sheet', ensureAuthenticated, timeSheetRoutes)
 // ACCOUNTS
 router.use('/auth', authenticateRoutes)
 router.use('/password', passwordRoutes)
+
+// HOME
+router.use('/home', ensureAuthenticated, homeRoutes)
 
 export { router }

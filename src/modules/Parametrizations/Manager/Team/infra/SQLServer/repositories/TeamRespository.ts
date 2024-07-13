@@ -149,6 +149,42 @@ class TeamRepository implements ITeamRepository {
 
     return response
   }
+
+  async getTeamByUser(
+    teamLeadId: string,
+    onlyTeamLead: boolean
+  ): Promise<IResponseRepository<ITeamSQL>> {
+    let response: IResponseRepository<ITeamSQL>
+
+    const query = `
+    SELECT
+      DISTINCT E.UUID AS UUID_EQUI
+    FROM TB_USUA_X_EQUI		UE
+    JOIN TB_EQUI			E	ON E.ID = UE.ID_EQUI
+    JOIN TB_USUA			U	ON U.ID = UE.ID_USUA
+    WHERE
+      U.UUID = TRY_CAST('${teamLeadId}' AS UNIQUEIDENTIFIER)
+    ${onlyTeamLead && 'AND UE.IN_SUPE = 1'}
+    `
+
+    try {
+      const pool = getPool()
+
+      const team = (await pool.request().query(query)).recordset
+
+      response = {
+        success: true,
+        data: team
+      }
+    } catch (err) {
+      response = {
+        success: false,
+        message: err.message
+      }
+    }
+
+    return response
+  }
 }
 
 export { TeamRepository }

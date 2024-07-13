@@ -18,6 +18,7 @@ interface IUserAuthRepository {
   changePassword(data: IChangePass): Promise<IResponseRepository>
   getPasswordById(userId: string): Promise<IResponseRepository<IUserOldPass>>
   getPermissions(userId: string): Promise<IResponseRepository<IUserRulesSQL>>
+  getTeams(userId: string): Promise<IResponseRepository<string>>
 }
 
 export { IUserAuthRepository }

@@ -16,6 +16,7 @@ interface IUserAuth {
   email: string
   companyName: string
   companyCnpj: string
+  teamId: string
   sysPassword: string
   position: string
   pis: string
@@ -27,7 +28,11 @@ interface IUserAuth {
 }
 
 class UserAuthMap {
-  static toDTO(data: IUserAuthSQL, rules: IUserRulesSQL[]): IUserAuth {
+  static toDTO(
+    data: IUserAuthSQL,
+    rules: IUserRulesSQL[],
+    teams: string
+  ): IUserAuth {
     const dateProvider = container.resolve('DayjsDateProvider') as IDateProvider
 
     return {
@@ -37,6 +42,7 @@ class UserAuthMap {
       email: encryptToPayload(data.DS_MAIL),
       companyName: encryptToPayload(data.NM_EMPR),
       companyCnpj: encryptToPayload(data.NR_CNPJ_EMPR),
+      teamId: encryptToPayload(teams),
       sysPassword: encryptToPayload(data.IN_SYS_PASS ? 'true' : 'false'),
       position: encryptToPayload(data.DS_FUNC),
       pis: encryptToPayload(data.NR_PIS),

@@ -1,2 +1,2 @@
 export { ITimeSheetRegisterSQL } from './ITimeSheetRegisterSQL'
-export { ITimeSheetListRegisters } from './ITimeSheetListRegisters'
+export { ITimeSheetListRegistersSQL } from './ITimeSheetListRegistersSQL'

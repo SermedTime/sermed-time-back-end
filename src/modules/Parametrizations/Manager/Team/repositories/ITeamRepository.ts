@@ -13,6 +13,10 @@ interface ITeamRepository {
     user_id,
     unitId
   }: IRequestTeamsDropdown): Promise<IResponseRepository<ITeamSQL>>
+  getTeamByUser(
+    teamLeadId: string,
+    onlyTeamLead: boolean
+  ): Promise<IResponseRepository<ITeamSQL>>
 }
 
 export { ITeamRepository }

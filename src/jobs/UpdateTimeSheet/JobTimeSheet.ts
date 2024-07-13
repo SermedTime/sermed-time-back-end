@@ -49,6 +49,8 @@ class JobTimeSheet implements IJobTimeSheet {
           )
 
           await this.saveRegister(registers)
+
+          await this.calculateHoursWorked()
         }
       })
     } catch (err) {
@@ -107,6 +109,15 @@ class JobTimeSheet implements IJobTimeSheet {
         }
       })
     })
+  }
+
+  async calculateHoursWorked() {
+    try {
+      await this.timeSheetRepository.CalculateHoursWorked()
+      console.log('Horas atualizadas')
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 

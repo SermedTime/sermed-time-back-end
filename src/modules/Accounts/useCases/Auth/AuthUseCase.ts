@@ -53,7 +53,9 @@ class AuthUseCase {
 
     const permissions = await this.getPermissions(user.data[0].UUID_USUA)
 
-    const userData = UserAuthMap.toDTO(user.data[0], permissions)
+    const teams = await this.getTeamId(user.data[0].UUID_USUA)
+
+    const userData = UserAuthMap.toDTO(user.data[0], permissions, teams)
 
     const token = sign({}, secret_token, {
       subject: user.data[0].UUID_USUA,
@@ -82,6 +84,12 @@ class AuthUseCase {
     const permissions = await this.userAuthRepository.getPermissions(user_id)
 
     return permissions.data
+  }
+
+  private async getTeamId(userId: string): Promise<string> {
+    const teams = await this.userAuthRepository.getTeams(userId)
+
+    return teams.data.length > 0 ? teams.data.join(',') : ''
   }
 }
 

@@ -132,6 +132,40 @@ class UserAuthRepository implements IUserAuthRepository {
 
     return response
   }
+
+  async getTeams(userId: string): Promise<IResponseRepository<string>> {
+    let response: IResponseRepository<string>
+
+    const query = `
+      SELECT 
+          E.UUID
+      FROM dbo.TB_USUA_X_EQUI	UE
+      JOIN dbo.TB_EQUI		    E	ON UE.ID_EQUI = E.ID
+      JOIN dbo.TB_USUA		    U	ON UE.ID_USUA = U.ID
+      WHERE
+	        U.UUID = '${userId}'
+    `
+
+    try {
+      const pool = getPool()
+
+      const result = await pool.request().query(query)
+
+      const teams = result.recordset
+
+      response = {
+        success: true,
+        data: teams
+      }
+    } catch (err) {
+      response = {
+        success: false,
+        message: err.message
+      }
+    }
+
+    return response
+  }
 }
 
 export { UserAuthRepository }

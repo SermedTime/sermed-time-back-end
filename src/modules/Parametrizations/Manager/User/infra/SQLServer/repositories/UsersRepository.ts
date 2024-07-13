@@ -193,6 +193,7 @@ class UsersRepository implements IUsersRepository {
     const name = searchingBy === 'name' ? search : ''
     const socialName = searchingBy === 'socialName' ? search : ''
     const cpf = searchingBy === 'cpf' ? search : ''
+    const pis = searchingBy === 'pis' ? search : ''
     try {
       const pool = getPool()
 
@@ -204,6 +205,7 @@ class UsersRepository implements IUsersRepository {
         .input('UUID_EQUI', UniqueIdentifier, teamId)
         .input('NM_SOCI_USUA', sql.VarChar(256), socialName)
         .input('NR_CPF_USUA', sql.VarChar(11), cpf)
+        .input('NR_PIS', sql.VarChar(12), pis)
         .input('IN_STAT', sql.Bit, in_stat)
         .input('NR_PAGE_INIC', sql.Int, page)
         .input('TT_REGI_PAGI', sql.Int, records)
