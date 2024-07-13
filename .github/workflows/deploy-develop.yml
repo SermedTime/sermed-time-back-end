@@ -29,10 +29,22 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Determine Deploy Path
+        id: set_deploy_path
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            echo "::set-output name=path::/home/bilgiadmin/applications/producao/api/dist"
+          elif [ "${{ github.ref }}" == "refs/heads/homolog" ]; then
+            echo "::set-output name=path::/home/bilgiadmin/applications/homologacao/api/dist"
+          else
+            echo "::set-output name=path::/home/bilgiadmin/applications/desenvolvimento/api/dist"
+          fi
+
       - name: Deploy to server
         env:
           SERVER_IP: ${{ secrets.SERVER_IP }}
           SERVER_USER: ${{ secrets.SERVER_USER }}
           SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
+          DEPLOY_PATH: ${{ steps.set_deploy_path.outputs.path }}
         run: |
           sshpass -p "$SERVER_PASSWORD" rsync -avz --delete dist/* $SERVER_USER@$SERVER_IP:/home/bilgiadmin/applications/desenvolvimento/api/dist
