@@ -20,8 +20,8 @@ jobs:
 
       - name: Install sshpass
         run: |
-          sudo apt-get update
-          sudo apt-get install -y sshpass
+          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt-get update
+          echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S apt-get install -y sshpass
 
       - name: Install dependencies
         run: npm install
@@ -47,4 +47,4 @@ jobs:
           SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
           DEPLOY_PATH: ${{ steps.set_deploy_path.outputs.path }}
         run: |
-          sshpass -p "$SERVER_PASSWORD" rsync -avz --delete dist/* $SERVER_USER@$SERVER_IP:/home/bilgiadmin/applications/desenvolvimento/api/dist
+          sshpass -p "$SERVER_PASSWORD" rsync -avz --delete dist/* $SERVER_USER@$SERVER_IP:$DEPLOY_PATH
