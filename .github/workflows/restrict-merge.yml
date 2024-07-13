@@ -1,0 +1,21 @@
+name: Restrict Merges
+
+on:
+  pull_request:
+    branches:
+      - main
+      - homolog
+
+jobs:
+  restrict-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if PR is from allowed branch
+        run: |
+          if [[ "${{ github.base_ref }}" == "main" && "${{ github.head_ref }}" != "homolog" ]]; then
+            echo "Merges to main are only allowed from qas"
+            exit 1
+          elif [[ "${{ github.base_ref }}" == "homolog" && "${{ github.head_ref }}" != "develop" ]]; then
+            echo "Merges to qas are only allowed from develop"
+            exit 1
+          fi
